@@ -5,23 +5,22 @@ import SignUp from 'pages/SignUp';
 import logo from './logo.svg';
 import { createBrowserHistory } from 'history';
 import { Router } from 'react-router';
-import Routes from './Routes';
+import Routes from './Router';
+import CharacterCard from 'components/domain/Characters';
 
 const history = createBrowserHistory();
 
-
 function App() {
-
   return (
     <>
       <Router history={history}>
         <MenuAppBar />
         <MainContent>
-          <Routes/>
+          <Routes />
         </MainContent>
+        <CharacterCard />
       </Router>
     </>
-
   );
 }
 

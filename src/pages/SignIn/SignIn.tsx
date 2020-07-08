@@ -74,7 +74,7 @@ function SignIn() {
             variant="contained"
             color="primary"
           >
-            Sign Ip
+            Sign In
           </Button>
           <Button
             style={{ background: 'green', color: 'white' }}

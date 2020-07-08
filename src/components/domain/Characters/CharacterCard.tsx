@@ -11,54 +11,54 @@ import { GridSpacing, Grid } from '@material-ui/core';
 import { ItemModel } from 'types/ItemModel';
 
 const useStyles = makeStyles({
-    root: {
-        maxWidth: 345,
-
-    },
-    card: {
-        marginTop: 100
-    }
+  root: {
+    maxWidth: 345,
+  },
+  card: {
+    marginTop: 100,
+  },
 });
 type Props = {
-    data: ItemModel
-}
+  data: ItemModel;
+};
 
-function CharacterCard({ data }: Props) {
-    const classes = useStyles();
-    const [spacing, setSpacing] = React.useState<GridSpacing>(2);
+function CharacterCard() {
+  const classes = useStyles();
+  const [spacing, setSpacing] = React.useState<GridSpacing>(2);
 
-    return (
-        <Grid className={classes.card} container justify="center" spacing={spacing}>
-            <Card className={classes.root}>
-                <CardActionArea>
-                    <CardMedia
-                        component="img"
-                        alt="Loki"
-                        height="140"
-                        image="/static/images/cards/contemplative-Loki.jpg"
-                        title="Loki"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            Loki
+  return (
+    <Grid className={classes.card} container justify="center" spacing={spacing}>
+      <Card className={classes.root}>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            alt="Loki"
+            height="140"
+            image="/static/images/cards/contemplative-Loki.jpg"
+            title="Loki"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              Loki
             </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            Loki, Prince of Asgard, Odinson, rightful heir of Jotunheim, and God of Mischief, is burdened with glorious purpose.
-                            His desire to be a king drives him to sow chaos in Asgard.
-                            In his lust for power, he extends his reach to Earth
+            <Typography variant="body2" color="textSecondary" component="p">
+              Loki, Prince of Asgard, Odinson, rightful heir of Jotunheim, and
+              God of Mischief, is burdened with glorious purpose. His desire to
+              be a king drives him to sow chaos in Asgard. In his lust for
+              power, he extends his reach to Earth
             </Typography>
-                    </CardContent>
-                </CardActionArea>
-                <CardActions>
-                    <Button size="small" color="primary">
-                        Details
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button size="small" color="primary">
+            Details
           </Button>
-                    <Button size="small" color="primary">
-                        Add to favorites
+          <Button size="small" color="primary">
+            Add to favorites
           </Button>
-                </CardActions>
-            </Card>
-        </Grid>
-    );
+        </CardActions>
+      </Card>
+    </Grid>
+  );
 }
-export default CharacterCard
+export default CharacterCard;

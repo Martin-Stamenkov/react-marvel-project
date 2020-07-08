@@ -4,21 +4,21 @@ import SignUp from 'pages/SignUp';
 import SignIn from 'pages/SignIn';
 import MainContent from 'components/layouts/MainContent';
 import CharacterCardSummary from 'components/domain/Characters/CharacterCardSummary';
-import FavoritesCharacters from 'components/domain/Characters/FavoritesCharacters';
+import { FavoritesCharacters } from 'components/domain/Characters/favourites-charachters/FavoritesCharacters';
 
 const isAuthenticated = true;
 
 function Routes() {
-  if (!isAuthenticated) {
+  if (isAuthenticated) {
     return (
       <Switch>
-        <Redirect from="/signup" to="/" />
-        <Redirect from="/signin" to="/" />
+        {/* <Redirect from="/signup" to="/" />
+        <Redirect from="/signin" to="/" /> */}
 
         <Route exact path="/" component={MainContent} />
         <Route exact path="/items" component={CharacterCardSummary} />
         <Route exact path="/favorites" component={FavoritesCharacters} />
-        {/* <Route path="/:username" component={UserProfile} /> */}
+        {/* <Route path="/username" component={UserProfile} /> */}
       </Switch>
     );
   }
