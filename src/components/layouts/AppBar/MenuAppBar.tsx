@@ -23,7 +23,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { NavLink } from 'react-router-dom';
-import ProfilePage from 'pages/Profile/profile-edit-mode/profile-edit-mode';
 
 const drawerWidth = 150;
 
@@ -168,7 +167,7 @@ export default function PersistentDrawerLeft() {
         <List component="nav" aria-label="secondary mailbox folders">
           <NavLink to="/items">
             <ListItem button>
-              <ListItemText primary="Characters" />
+              <ListItemText primary="Dashboard" />
             </ListItem>
           </NavLink>
           <NavLink to="/favorites">

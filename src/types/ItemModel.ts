@@ -1,7 +1,8 @@
 export type ItemModel = {
-    id: number;
-    name: string;
-    content: string;
-    addToFavorites?: boolean;
-    details?: string,
-  }
+  id: number;
+  name: string;
+  content: string;
+  avatar: string;
+  addToFavorites?: boolean;
+  details?: string;
+};

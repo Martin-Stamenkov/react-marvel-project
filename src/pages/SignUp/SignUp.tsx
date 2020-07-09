@@ -4,9 +4,7 @@ import {
   Typography,
   makeStyles,
   Card,
-  Divider,
   CardContent,
-  CardActions,
   Button,
   TextField,
 } from '@material-ui/core';

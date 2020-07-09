@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { GridSpacing, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import CharactersList from './CharactersList';
 import { ItemModel } from 'types/ItemModel';
 
@@ -19,10 +19,9 @@ const useStyles = makeStyles({
 
 function CharacterCardSummary({ cards }: Props) {
   const classes = useStyles();
-  const [spacing, setSpacing] = React.useState<GridSpacing>(3);
 
   return (
-    <Grid className={classes.card} container justify="center" spacing={spacing}>
+    <Grid className={classes.card} container justify="center" spacing={3}>
       <CharactersList></CharactersList>
     </Grid>
   );

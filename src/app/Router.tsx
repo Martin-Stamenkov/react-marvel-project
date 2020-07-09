@@ -6,6 +6,7 @@ import MainContent from 'components/layouts/MainContent';
 import CharacterCardSummary from 'components/domain/Characters/CharacterCardSummary';
 import { FavoritesCharacters } from 'components/domain/Characters/favourites-charachters/FavoritesCharacters';
 import ProfilePage from 'pages/Profile/profile-edit-mode/profile-edit-mode';
+import { ProfileViewMode } from 'pages/Profile/profile-view-mode/profile-view-mode';
 
 const isAuthenticated = true;
 
@@ -18,7 +19,8 @@ function Routes() {
         <Route exact path="/" component={MainContent} />
         <Route exact path="/items" component={CharacterCardSummary} />
         <Route exact path="/favorites" component={FavoritesCharacters} />
-        <Route path="/profile" component={ProfilePage} />
+        <Route path="/edit-profile" component={ProfilePage} />
+        <Route path="/profile" component={ProfileViewMode} />
       </Switch>
     );
   }

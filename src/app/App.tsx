@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MenuAppBar from 'components/layouts/AppBar';
 import MainContent from 'components/layouts/MainContent';
 import { createBrowserHistory } from 'history';

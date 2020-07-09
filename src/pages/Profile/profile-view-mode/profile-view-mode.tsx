@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Card,
@@ -11,7 +11,7 @@ import {
 import { profileStyles } from 'pages/Profile/profile-styles';
 import placeholder from 'pages/Profile/avatar-placeholder.png';
 
-export const ProfilePage = () => {
+export const ProfileViewMode = () => {
   const classes = profileStyles();
 
   return (
@@ -23,7 +23,7 @@ export const ProfilePage = () => {
             color="textSecondary"
             gutterBottom
           >
-            Edit your Profile
+            Profile
             <Divider />
             <div className={classes.logoContainer}>
               <img src={placeholder} alt="placeholder" />
@@ -42,18 +42,21 @@ export const ProfilePage = () => {
               Password
               <Input
                 defaultValue="somepassword1234567"
+                disabled
+                disableUnderline={true}
                 type="password"
                 fullWidth
               />
             </div>
           </form>
           <Button
-            style={{ margin: '1rem', background: 'green', color: 'white' }}
+            style={{ margin: '1rem', background: 'blue', color: 'white' }}
             type="submit"
             variant="contained"
             color="primary"
+            href="edit-profile"
           >
-            Save
+            Edit
           </Button>
         </CardContent>
       </Card>
@@ -61,4 +64,4 @@ export const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default ProfileViewMode;
