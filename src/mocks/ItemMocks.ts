@@ -2,7 +2,7 @@ import { ItemModel } from '../types/ItemModel';
 import Faker from 'faker';
 
 export const createItems = (numOfItems: number) => {
-  const items: ItemModel[] = [];
+  const items: any = [];
 
   for (let i = 1; i <= numOfItems; i++) {
     items.push({
