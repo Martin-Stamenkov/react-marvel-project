@@ -31,7 +31,7 @@ function SignIn() {
     <Container maxWidth="sm">
       <Card className={classes.root}>
         <CardContent>
-          <img className={classes.logo} src={marvel} alt="MarvelLogo"></img>
+          <img className={classes.logo} src={marvel} alt="MarvelLogo" />
           <Typography
             className={classes.title}
             color="textSecondary"

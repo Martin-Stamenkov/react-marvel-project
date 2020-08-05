@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TextField } from '@material-ui/core';
 
 export const FavoritesCharacters = () => {
   return (
-    <form>
-      <TextField id="standard-basic" label="Standard" />
-      {console.log('hi')}
-    </form>
+    <>
+      <TextField
+        id="standard-basic"
+        label="Filter by Name or Description"
+        fullWidth
+        color="secondary"
+      />
+    </>
   );
 };

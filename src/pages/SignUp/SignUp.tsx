@@ -8,7 +8,6 @@ import {
   Button,
   TextField,
 } from '@material-ui/core';
-import { NavLink } from 'react-router-dom';
 import marvel from '../marvel.png';
 
 const useStyles = makeStyles({
@@ -31,7 +30,7 @@ function SignUp() {
     <Container maxWidth="sm">
       <Card className={classes.root}>
         <CardContent>
-          <img className={classes.logo} src={marvel} alt="MarvelLogo"></img>
+          <img className={classes.logo} src={marvel} alt="MarvelLogo" />
           <Typography
             className={classes.title}
             color="textSecondary"
@@ -57,7 +56,7 @@ function SignUp() {
                 label="Password"
                 type="password"
                 style={{ margin: 8 }}
-                placeholder="Your Pasword"
+                placeholder="Your Password"
                 fullWidth
                 margin="normal"
                 InputLabelProps={{

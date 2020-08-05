@@ -1,36 +1,38 @@
-import React, { useState } from 'react';
-import CharacterCard from '.';
-import { createItems } from 'mocks/ItemMocks';
+// eslint-disable
+import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import { useInfiniteScroll } from 'react-infinite-scroll-hook';
 import PropTypes from 'prop-types';
-
-// type Props = {
-//   cards: ItemModel[];
-// };
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAllCharactersSuccess, fetchAllCharacters } from 'store/actions';
+import { ICard, ItemModel } from 'types/types';
+import CharacterCard from '.';
 
 function CharactersList({ scrollContainer }: any) {
-  const mockedData = createItems(64);
-  const perPage = 8;
+  const perPage = 4;
   const [loadedItems, setLoadedItems] = useState<any>([]);
   const [loading, setLoading] = useState(false);
+  const allCharacters = useSelector(
+    (state: any) => state.characters?.data.results
+  );
+  const [characters, setCharacters] = useState<any>([]);
+  // setCharacters(allCharacters);
 
   const loadItems = (prevArray = [], startCursor = 0) => {
     return new Promise((resolve) => {
       setTimeout(() => {
+        // debugger;
         let newArray: any = prevArray;
-
         for (let i = startCursor; i < startCursor + perPage; i++) {
-          if (startCursor === mockedData.length) {
-            return;
-          }
+          // if (startCursor === loadedItems.length) {
+          //   return;
+          // }
           const newItem = {
             key: i,
-            value: mockedData[i],
+            value: characters[i],
           };
           newArray = [...newArray, newItem];
         }
-        console.log(newArray);
 
         resolve(newArray);
       }, 1000);
@@ -38,7 +40,6 @@ function CharactersList({ scrollContainer }: any) {
   };
 
   const handleLoadMore = () => {
-    setLoading(true);
     loadItems(loadedItems, loadedItems.length).then((newArray) => {
       setLoading(false);
       setLoadedItems(newArray);
@@ -58,9 +59,10 @@ function CharactersList({ scrollContainer }: any) {
   return (
     <>
       <Grid innerRef={infiniteRef} container spacing={3} justify="center">
-        {loadedItems.map((card: any, index: number) => (
-          <CharacterCard key={index} data={card.value} />
-        ))}
+        {allCharacters &&
+          allCharacters.map((card: ItemModel, index: number) => (
+            <CharacterCard key={index} data={card} />
+          ))}
       </Grid>
     </>
   );

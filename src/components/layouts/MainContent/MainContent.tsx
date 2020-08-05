@@ -1,10 +1,11 @@
 import React from 'react';
-import ProfilePage from 'pages/Profile/profile-edit-mode/profile-edit-mode';
+import { styles } from './main.styles';
 
 const MainContent: React.FC = ({ children }) => {
+  const classes = styles();
   return (
     <main>
-      <div style={{ minHeight: '100vh' }}>{children}</div>
+      <div className={classes.main}>{children}</div>
     </main>
   );
 };
