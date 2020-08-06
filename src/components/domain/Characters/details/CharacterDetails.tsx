@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   Grid,
@@ -7,7 +7,6 @@ import {
   CardMedia,
   CardContent,
   Typography,
-  CardActions,
   makeStyles,
   IconButton,
 } from '@material-ui/core';
@@ -40,6 +39,7 @@ export const CharacterDetails = () => {
           }
         );
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

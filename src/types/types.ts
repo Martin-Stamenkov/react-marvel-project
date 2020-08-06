@@ -28,4 +28,5 @@ export interface ICard {
   stories: object;
   thumbnail: object;
   urls: object;
+  addToFavorites?: boolean;
 }

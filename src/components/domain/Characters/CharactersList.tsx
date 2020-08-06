@@ -1,12 +1,11 @@
 // eslint-disable
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
 import { useInfiniteScroll } from 'react-infinite-scroll-hook';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllCharactersSuccess, fetchAllCharacters } from 'store/actions';
-import { ICard, ItemModel } from 'types/types';
+import { useSelector } from 'react-redux';
 import CharacterCard from '.';
+import { ItemModel } from 'types/types';
 
 function CharactersList({ scrollContainer }: any) {
   const perPage = 4;
@@ -15,7 +14,7 @@ function CharactersList({ scrollContainer }: any) {
   const allCharacters = useSelector(
     (state: any) => state.characters?.data.results
   );
-  const [characters, setCharacters] = useState<any>([]);
+  // const [characters, setCharacters] = useState<any>([]);
   // setCharacters(allCharacters);
 
   const loadItems = (prevArray = [], startCursor = 0) => {
@@ -29,7 +28,7 @@ function CharactersList({ scrollContainer }: any) {
           // }
           const newItem = {
             key: i,
-            value: characters[i],
+            value: newArray[i],
           };
           newArray = [...newArray, newItem];
         }

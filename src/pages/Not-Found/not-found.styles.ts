@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core';
-import notFound from '../not-found.jpg';
 
 export const useStyles = makeStyles({
   container: {

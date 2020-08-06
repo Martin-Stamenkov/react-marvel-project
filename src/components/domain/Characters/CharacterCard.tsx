@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -27,38 +27,34 @@ const useStyles = makeStyles({
 type Props = {
   data: ItemModel;
 };
-// eslint-disable
 
 function CharacterCard({ data }: Props) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [isFavorite, setIsFavorite] = useState(false);
   const allCharacters = useSelector(
     (state: any) => state.characters?.data.results
   );
-  const [isAdded, setIsAdded] = useState(false);
-
-  const favoritesCharacters = localStorage.getItem('favoriteChars')
-    ? JSON.parse(localStorage.getItem('favoriteChars') || '')
-    : [];
-  // const [favoritesCharacters, setFavoriteCharacters] = useState<any>([]);
+  const character = useMemo(
+    () => allCharacters && allCharacters.find((x: ICard) => x.id === data.id),
+    []
+  );
 
   const addToFavorites = useCallback(() => {
-    const character =
-      allCharacters && allCharacters.find((x: ICard) => x.id === data.id);
-    if (!favoritesCharacters.find((x: ICard) => x.id === character.id)) {
-      // setFavoriteCharacters((result: any) => [...result, character]);
+    const favoritesCharacters = localStorage.getItem('favoriteChars')
+      ? JSON.parse(localStorage.getItem('favoriteChars') || '')
+      : [];
+    if (!favoritesCharacters.find((x: ICard) => x === character.id)) {
       favoritesCharacters.push(character.id);
+      setIsFavorite(true);
+    } else {
+      favoritesCharacters.splice(favoritesCharacters.indexOf(character.id), 1);
     }
     localStorage.setItem('favoriteChars', JSON.stringify(favoritesCharacters));
-    const temp = localStorage.getItem('favoriteChars');
-    console.log(temp);
-    // console.log(favoritesCharacters);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  localStorage.clear();
 
   const handleClick = () => {
-    const character =
-      allCharacters && allCharacters.find((x: ICard) => x.id === data.id);
     dispatch(fetchCharacterByIdRequest());
     dispatch(fetchCharacterByIdSuccess(character));
     dispatch(fetchCharacterById(character.id));
@@ -97,9 +93,7 @@ function CharacterCard({ data }: Props) {
               color="primary"
               onClick={() => addToFavorites()}
             >
-              {!data.addToFavorites
-                ? 'Add to favorites'
-                : 'Remove from favorites'}
+              {true ? 'Add to favorites' : 'Remove from favorites'}
             </Button>
           </CardActions>
         </Card>
