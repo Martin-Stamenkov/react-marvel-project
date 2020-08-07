@@ -4,4 +4,5 @@ export interface IAppState {
   offset: number | undefined;
   character: object | null;
   characters: [] | null;
+  searchedCharacters: [] | null;
 }

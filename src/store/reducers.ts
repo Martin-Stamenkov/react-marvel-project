@@ -6,6 +6,9 @@ import {
   FETCH_CHARACTER_BY_ID_FAILURE,
   FETCH_CHARACTER_BY_ID_REQUEST,
   INCREASE_OFFSET,
+  SEARCH_CHARACTER_BY_NAME_REQUEST,
+  SEARCH_CHARACTER_BY_NAME_SUCCESS,
+  SEARCH_CHARACTER_BY_NAME_FAILURE,
 } from './types';
 import { IAppState } from './store-interfaces';
 
@@ -15,6 +18,7 @@ const initialState: IAppState = {
   error: '',
   character: null,
   offset: 0,
+  searchedCharacters: null,
 };
 
 export const rootReducer = (
@@ -56,6 +60,23 @@ export const rootReducer = (
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case SEARCH_CHARACTER_BY_NAME_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case SEARCH_CHARACTER_BY_NAME_SUCCESS:
+      return {
+        ...state,
+        searchedCharacters: action.payload,
+        loading: true,
+      };
+    case SEARCH_CHARACTER_BY_NAME_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
       };
     case INCREASE_OFFSET:
       return {

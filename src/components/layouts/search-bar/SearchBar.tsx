@@ -1,11 +1,25 @@
-import React, { useCallback, useState } from 'react';
-import { TextField, Grid } from '@material-ui/core';
+import React, { useCallback, useState, useEffect } from 'react';
+import { TextField, Grid, FormControl } from '@material-ui/core';
+
+import { useDispatch } from 'react-redux';
+import {
+  searchCharactersByName,
+  searchCharacterByNameRequest,
+} from 'store/actions';
+import SearchIcon from '@material-ui/icons/Search';
 
 export default function SearchBar() {
   const [values, setValues] = useState('');
+  const dispatch = useDispatch();
 
-  const handleSubmit = () => {};
-
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (values) {
+      dispatch(searchCharacterByNameRequest());
+      dispatch(searchCharactersByName(values));
+      setValues('');
+    }
+  };
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       event.preventDefault();
@@ -14,14 +28,14 @@ export default function SearchBar() {
     },
     []
   );
-  console.log(values);
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ width: '50%' }}>
         <TextField
-          style={{ width: '60%' }}
+          type="text"
+          value={values}
           id="standard-basic"
-          label="Filter by Name or Description"
+          label="Filter by Name"
           color="secondary"
           fullWidth
           onChange={handleChange}

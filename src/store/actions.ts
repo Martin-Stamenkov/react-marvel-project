@@ -8,6 +8,9 @@ import {
   FETCH_CHARACTER_BY_ID_SUCCESS,
   FETCH_CHARACTER_BY_ID_FAILURE,
   INCREASE_OFFSET,
+  SEARCH_CHARACTER_BY_NAME_REQUEST,
+  SEARCH_CHARACTER_BY_NAME_SUCCESS,
+  SEARCH_CHARACTER_BY_NAME_FAILURE,
 } from './types';
 import { Requests } from '../api/requests';
 import { publicKey, ts, hasher } from '../api/constants';
@@ -29,19 +32,53 @@ export const fetchAllCharactersFailure = (error: string) => {
     payload: error,
   };
 };
-
 export const fetchAllCharacters = () => {
   // eslint-disable-next-line
   return (dispatch: any) => {
     dispatch(fetchAllCharactersRequest());
-    Requests.getAllCharacters(publicKey, ts, hasher)
+    Requests.getAllCharacters(0, publicKey, ts, hasher)
       .then((response) => {
-        dispatch(increaseOffsetValue(response.data.data.offset));
+        // dispatch(increaseOffsetValue(response.data.data.offset));
         dispatch(fetchAllCharactersSuccess(response.data));
       })
       .catch((error) => {
         if (error.message) {
           dispatch(fetchAllCharactersFailure(error));
+        } else {
+          console.log(error);
+        }
+      });
+  };
+};
+export const searchCharacterByNameRequest = () => {
+  return {
+    type: SEARCH_CHARACTER_BY_NAME_REQUEST,
+  };
+};
+export const searchCharacterByNameSuccess = (characters: ICharacters) => {
+  return {
+    type: SEARCH_CHARACTER_BY_NAME_SUCCESS,
+    payload: characters,
+  };
+};
+export const searchCharacterByNameFailure = (error: string) => {
+  return {
+    type: SEARCH_CHARACTER_BY_NAME_FAILURE,
+    payload: error,
+  };
+};
+
+export const searchCharactersByName = (name: string) => {
+  return (dispatch: any) => {
+    dispatch(searchCharacterByNameRequest());
+    Requests.searchCharacterByName(name, publicKey, ts, hasher)
+      .then((response) => {
+        dispatch(searchCharacterByNameSuccess(response.data));
+      })
+      .then(() => history.push('/characters-by-name'))
+      .catch((error) => {
+        if (error.message) {
+          dispatch(searchCharacterByNameFailure(error));
         } else {
           console.log(error);
         }
@@ -87,9 +124,8 @@ export const fetchCharacterById = (id: number) => {
   };
 };
 
-const increaseOffsetValue = (offset: number) => {
+const increaseOffsetValue = () => {
   return {
     type: INCREASE_OFFSET,
-    offset: offset + 20,
   };
 };

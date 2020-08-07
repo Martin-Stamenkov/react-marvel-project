@@ -23,6 +23,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { NavLink } from 'react-router-dom';
+import { history } from 'app/App';
+import { MenuDialog } from '../dialog-menu/DialogMenu';
 
 const drawerWidth = 150;
 
@@ -36,14 +38,14 @@ const useStyles = makeStyles((theme: Theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+      marginLeft: -drawerWidth,
     },
     appBarShift: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-      transition: theme.transitions.create(['margin', 'width'], {
+      transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
+      marginLeft: 0,
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -109,6 +111,7 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
+          <MenuDialog open={open} onClose={handleDrawerClose}></MenuDialog>
           <Typography variant="h6" className={classes.title}>
             Marvel Characters
           </Typography>
@@ -138,47 +141,15 @@ export default function PersistentDrawerLeft() {
                 open={openRight}
                 onClose={handleClose}
               >
-                <NavLink to="profile">
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                </NavLink>
+                <MenuItem onClick={() => history.push('/profile')}>
+                  Profile
+                </MenuItem>
                 <MenuItem onClick={handleClose}>Log Out</MenuItem>
               </Menu>
             </div>
           )}
         </Toolbar>
       </AppBar>
-      <Drawer
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </div>
-        <Divider />
-        <List component="nav" aria-label="secondary mailbox folders">
-          <NavLink to="/items">
-            <ListItem button>
-              <ListItemText primary="Dashboard" />
-            </ListItem>
-          </NavLink>
-          <NavLink to="/favorites">
-            <ListItem button>
-              <ListItemText primary="Favorites" />
-            </ListItem>
-          </NavLink>
-        </List>
-        <Divider />
-      </Drawer>
     </div>
   );
 }

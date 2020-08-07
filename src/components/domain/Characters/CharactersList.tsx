@@ -14,6 +14,7 @@ function CharactersList({ scrollContainer }: any) {
   const allCharacters = useSelector(
     (state: any) => state.characters?.data.results
   );
+  // const offset = useSelector((state: any) => state.characters.data.offset);
   // const [characters, setCharacters] = useState<any>([]);
   // setCharacters(allCharacters);
 

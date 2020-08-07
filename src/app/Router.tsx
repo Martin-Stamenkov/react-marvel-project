@@ -10,6 +10,7 @@ import { ProfileViewMode } from 'pages/Profile/profile-view-mode/profile-view-mo
 import { useDispatch } from 'react-redux';
 import { fetchAllCharactersRequest, fetchAllCharacters } from 'store/actions';
 import { CharacterDetails } from 'components/domain/Characters/details/CharacterDetails';
+import SearchedCharacters from 'components/domain/Characters/characters-result/SearchedCharacters';
 import NotFoundPage from 'pages/Not-Found/not-found';
 
 const isAuthenticated = true;
@@ -30,6 +31,7 @@ function Routes() {
         <Route exact path="/details" component={CharacterDetails} />
         <Route path="/edit-profile" component={ProfilePage} />
         <Route path="/profile" component={ProfileViewMode} />
+        <Route path="/characters-by-name" component={SearchedCharacters} />
         <Route path="*" component={NotFoundPage} />
       </Switch>
     );

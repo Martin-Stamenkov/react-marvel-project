@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import SearchBar from 'components/layouts/search-bar/SearchBar';
 import { Requests } from 'api/requests';
 import { publicKey, ts, hasher } from 'api/constants';
 import CharacterCard from '../CharacterCard';
@@ -23,14 +22,11 @@ export const FavoritesCharacters = () => {
   }, []);
   return (
     <>
-      <Grid container justify="center" spacing={3}>
-        <SearchBar />
-        <Grid container spacing={5} justify="center">
-          {favoriteCharacters &&
-            favoriteCharacters.map((character: any) => (
-              <CharacterCard key={character.id} data={character} />
-            ))}
-        </Grid>
+      <Grid container spacing={5} justify="center">
+        {favoriteCharacters &&
+          favoriteCharacters.map((character: any) => (
+            <CharacterCard key={character.id} data={character} />
+          ))}
       </Grid>
     </>
   );
