@@ -3,8 +3,10 @@ import { Route, Redirect, Switch } from 'react-router';
 import SignUp from 'pages/SignUp';
 import SignIn from 'pages/SignIn';
 import MainContent from 'components/layouts/MainContent';
-import CharacterCardSummary from 'components/domain/Characters/CharacterCardSummary';
-import { FavoritesCharacters } from 'components/domain/Characters/favourites-charachters/FavoritesCharacters';
+import {
+  FavoritesCharacters,
+  CharacterCardSummary,
+} from 'components/domain/Characters';
 import { ProfilePage } from 'pages/Profile/profile-edit-mode/profile-edit-mode';
 import { ProfileViewMode } from 'pages/Profile/profile-view-mode/profile-view-mode';
 import { useDispatch } from 'react-redux';
@@ -12,14 +14,11 @@ import { fetchAllCharactersRequest, fetchAllCharacters } from 'store/actions';
 import { CharacterDetails } from 'components/domain/Characters/details/CharacterDetails';
 import SearchedCharacters from 'components/domain/Characters/characters-result/SearchedCharacters';
 import NotFoundPage from 'pages/Not-Found/not-found';
+import axios from 'axios';
 
 const isAuthenticated = true;
 
 function Routes() {
-  const dispatch = useDispatch();
-  dispatch(fetchAllCharactersRequest());
-  dispatch(fetchAllCharacters());
-
   if (isAuthenticated) {
     return (
       <Switch>

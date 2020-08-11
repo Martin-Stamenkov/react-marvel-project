@@ -111,7 +111,7 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <MenuDialog open={open} onClose={handleDrawerClose}></MenuDialog>
+          <MenuDialog open={open} onClose={handleDrawerClose} />
           <Typography variant="h6" className={classes.title}>
             Marvel Characters
           </Typography>

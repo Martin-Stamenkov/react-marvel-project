@@ -10,7 +10,7 @@ import Routes from './Router';
 
 export const history = createBrowserHistory();
 
-function App() {
+const App = () => {
   return (
     <>
       <Router history={history}>
@@ -21,6 +21,6 @@ function App() {
       </Router>
     </>
   );
-}
+};
 
 export default App;

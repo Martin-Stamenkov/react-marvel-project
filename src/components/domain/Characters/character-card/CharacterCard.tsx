@@ -31,25 +31,39 @@ type Props = {
 function CharacterCard({ data }: Props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(data.addToFavorites);
   const allCharacters = useSelector(
     (state: any) => state.characters?.data.results
   );
+  const searchedCharacters = useSelector(
+    (state: any) => state.searchedCharacters?.data.results
+  );
   const character = useMemo(
-    () => allCharacters && allCharacters.find((x: ICard) => x.id === data.id),
+    () =>
+      (searchedCharacters &&
+        searchedCharacters.find((x: ICard) => x.id === data.id)) ||
+      (allCharacters && allCharacters.find((x: ICard) => x.id === data.id)),
     []
   );
-
   const addToFavorites = useCallback(() => {
     const favoritesCharacters = localStorage.getItem('favoriteChars')
       ? JSON.parse(localStorage.getItem('favoriteChars') || '')
       : [];
-    if (!favoritesCharacters.find((x: ICard) => x === character.id)) {
-      favoritesCharacters.push(character.id);
-      setIsFavorite(true);
-    } else {
-      favoritesCharacters.splice(favoritesCharacters.indexOf(character.id), 1);
+    if (character) {
+      if (!favoritesCharacters.find((x: ICard) => x === character.id)) {
+        favoritesCharacters.push(character.id);
+        setIsFavorite(true);
+      } else {
+        favoritesCharacters.splice(
+          favoritesCharacters.indexOf(character.id),
+          1
+        );
+        setIsFavorite(false);
+      }
     }
+    console.log(
+      JSON.parse(localStorage.getItem('favoriteChars') || '').indexOf(data.id)
+    );
     localStorage.setItem('favoriteChars', JSON.stringify(favoritesCharacters));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -57,7 +71,7 @@ function CharacterCard({ data }: Props) {
   const handleClick = () => {
     dispatch(fetchCharacterByIdRequest());
     dispatch(fetchCharacterByIdSuccess(character));
-    dispatch(fetchCharacterById(character.id));
+    character && dispatch(fetchCharacterById(character.id));
   };
   return (
     data && (
@@ -93,7 +107,11 @@ function CharacterCard({ data }: Props) {
               color="primary"
               onClick={() => addToFavorites()}
             >
-              {true ? 'Add to favorites' : 'Remove from favorites'}
+              {JSON.parse(localStorage.getItem('favoriteChars') || '').indexOf(
+                data.id
+              ) === -1
+                ? 'Add to favorites'
+                : 'Remove from favorites'}
             </Button>
           </CardActions>
         </Card>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import Container from '@material-ui/core/Container';
 import {
   Typography,
@@ -9,6 +9,8 @@ import {
   TextField,
 } from '@material-ui/core';
 import marvel from '../marvel.png';
+import { history } from 'app/App';
+import AuthContextProvider from 'authentication/Auth';
 
 const useStyles = makeStyles({
   root: {
@@ -24,8 +26,35 @@ const useStyles = makeStyles({
   },
 });
 
-function SignUp() {
+type State = {
+  email: string;
+  password: string;
+  username: string;
+};
+
+const SignUp = () => {
   const classes = useStyles();
+  const [account, setAccount] = useState<any>({
+    Email: '',
+    Password: '',
+    Username: '',
+  });
+
+  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setAccount({ ...account, [target.name]: target.value });
+  };
+
+  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // let hasError = false;
+    // const errorArray: string[] = [];
+
+    // setLoading(true);
+    console.log(account);
+    // setLoading(false);
+    history.push('/items');
+  };
+
   return (
     <Container maxWidth="sm">
       <Card className={classes.root}>
@@ -38,27 +67,40 @@ function SignUp() {
           >
             Sign Up
           </Typography>
-          <form>
+          <form onSubmit={handleRegister}>
             <TextField
-              id="standard-full-width"
               label="Email"
               style={{ margin: 8 }}
               placeholder="Your Email"
               fullWidth
               margin="normal"
+              onChange={handleChange}
               InputLabelProps={{
                 shrink: true,
               }}
             />
             <div style={{ marginTop: '2rem' }}>
               <TextField
-                id="standard-full-width"
                 label="Password"
                 type="password"
                 style={{ margin: 8 }}
                 placeholder="Your Password"
                 fullWidth
                 margin="normal"
+                onChange={handleChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </div>
+            <div style={{ marginTop: '2rem' }}>
+              <TextField
+                label="Username"
+                style={{ margin: 8 }}
+                placeholder="Your Username"
+                fullWidth
+                margin="normal"
+                onChange={handleChange}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -67,7 +109,6 @@ function SignUp() {
           </form>
           <Button
             style={{ margin: '1rem', background: 'red', color: 'white' }}
-            type="submit"
             variant="contained"
             color="primary"
           >
@@ -75,15 +116,21 @@ function SignUp() {
           </Button>
           <Button
             style={{ background: 'green', color: 'white' }}
-            type="submit"
             variant="contained"
             href="/signin"
           >
             Sign In
           </Button>
+          <Button
+            style={{ margin: '1rem', background: 'blue', color: 'white' }}
+            type="submit"
+            variant="contained"
+          >
+            Submit
+          </Button>
         </CardContent>
       </Card>
     </Container>
   );
-}
+};
 export default SignUp;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import CharactersList from './CharactersList';
+import CharactersList from '../characters-list/CharactersList';
 import SearchBar from 'components/layouts/search-bar/SearchBar';
 
-function CharacterCardSummary() {
+export function CharacterCardSummary() {
   return (
     <Grid container justify="center" spacing={3}>
       <SearchBar />
@@ -11,4 +11,3 @@ function CharacterCardSummary() {
     </Grid>
   );
 }
-export default CharacterCardSummary;

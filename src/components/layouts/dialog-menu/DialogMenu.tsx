@@ -36,30 +36,34 @@ export function MenuDialog(props: SimpleDialogProps) {
   };
 
   return (
-    <Dialog
-      onClose={handleClose}
-      aria-labelledby="simple-dialog-title"
-      open={open}
-    >
-      <DialogTitle id="simple-dialog-title">Let`s adventure begin</DialogTitle>
-      <List>
-        <Divider />
-        <List component="nav" aria-label="secondary mailbox folders">
-          <ListItem button>
-            <ListItemText
-              onClick={() => handleListItemClick('Dashboard')}
-              primary="Dashboard"
-            />
-          </ListItem>
-          <ListItem button>
-            <ListItemText
-              onClick={() => handleListItemClick('Favorites')}
-              primary="Favorites"
-            />
-          </ListItem>
+    <>
+      <Dialog
+        onClose={handleClose}
+        aria-labelledby="simple-dialog-title"
+        open={open}
+      >
+        <DialogTitle id="simple-dialog-title">
+          Let`s adventure begin
+        </DialogTitle>
+        <List>
+          <Divider />
+          <List component="nav" aria-label="secondary mailbox folders">
+            <ListItem button>
+              <ListItemText
+                onClick={() => handleListItemClick('Dashboard')}
+                primary="Dashboard"
+              />
+            </ListItem>
+            <ListItem button>
+              <ListItemText
+                onClick={() => handleListItemClick('Favorites')}
+                primary="Favorites"
+              />
+            </ListItem>
+          </List>
+          <Divider />
         </List>
-        <Divider />
-      </List>
-    </Dialog>
+      </Dialog>
+    </>
   );
 }

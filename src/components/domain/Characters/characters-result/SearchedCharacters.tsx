@@ -8,8 +8,6 @@ export default function SearchedCharacters() {
   const characters = useSelector(
     (state: any) => state.searchedCharacters?.data.results
   );
-  console.log(characters);
-
   return (
     <>
       <Grid container justify="center" spacing={3}>

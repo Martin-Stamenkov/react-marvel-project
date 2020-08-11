@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Requests } from 'api/requests';
 import { publicKey, ts, hasher } from 'api/constants';
-import CharacterCard from '../CharacterCard';
+import CharacterCard from '../character-card/CharacterCard';
 import { Grid } from '@material-ui/core';
 
 export const FavoritesCharacters = () => {

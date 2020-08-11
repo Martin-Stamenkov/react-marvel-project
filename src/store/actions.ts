@@ -32,13 +32,13 @@ export const fetchAllCharactersFailure = (error: string) => {
     payload: error,
   };
 };
-export const fetchAllCharacters = () => {
+export const fetchAllCharacters = (offset: number) => {
   // eslint-disable-next-line
   return (dispatch: any) => {
     dispatch(fetchAllCharactersRequest());
-    Requests.getAllCharacters(0, publicKey, ts, hasher)
+    Requests.getAllCharacters(offset, publicKey, ts, hasher)
       .then((response) => {
-        // dispatch(increaseOffsetValue(response.data.data.offset));
+        //dispatch(increaseOffsetValue(response.data.data.offset));
         dispatch(fetchAllCharactersSuccess(response.data));
       })
       .catch((error) => {
@@ -112,8 +112,8 @@ export const fetchCharacterById = (id: number) => {
     Requests.getCharacterById(id, publicKey, ts, hasher)
       .then((response) => {
         fetchCharacterByIdSuccess(response.data.data.results[0]);
+        history.push('/details');
       })
-      .then(() => history.push('/details'))
       .catch((error) => {
         if (error.message) {
           dispatch(fetchCharacterByIdFailure(error));

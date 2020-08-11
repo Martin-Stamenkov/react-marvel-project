@@ -81,7 +81,7 @@ export const rootReducer = (
     case INCREASE_OFFSET:
       return {
         ...state,
-        offset: action.payload,
+        offset: action.payload + 20,
       };
     default:
       return state;
