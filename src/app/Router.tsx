@@ -9,38 +9,94 @@ import {
 } from 'components/domain/Characters';
 import { ProfilePage } from 'pages/Profile/profile-edit-mode/profile-edit-mode';
 import { ProfileViewMode } from 'pages/Profile/profile-view-mode/profile-view-mode';
-import { useDispatch } from 'react-redux';
-import { fetchAllCharactersRequest, fetchAllCharacters } from 'store/actions';
 import { CharacterDetails } from 'components/domain/Characters/details/CharacterDetails';
 import SearchedCharacters from 'components/domain/Characters/characters-result/SearchedCharacters';
 import NotFoundPage from 'pages/Not-Found/not-found';
-import axios from 'axios';
+import AuthContextProvider from 'authentication/Auth';
+import { Callback } from 'components/generic/callback/Callback';
 
-const isAuthenticated = true;
-
+const auth = new AuthContextProvider();
+const handleAuthentications = ({ location }: any) => {
+  if (/access_token|id_token|error/.test(location.hash)) {
+    auth.handleAuthentication();
+  }
+};
 function Routes() {
-  if (isAuthenticated) {
-    return (
+  return (
+    <>
       <Switch>
-        {/* <Redirect from="/signup" to="/" />
-        <Redirect from="/signin" to="/" /> */}
-        <Route exact path="/" component={MainContent} />
-        <Route exact path="/items" component={CharacterCardSummary} />
-        <Route exact path="/favorites" component={FavoritesCharacters} />
-        <Route exact path="/details" component={CharacterDetails} />
-        <Route path="/edit-profile" component={ProfilePage} />
-        <Route path="/profile" component={ProfileViewMode} />
-        <Route path="/characters-by-name" component={SearchedCharacters} />
+        <Route
+          path="/callback"
+          render={(props): any => {
+            handleAuthentications(props);
+            return <Callback />;
+          }}
+        />
+
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/signin" component={SignIn} />
+        <Route
+          exact
+          path="/items"
+          render={() =>
+            auth.isAuthenticated() ? (
+              <CharacterCardSummary />
+            ) : (
+              <Redirect to="signin" />
+            )
+          }
+        />
+        <Route
+          exact
+          path="/favorites"
+          render={() =>
+            auth.isAuthenticated() ? (
+              <FavoritesCharacters />
+            ) : (
+              <Redirect to="signin" />
+            )
+          }
+        />
+        <Route
+          exact
+          path="/details"
+          render={() =>
+            auth.isAuthenticated() ? (
+              <CharacterDetails />
+            ) : (
+              <Redirect to="signin" />
+            )
+          }
+        />
+        <Route
+          path="/edit-profile"
+          render={() =>
+            auth.isAuthenticated() ? <ProfilePage /> : <Redirect to="signin" />
+          }
+        />
+        <Route
+          path="/profile"
+          render={() =>
+            auth.isAuthenticated() ? (
+              <ProfileViewMode />
+            ) : (
+              <Redirect to="signin" />
+            )
+          }
+        />
+        <Route
+          path="/characters-by-name"
+          render={() =>
+            auth.isAuthenticated() ? (
+              <SearchedCharacters />
+            ) : (
+              <Redirect to="signin"></Redirect>
+            )
+          }
+        />
         <Route path="*" component={NotFoundPage} />
       </Switch>
-    );
-  }
-  return (
-    <Switch>
-      <Route exact path="/signup" component={SignUp} />
-      <Route exact path="/signin" component={SignIn} />
-      <Redirect to="/signin" />
-    </Switch>
+    </>
   );
 }
 export default Routes;

@@ -18,13 +18,13 @@ function CharactersList() {
   const allCharacters = useSelector(
     (state: any) => state.characters?.data.results
   );
+  console.log(allCharacters);
 
   useEffect(() => {
     dispatch(fetchAllCharactersRequest());
     dispatch(fetchAllCharacters(currentOffset));
-    const newData = allCharacters && allCharacters;
-    console.log(newData);
-    newData && setCharacters((prev: any) => prev.concat(newData));
+    // const newData = allCharacters && allCharacters;
+    // newData && setCharacters((prevData: any) => prevData.concat(newData));
   }, [currentOffset, setCharacters]);
 
   return (

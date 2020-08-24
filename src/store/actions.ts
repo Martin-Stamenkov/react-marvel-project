@@ -7,10 +7,10 @@ import {
   FETCH_CHARACTER_BY_ID_REQUEST,
   FETCH_CHARACTER_BY_ID_SUCCESS,
   FETCH_CHARACTER_BY_ID_FAILURE,
-  INCREASE_OFFSET,
   SEARCH_CHARACTER_BY_NAME_REQUEST,
   SEARCH_CHARACTER_BY_NAME_SUCCESS,
   SEARCH_CHARACTER_BY_NAME_FAILURE,
+  GET_CURRENT_USER,
 } from './types';
 import { Requests } from '../api/requests';
 import { publicKey, ts, hasher } from '../api/constants';
@@ -20,7 +20,7 @@ export const fetchAllCharactersRequest = () => {
     type: FETCH_ALL_CHARACTERS_REQUEST,
   };
 };
-export const fetchAllCharactersSuccess = (characters: ICharacters) => {
+export const fetchAllCharactersSuccess = (characters: any) => {
   return {
     type: FETCH_ALL_CHARACTERS_SUCCESS,
     payload: characters,
@@ -74,8 +74,8 @@ export const searchCharactersByName = (name: string) => {
     Requests.searchCharacterByName(name, publicKey, ts, hasher)
       .then((response) => {
         dispatch(searchCharacterByNameSuccess(response.data));
+        history.push('/characters-by-name');
       })
-      .then(() => history.push('/characters-by-name'))
       .catch((error) => {
         if (error.message) {
           dispatch(searchCharacterByNameFailure(error));
@@ -123,9 +123,15 @@ export const fetchCharacterById = (id: number) => {
       });
   };
 };
-
-const increaseOffsetValue = () => {
+const getCurrentUser = (user: any) => {
   return {
-    type: INCREASE_OFFSET,
+    type: GET_CURRENT_USER,
+    payload: user,
+  };
+};
+
+export const getUser = (user: any) => {
+  return (dispatch: any) => {
+    dispatch(getCurrentUser(user));
   };
 };

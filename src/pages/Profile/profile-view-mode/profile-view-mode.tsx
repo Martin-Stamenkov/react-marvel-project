@@ -10,9 +10,18 @@ import {
 } from '@material-ui/core';
 import { profileStyles } from 'pages/Profile/profile-styles';
 import placeholder from 'pages/Profile/avatar-placeholder.png';
+import AuthContextProvider from 'authentication/Auth';
+import { Auth0UserProfile } from 'auth0-js';
+
+const auth = new AuthContextProvider();
 
 export const ProfileViewMode = () => {
   const classes = profileStyles();
+
+  // const getProfile = (error: string, profile: Auth0UserProfile) => {
+  //   // const {userProfile,getProfile} = auth
+  //   auth.getProfile(profile);
+  // };
 
   return (
     <Container maxWidth="xs">

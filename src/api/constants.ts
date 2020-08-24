@@ -8,5 +8,5 @@ export const baseUrl = 'https://gateway.marvel.com:443/v1/public/';
 
 export const REACT_APP_AUTH0_DOMAIN = 'dev-b7woa0dr.auth0.com';
 export const REACT_APP_AUTH0_CLIENT_ID = 'Na11x4V1rLVdywNu4ZU6o5godHeoq4Uo';
-export const REDIRECT_URL = 'http://localhost:3000/items';
+export const REDIRECT_URL = 'http://localhost:3000/callback';
 export const DB_CONNECTION_NAME = 'Username-Password-Authentication';

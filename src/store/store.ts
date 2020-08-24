@@ -9,7 +9,7 @@ import {
 import thunk from 'redux-thunk';
 import { rootReducer } from './reducers';
 
-const devtoolsCompose =
+export const devtoolsCompose =
   // eslint-disable-next-line
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
   // eslint-disable-next-line

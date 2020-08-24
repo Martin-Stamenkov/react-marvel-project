@@ -9,6 +9,7 @@ import {
   SEARCH_CHARACTER_BY_NAME_REQUEST,
   SEARCH_CHARACTER_BY_NAME_SUCCESS,
   SEARCH_CHARACTER_BY_NAME_FAILURE,
+  GET_CURRENT_USER,
 } from './types';
 import { IAppState } from './store-interfaces';
 
@@ -19,6 +20,7 @@ const initialState: IAppState = {
   character: null,
   offset: 0,
   searchedCharacters: null,
+  currentUser: null,
 };
 
 export const rootReducer = (
@@ -82,6 +84,11 @@ export const rootReducer = (
       return {
         ...state,
         offset: action.payload + 20,
+      };
+    case GET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: action.payload,
       };
     default:
       return state;

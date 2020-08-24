@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => {
 
 export default function ComicsCard({ data }: any) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);

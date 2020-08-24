@@ -6,25 +6,18 @@ import {
   Theme,
   createStyles,
 } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { NavLink } from 'react-router-dom';
 import { history } from 'app/App';
 import { MenuDialog } from '../dialog-menu/DialogMenu';
+import AuthContextProvider from 'authentication/Auth';
 
 const drawerWidth = 150;
 
@@ -66,7 +59,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function PersistentDrawerLeft() {
+const authentication = new AuthContextProvider();
+
+export default function NavBar() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -80,6 +75,10 @@ export default function PersistentDrawerLeft() {
   };
 
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleLogOut = () => {
+    authentication.logout(history);
     setAnchorEl(null);
   };
 
@@ -144,7 +143,7 @@ export default function PersistentDrawerLeft() {
                 <MenuItem onClick={() => history.push('/profile')}>
                   Profile
                 </MenuItem>
-                <MenuItem onClick={handleClose}>Log Out</MenuItem>
+                <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
               </Menu>
             </div>
           )}
