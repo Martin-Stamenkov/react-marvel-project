@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Container,
   Card,
@@ -6,22 +6,34 @@ import {
   Typography,
   Button,
   Input,
-  Divider,
 } from '@material-ui/core';
 import { profileStyles } from 'pages/Profile/profile-styles';
-import placeholder from 'pages/Profile/avatar-placeholder.png';
 import AuthContextProvider from 'authentication/Auth';
-import { Auth0UserProfile } from 'auth0-js';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from 'store/actions';
 
 const auth = new AuthContextProvider();
 
 export const ProfileViewMode = () => {
   const classes = profileStyles();
+  const dispatch = useDispatch();
+  const [profile, setProfile] = useState<any>({
+    name: '',
+    nickname: '',
+    picture: '',
+  });
 
-  // const getProfile = (error: string, profile: Auth0UserProfile) => {
-  //   // const {userProfile,getProfile} = auth
-  //   auth.getProfile(profile);
-  // };
+  useEffect(() => {
+    if (localStorage.getItem('access_token')) {
+      auth.auth0.client.userInfo(
+        localStorage.getItem('access_token') || '',
+        (err, user) => {
+          dispatch(getUser(user));
+          setProfile(user);
+        }
+      );
+    }
+  }, []);
 
   return (
     <Container maxWidth="xs">
@@ -33,32 +45,29 @@ export const ProfileViewMode = () => {
             gutterBottom
           >
             Profile
-            <Divider />
-            <div className={classes.logoContainer}>
-              <img src={placeholder} alt="placeholder" />
-            </div>
           </Typography>
+          <div className={classes.logoContainer}>
+            <img src={profile.picture} alt="placeholder" />
+          </div>
           <form>
-            Email
+            Email:
             <Input
-              defaultValue="martinstamenkov@email.com"
-              disabled
+              name="name"
+              value={profile.name}
               fullWidth
               disableUnderline={true}
               inputProps={{ 'aria-label': 'description' }}
             />
             <div style={{ marginTop: '2rem' }}>
-              Password
+              Nickname:
               <Input
-                defaultValue="somepassword1234567"
-                disabled
+                value={profile.nickname}
                 disableUnderline={true}
-                type="password"
                 fullWidth
               />
             </div>
           </form>
-          <Button
+          {/* <Button
             style={{ margin: '1rem', background: 'blue', color: 'white' }}
             type="submit"
             variant="contained"
@@ -66,7 +75,7 @@ export const ProfileViewMode = () => {
             href="edit-profile"
           >
             Edit
-          </Button>
+          </Button> */}
         </CardContent>
       </Card>
     </Container>

@@ -4,7 +4,6 @@ export const profileStyles = makeStyles({
   root: {
     marginTop: 100,
     minWidth: 100,
-    minHeight: 450,
   },
   title: {
     fontSize: 16,
@@ -15,6 +14,7 @@ export const profileStyles = makeStyles({
     '& img': {
       width: 150,
       margin: 10,
+      borderRadius: '50%',
     },
   },
 });

@@ -6,7 +6,7 @@ import {
   DB_CONNECTION_NAME,
 } from '../api/constants';
 import { history } from 'app/App';
-import { getUser } from 'store/actions';
+import swal from 'sweetalert';
 
 export default class AuthContextProvider {
   auth0 = new auth0.WebAuth({
@@ -25,7 +25,7 @@ export default class AuthContextProvider {
     this.logout = this.logout.bind(this);
     this.handleAuthentication = this.handleAuthentication.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
-    this.getProfile = this.getProfile.bind(this);
+    // this.getProfile = this.getProfile.bind(this);
   }
 
   userProfile = {};
@@ -34,25 +34,36 @@ export default class AuthContextProvider {
       { realm: DB_CONNECTION_NAME, username, password },
       (err) => {
         if (err) {
-          console.log(err);
+          swal({
+            title: 'Oops!',
+            text: 'Wrong email or password.',
+            icon: 'error',
+          });
           return;
         }
       }
     );
   }
 
-  register(email: string, password: string, username: string) {
-    this.auth0.signup(
-      { connection: DB_CONNECTION_NAME, email, password, username },
-      (err) => {
-        if (err) {
-          console.log(err);
-
-          return;
-        }
-        history.push('/items');
+  register(email: string, password: string, nickname: string) {
+    const auth = {
+      connection: DB_CONNECTION_NAME,
+      email,
+      password,
+      nickname,
+    };
+    this.auth0.signup(auth, (err) => {
+      if (err) {
+        console.log(err);
+        swal({
+          title: 'Oops!',
+          text: `Error: ${err.description!!}`,
+          icon: 'error',
+        });
+        return;
       }
-    );
+      history.push('/signin');
+    });
   }
   handleAuthentication() {
     this.auth0.parseHash((err: any, authResult: any) => {
@@ -62,7 +73,7 @@ export default class AuthContextProvider {
       } else if (err) {
         history.replace('/signin');
         console.log(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
+        swal(`Error: ${err.error}. Check the console for further details.`);
       }
     });
   }
@@ -79,6 +90,20 @@ export default class AuthContextProvider {
     history.replace('/items');
   }
 
+  updateUserData(id: number, user: any) {
+    let Management = new auth0.Management({
+      domain: REACT_APP_AUTH0_DOMAIN,
+      token: localStorage.getItem('access_token') || undefined,
+    });
+    Management.patchUserMetadata(
+      'auth0|5f35540a8817010037018975',
+      user,
+      (res) => {
+        console.log(res);
+      }
+    );
+  }
+
   logout(history: any) {
     // Clear access token and ID token from local storage
     localStorage.removeItem('access_token');
@@ -87,22 +112,10 @@ export default class AuthContextProvider {
     // navigate to the home route
     history.replace('/signin');
   }
-
   isAuthenticated() {
     // Check whether the current time is past the
     // access token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at') || '');
     return new Date().getTime() < expiresAt;
-  }
-  getProfile(
-    cb: (arg0: auth0.Auth0Error | null, arg1: auth0.Auth0UserProfile) => void
-  ) {
-    let accessToken = localStorage.getItem('access_token') || '';
-    this.auth0.client.userInfo(accessToken, (err, profile) => {
-      if (profile) {
-        this.userProfile = profile;
-      }
-      cb(err, profile);
-    });
   }
 }

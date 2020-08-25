@@ -18,6 +18,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { history } from 'app/App';
 import { MenuDialog } from '../dialog-menu/DialogMenu';
 import AuthContextProvider from 'authentication/Auth';
+import { useSelector } from 'react-redux';
 
 const drawerWidth = 150;
 
@@ -69,6 +70,7 @@ export default function NavBar() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openRight = Boolean(anchorEl);
+  const userProfile = useSelector((state: any) => state.currentUser);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -112,10 +114,15 @@ export default function NavBar() {
           </IconButton>
           <MenuDialog open={open} onClose={handleDrawerClose} />
           <Typography variant="h6" className={classes.title}>
-            Marvel Characters
+            Marvel Universe
           </Typography>
           {auth && (
-            <div>
+            <div style={{ display: 'flex' }}>
+              <p style={{ fontSize: 'large' }}>
+                {localStorage.getItem('access_token') &&
+                  userProfile &&
+                  `Hello ${userProfile.nickname}!`}
+              </p>
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"

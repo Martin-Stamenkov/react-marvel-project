@@ -31,9 +31,9 @@ const useStyles = makeStyles({
 const SignUp = () => {
   const classes = useStyles();
   const [account, setAccount] = useState<any>({
+    Nickname: '',
     Email: '',
     Password: '',
-    RepeatPassword: '',
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,14 +46,12 @@ const SignUp = () => {
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    // let hasError = false;
-    // const errorArray: string[] = [];
-    auth.register(account.Email, account.Password, account.Username);
+    auth.register(account.Email, account.Password, account.Nickname);
     // setLoading(true);
     console.log(account);
     // setLoading(false);
-    // history.replace('/items');
   };
+  console.log(account);
 
   return (
     <Container maxWidth="sm">
@@ -68,6 +66,21 @@ const SignUp = () => {
             Sign Up
           </Typography>
           <form onSubmit={handleRegister}>
+            <div style={{ marginTop: '2rem' }}>
+              <TextField
+                label="Nickname"
+                style={{ margin: 8 }}
+                placeholder="Nickname"
+                fullWidth
+                margin="normal"
+                name="Nickname"
+                value={account.Nickname}
+                onChange={handleChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </div>
             <TextField
               label="Email"
               style={{ margin: 8 }}
@@ -91,22 +104,6 @@ const SignUp = () => {
                 name="Password"
                 margin="normal"
                 value={account.Password}
-                onChange={handleChange}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-            </div>
-            <div style={{ marginTop: '2rem' }}>
-              <TextField
-                label="Repeat Password"
-                type="password"
-                style={{ margin: 8 }}
-                placeholder="Repeat Password"
-                fullWidth
-                margin="normal"
-                name="RepeatPassword"
-                value={account.RepeatPassword}
                 onChange={handleChange}
                 InputLabelProps={{
                   shrink: true,

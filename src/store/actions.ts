@@ -42,6 +42,7 @@ export const fetchAllCharacters = (offset: number) => {
         dispatch(fetchAllCharactersSuccess(response.data));
       })
       .catch((error) => {
+        console.log(error);
         if (error.message) {
           dispatch(fetchAllCharactersFailure(error));
         } else {
