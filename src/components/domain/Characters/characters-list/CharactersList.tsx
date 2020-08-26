@@ -1,26 +1,18 @@
-// eslint-disable
 import React, { useState, useEffect } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import CharacterCard from '..';
 import { ItemModel } from 'types/types';
-import {
-  fetchAllCharactersRequest,
-  fetchAllCharacters,
-  fetchAllCharactersSuccess,
-} from 'store/actions';
+import { fetchAllCharacters } from 'store/actions';
 
 function CharactersList() {
   const [currentOffset, setCurrentOffset] = useState(0);
   const dispatch = useDispatch();
   const total = useSelector((state: any) => state.characters?.total);
   const allCharacters = useSelector((state: any) => state.characters?.results);
-  console.log(allCharacters);
 
   useEffect(() => {
     dispatch(fetchAllCharacters(currentOffset));
-    // const newData = allCharacters && allCharacters;
-    // newData && setCharacters((prevData: any) => prevData.concat(newData));
   }, [currentOffset]);
 
   return (

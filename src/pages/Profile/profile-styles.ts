@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core';
 
 export const profileStyles = makeStyles({
   root: {
-    marginTop: 100,
     minWidth: 100,
   },
   title: {

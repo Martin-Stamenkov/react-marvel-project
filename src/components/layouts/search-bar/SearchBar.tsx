@@ -2,11 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { TextField, Grid, FormControl } from '@material-ui/core';
 
 import { useDispatch } from 'react-redux';
-import {
-  searchCharactersByName,
-  searchCharacterByNameRequest,
-} from 'store/actions';
-import SearchIcon from '@material-ui/icons/Search';
+import { searchCharactersByName } from 'store/actions';
 
 export default function SearchBar() {
   const [values, setValues] = useState('');
@@ -15,7 +11,7 @@ export default function SearchBar() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (values) {
-      dispatch(searchCharacterByNameRequest());
+      // dispatch(searchCharacterByNameRequest());
       dispatch(searchCharactersByName(values));
       setValues('');
     }

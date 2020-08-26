@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import CharacterCard from '..';
 import SearchBar from 'components/layouts/search-bar/SearchBar';
-import history from 'app/App';
 import NotFoundPage from 'pages/Not-Found/not-found';
 
 export default function SearchedCharacters() {

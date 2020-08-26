@@ -15,6 +15,7 @@ import {
   fetchCharacterById,
   fetchCharacterByIdSuccess,
 } from 'store/actions';
+import { history } from 'app/App';
 
 const useStyles = makeStyles({
   card: {
@@ -34,7 +35,7 @@ function CharacterCard({ data }: Props) {
   const [isFavorite, setIsFavorite] = useState(data.addToFavorites);
   const allCharacters = useSelector((state: any) => state.characters?.results);
   const searchedCharacters = useSelector(
-    (state: any) => state.searchedCharacters?.results
+    (state: any) => state.searchedCharacters?.data.results
   );
   const character = useMemo(
     () =>
@@ -59,17 +60,14 @@ function CharacterCard({ data }: Props) {
         setIsFavorite(false);
       }
     }
-    console.log(
-      JSON.parse(localStorage.getItem('favoriteChars') || '[]').indexOf(data.id)
-    );
     localStorage.setItem('favoriteChars', JSON.stringify(favoritesCharacters));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClick = () => {
-    dispatch(fetchCharacterByIdRequest());
     dispatch(fetchCharacterByIdSuccess(character));
     character && dispatch(fetchCharacterById(character.id));
+    history.push('/details');
   };
   return (
     data && (

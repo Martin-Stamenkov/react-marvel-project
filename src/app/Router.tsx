@@ -32,9 +32,20 @@ function Routes() {
             return <Callback />;
           }}
         />
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/signin" component={SignIn} />
-        <Route exact path="/" component={SignIn} />
+        <Route
+          exact
+          path="/signup"
+          render={() =>
+            !auth.isAuthenticated() ? <SignUp /> : <Redirect to="/items" />
+          }
+        />
+        <Route
+          exact
+          path="/signin"
+          render={() =>
+            !auth.isAuthenticated() ? <SignIn /> : <Redirect to="/items" />
+          }
+        />
         <Route
           exact
           path="/items"

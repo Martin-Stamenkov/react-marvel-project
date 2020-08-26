@@ -67,7 +67,6 @@ export default function NavBar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   // eslint-disable-next-line
-  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openRight = Boolean(anchorEl);
   const userProfile = useSelector((state: any) => state.currentUser);
@@ -116,44 +115,42 @@ export default function NavBar() {
           <Typography variant="h6" className={classes.title}>
             Marvel Universe
           </Typography>
-          {auth && (
-            <div style={{ display: 'flex' }}>
-              <p style={{ fontSize: 'large' }}>
-                {localStorage.getItem('access_token') &&
-                  userProfile &&
-                  `Hello ${userProfile.nickname}!`}
-              </p>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={openRight}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={() => history.push('/profile')}>
-                  Profile
-                </MenuItem>
-                <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
-              </Menu>
-            </div>
-          )}
+          <div style={{ display: 'flex' }}>
+            <p style={{ fontSize: 'large' }}>
+              {localStorage.getItem('access_token') &&
+                userProfile &&
+                `Hello ${userProfile.nickname}!`}
+            </p>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={openRight}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={() => history.push('/profile')}>
+                Profile
+              </MenuItem>
+              <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
     </div>

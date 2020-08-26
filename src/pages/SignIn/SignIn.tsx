@@ -14,9 +14,8 @@ import { history } from 'app/App';
 
 const useStyles = makeStyles({
   root: {
-    marginTop: 100,
+    marginTop: 10,
     minWidth: 200,
-    minHeight: 450,
   },
   title: {
     fontSize: 16,
@@ -104,7 +103,7 @@ function SignIn() {
             <Button
               style={{ background: 'green', color: 'white' }}
               variant="contained"
-              href="/signup"
+              onClick={() => history.push('/signup')}
             >
               Sign Up
             </Button>

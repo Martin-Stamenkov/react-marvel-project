@@ -16,9 +16,8 @@ const auth = new AuthContextProvider();
 
 const useStyles = makeStyles({
   root: {
-    marginTop: 100,
+    marginTop: 10,
     minWidth: 200,
-    minHeight: 450,
   },
   title: {
     fontSize: 16,
@@ -111,25 +110,18 @@ const SignUp = () => {
               />
             </div>
             <Button
-              style={{ margin: '1rem', background: 'red', color: 'white' }}
-              variant="contained"
-              color="primary"
-            >
-              Sign Up
-            </Button>
-            <Button
-              style={{ background: 'green', color: 'white' }}
-              variant="contained"
-              href="/signin"
-            >
-              Sign In
-            </Button>
-            <Button
               style={{ margin: '1rem', background: 'blue', color: 'white' }}
               type="submit"
               variant="contained"
             >
               Submit
+            </Button>
+            <Button
+              style={{ background: 'green', color: 'white' }}
+              variant="contained"
+              onClick={() => history.push('/signin')}
+            >
+              Sign In
             </Button>
           </form>
         </CardContent>

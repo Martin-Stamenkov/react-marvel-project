@@ -40,6 +40,7 @@ export default class AuthContextProvider {
           });
           return;
         }
+        history.push('/items');
       }
     );
   }
@@ -68,7 +69,7 @@ export default class AuthContextProvider {
     this.auth0.parseHash((err: any, authResult: any) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        history.replace('/profile');
+        history.replace('/items');
       } else if (err) {
         history.replace('/signin');
         console.log(err);

@@ -38,7 +38,6 @@ export const fetchAllCharacters = (offset: number) => {
     dispatch(fetchAllCharactersRequest());
     Requests.getAllCharacters(offset, publicKey, ts, hasher)
       .then((response) => {
-        //dispatch(increaseOffsetValue(response.data.data.offset));
         dispatch(fetchAllCharactersSuccess(response.data.data));
       })
       .catch((error) => {
@@ -113,7 +112,7 @@ export const fetchCharacterById = (id: number) => {
     Requests.getCharacterById(id, publicKey, ts, hasher)
       .then((response) => {
         fetchCharacterByIdSuccess(response.data.data.results[0]);
-        history.push('/details');
+        // history.push('/details');
       })
       .catch((error) => {
         if (error.message) {

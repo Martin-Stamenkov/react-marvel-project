@@ -20,11 +20,11 @@ const useStyles = makeStyles({
     maxWidth: 250,
   },
 });
-
 export const CharacterDetails = () => {
   const characterDetails = useSelector((state: any) => state.character);
   const classes = useStyles();
   const [comicsRequests, setComicsRequests] = useState<any>([]);
+  const [isFavorite, setIsFavorite] = useState<any>([]);
 
   useEffect(() => {
     characterDetails &&
@@ -41,13 +41,21 @@ export const CharacterDetails = () => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    characterDetails &&
+    JSON.parse(localStorage.getItem('favoriteChars') || '[]').indexOf(
+      characterDetails.id
+    ) === -1
+      ? setIsFavorite(false)
+      : setIsFavorite(true);
+  }, []);
 
   return (
     <>
       {characterDetails && (
         <>
           <Grid>
-            <Grid style={{ display: 'flex' }} justify="center" item>
+            <Grid style={{ display: 'flex' }} justify="center" container>
               <Card className={classes.card}>
                 <CardActionArea>
                   <CardMedia
@@ -72,7 +80,7 @@ export const CharacterDetails = () => {
                   </CardContent>
                 </CardActionArea>
                 <IconButton aria-label="add to favorites">
-                  <FavoriteIcon />
+                  <FavoriteIcon color={isFavorite ? 'secondary' : 'inherit'} />
                 </IconButton>
               </Card>
             </Grid>
