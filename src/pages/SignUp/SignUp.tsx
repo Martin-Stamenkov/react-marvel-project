@@ -43,9 +43,9 @@ const SignUp = () => {
 
   console.log(account);
 
-  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
     auth.register(account.Email, account.Password, account.Nickname);
     // setLoading(true);
     console.log(account);

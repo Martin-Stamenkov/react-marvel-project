@@ -13,14 +13,11 @@ import {
 function CharactersList() {
   const [currentOffset, setCurrentOffset] = useState(0);
   const dispatch = useDispatch();
-  const total = useSelector((state: any) => state.characters?.data.total);
-  const allCharacters = useSelector(
-    (state: any) => state.characters?.data.results
-  );
+  const total = useSelector((state: any) => state.characters?.total);
+  const allCharacters = useSelector((state: any) => state.characters?.results);
   console.log(allCharacters);
 
   useEffect(() => {
-    dispatch(fetchAllCharactersRequest());
     dispatch(fetchAllCharacters(currentOffset));
     // const newData = allCharacters && allCharacters;
     // newData && setCharacters((prevData: any) => prevData.concat(newData));

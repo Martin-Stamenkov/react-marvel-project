@@ -11,6 +11,7 @@ import { profileStyles } from 'pages/Profile/profile-styles';
 import AuthContextProvider from 'authentication/Auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from 'store/actions';
+import { history } from 'app/App';
 
 const auth = new AuthContextProvider();
 
@@ -34,6 +35,10 @@ export const ProfileViewMode = () => {
       );
     }
   }, []);
+
+  const editMode = () => {
+    history.push('edit-profile');
+  };
 
   return (
     <Container maxWidth="xs">
@@ -67,15 +72,15 @@ export const ProfileViewMode = () => {
               />
             </div>
           </form>
-          {/* <Button
+          <Button
             style={{ margin: '1rem', background: 'blue', color: 'white' }}
             type="submit"
             variant="contained"
             color="primary"
-            href="edit-profile"
+            onClick={editMode}
           >
             Edit
-          </Button> */}
+          </Button>
         </CardContent>
       </Card>
     </Container>

@@ -6,7 +6,7 @@ import { Grid } from '@material-ui/core';
 
 export const FavoritesCharacters = () => {
   const [favoriteCharacters, setFavoriteCharacters] = useState<any>([]);
-  const favorites = JSON.parse(localStorage.getItem('favoriteChars') || '');
+  const favorites = JSON.parse(localStorage.getItem('favoriteChars') || '[]');
 
   useEffect(() => {
     favorites.forEach((favoriteId: number) => {

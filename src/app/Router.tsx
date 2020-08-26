@@ -32,9 +32,9 @@ function Routes() {
             return <Callback />;
           }}
         />
-
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/" component={SignIn} />
         <Route
           exact
           path="/items"

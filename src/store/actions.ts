@@ -39,7 +39,7 @@ export const fetchAllCharacters = (offset: number) => {
     Requests.getAllCharacters(offset, publicKey, ts, hasher)
       .then((response) => {
         //dispatch(increaseOffsetValue(response.data.data.offset));
-        dispatch(fetchAllCharactersSuccess(response.data));
+        dispatch(fetchAllCharactersSuccess(response.data.data));
       })
       .catch((error) => {
         console.log(error);

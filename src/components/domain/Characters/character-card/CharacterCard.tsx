@@ -32,11 +32,9 @@ function CharacterCard({ data }: Props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [isFavorite, setIsFavorite] = useState(data.addToFavorites);
-  const allCharacters = useSelector(
-    (state: any) => state.characters?.data.results
-  );
+  const allCharacters = useSelector((state: any) => state.characters?.results);
   const searchedCharacters = useSelector(
-    (state: any) => state.searchedCharacters?.data.results
+    (state: any) => state.searchedCharacters?.results
   );
   const character = useMemo(
     () =>
@@ -47,7 +45,7 @@ function CharacterCard({ data }: Props) {
   );
   const addToFavorites = useCallback(() => {
     const favoritesCharacters = localStorage.getItem('favoriteChars')
-      ? JSON.parse(localStorage.getItem('favoriteChars') || '')
+      ? JSON.parse(localStorage.getItem('favoriteChars') || '[]')
       : [];
     if (character) {
       if (!favoritesCharacters.find((x: ICard) => x === character.id)) {
@@ -62,7 +60,7 @@ function CharacterCard({ data }: Props) {
       }
     }
     console.log(
-      JSON.parse(localStorage.getItem('favoriteChars') || '').indexOf(data.id)
+      JSON.parse(localStorage.getItem('favoriteChars') || '[]').indexOf(data.id)
     );
     localStorage.setItem('favoriteChars', JSON.stringify(favoritesCharacters));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -107,9 +105,9 @@ function CharacterCard({ data }: Props) {
               color="primary"
               onClick={() => addToFavorites()}
             >
-              {JSON.parse(localStorage.getItem('favoriteChars') || '').indexOf(
-                data.id
-              ) === -1
+              {JSON.parse(
+                localStorage.getItem('favoriteChars') || '[]'
+              ).indexOf(data.id) === -1
                 ? 'Add to favorites'
                 : 'Remove from favorites'}
             </Button>
