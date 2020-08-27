@@ -30,39 +30,40 @@ export const FavoritesCharacters = () => {
       );
     });
   }, []);
-
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
   if (loading) {
     return <Callback />;
-  } else {
-    return (
-      <>
-        {favorites.length > 0 ? (
-          <Grid container spacing={5} justify="center">
-            {favoriteCharacters &&
-              favoriteCharacters.map((character: any) => (
-                <CharacterCard key={character.id} data={character} />
-              ))}
-          </Grid>
-        ) : (
-          <Grid>
-            <Dialog
-              onClose={() => history.push('/items')}
-              aria-labelledby="simple-dialog-title"
-              open={true}
-            >
-              <DialogTitle id="simple-dialog-title">
-                Come on, choose your favorite heroes!
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                  You can choose when you click on 'Add to favorites'. On each
-                  character`s card.
-                </DialogContentText>
-              </DialogContent>
-            </Dialog>{' '}
-          </Grid>
-        )}
-      </>
-    );
   }
+  return (
+    <>
+      {favorites.length > 0 ? (
+        <Grid container spacing={5} justify="center">
+          {favoriteCharacters &&
+            favoriteCharacters.map((character: any) => (
+              <CharacterCard key={character.id} data={character} />
+            ))}
+        </Grid>
+      ) : (
+        <Grid>
+          <Dialog
+            onClose={() => history.push('/items')}
+            aria-labelledby="simple-dialog-title"
+            open={true}
+          >
+            <DialogTitle id="simple-dialog-title">
+              Come on, choose your favorite heroes!
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-slide-description">
+                You can choose when you click on 'Add to favorites'. On each
+                character`s card.
+              </DialogContentText>
+            </DialogContent>
+          </Dialog>{' '}
+        </Grid>
+      )}
+    </>
+  );
 };

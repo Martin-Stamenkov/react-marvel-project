@@ -71,7 +71,7 @@ export const rootReducer = (
       return {
         ...state,
         searchedCharacters: action.payload,
-        loading: true,
+        loading: false,
       };
     case SEARCH_CHARACTER_BY_NAME_FAILURE:
       return {

@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     maxWidth: 300,
   },
   root: {
-    marginTop: 100,
+    marginTop: 50,
   },
 });
 type Props = {

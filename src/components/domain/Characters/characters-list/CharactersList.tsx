@@ -43,9 +43,7 @@ function CharactersList() {
               disabled={currentOffset === 0}
               onClick={() => {
                 return (
-                  setCurrentOffset(currentOffset - 20),
-                  window.scrollTo(0, 0),
-                  console.log(`fetch more! , offset is ${currentOffset}`)
+                  setCurrentOffset(currentOffset - 20), window.scrollTo(0, 0)
                 );
               }}
             >
@@ -57,9 +55,7 @@ function CharactersList() {
               disabled={currentOffset === total}
               onClick={() => {
                 return (
-                  setCurrentOffset(currentOffset + 20),
-                  window.scrollTo(0, 0),
-                  console.log(`fetch more! , offset is ${currentOffset}`)
+                  setCurrentOffset(currentOffset + 20), window.scrollTo(0, 0)
                 );
               }}
             >
