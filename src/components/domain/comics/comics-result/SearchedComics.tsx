@@ -1,14 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Grid } from '@material-ui/core';
-import CharacterCard from '..';
 import SearchBar from 'components/layouts/search-bar/SearchBar';
 import NotFoundPage from 'pages/Not-Found/not-found';
 import { Callback } from 'components/generic/callback/Callback';
-import { useSelector } from 'react-redux';
+import ComicsCard from '../comics-card/ComicsCard';
 
-export default function SearchedCharacters() {
-  const characters = useSelector(
-    (state: any) => state.searchedCharacters?.data.results
+export default function SearchedComics() {
+  const comics = useSelector(
+    (state: any) => state.searchedComics?.data.results
   );
   const loading = useSelector((state: any) => state.loading);
   return (
@@ -17,13 +17,13 @@ export default function SearchedCharacters() {
         <Callback />
       ) : (
         <>
-          {characters && characters.length > 0 ? (
+          {comics && comics.length > 0 ? (
             <Grid container justify="center" spacing={3}>
               <SearchBar />
               <Grid container spacing={5} justify="center">
-                {characters &&
-                  characters.map((character: any) => (
-                    <CharacterCard key={character.id} data={character} />
+                {comics &&
+                  comics.map((comics: any) => (
+                    <ComicsCard key={comics.id} data={comics} />
                   ))}
               </Grid>
             </Grid>

@@ -5,6 +5,7 @@ export interface IAppState {
   character: object | null;
   characters: [] | null;
   searchedCharacters: [] | null;
+  searchedComics: [] | null;
   currentUser: {} | null;
   comics: [] | null;
 }

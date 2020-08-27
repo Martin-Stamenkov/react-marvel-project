@@ -14,6 +14,7 @@ import NotFoundPage from 'pages/Not-Found/not-found';
 import AuthContextProvider from 'authentication/Auth';
 import { Callback } from 'components/generic/callback/Callback';
 import { ComicsSummary } from 'components/domain/comics/comics-summary/ComicsSummary';
+import SearchedComics from 'components/domain/comics/comics-result/SearchedComics';
 
 const auth = new AuthContextProvider();
 const handleAuthentications = ({ location }: any) => {
@@ -111,6 +112,16 @@ function Routes() {
           render={() =>
             auth.isAuthenticated() ? (
               <SearchedCharacters />
+            ) : (
+              <Redirect to="signin"></Redirect>
+            )
+          }
+        />
+        <Route
+          path="/comics-by-title"
+          render={() =>
+            auth.isAuthenticated() ? (
+              <SearchedComics />
             ) : (
               <Redirect to="signin"></Redirect>
             )

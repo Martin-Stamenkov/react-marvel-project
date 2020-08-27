@@ -42,6 +42,15 @@ const searchCharacterByName = (
   axios.get(
     `${baseUrl}characters?nameStartsWith=${searchString}&ts=${ts}&apikey=${publicKey}&hash=${hasher}`
   );
+const searchComicsByTitle = (
+  searchTitle: string,
+  publicKey: string,
+  ts: number,
+  hasher: string | Int32Array
+) =>
+  axios.get(
+    `${baseUrl}comics?title=${searchTitle}&orderBy=title&ts=${ts}&apikey=${publicKey}&hash=${hasher}`
+  );
 
 const getAllComics = (
   offset: number,
@@ -59,4 +68,5 @@ export const Requests = {
   getComicsById,
   searchCharacterByName,
   getAllComics,
+  searchComicsByTitle,
 };

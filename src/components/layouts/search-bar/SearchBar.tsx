@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { TextField, Grid, FormControl } from '@material-ui/core';
 
 import { useDispatch } from 'react-redux';
-import { searchCharactersByName } from 'store/actions';
+import { searchCharactersByName, searchComicsByTitle } from 'store/actions';
 
 export default function SearchBar() {
   const [values, setValues] = useState('');
@@ -13,6 +13,7 @@ export default function SearchBar() {
     if (values) {
       // dispatch(searchCharacterByNameRequest());
       dispatch(searchCharactersByName(values));
+      dispatch(searchComicsByTitle(values));
       setValues('');
     }
   };
