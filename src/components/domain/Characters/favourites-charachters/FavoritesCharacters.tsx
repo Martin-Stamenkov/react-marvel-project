@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Requests } from 'api/requests';
 import { publicKey, ts, hasher } from 'api/constants';
 import CharacterCard from '../character-card/CharacterCard';
+import { history } from 'app/App';
+import { Callback } from 'components/generic/callback/Callback';
 import {
   Grid,
   Dialog,
@@ -9,8 +11,6 @@ import {
   DialogContent,
   DialogContentText,
 } from '@material-ui/core';
-import { history } from 'app/App';
-import { Callback } from 'components/generic/callback/Callback';
 
 export const FavoritesCharacters = () => {
   const [favoriteCharacters, setFavoriteCharacters] = useState<any>([]);

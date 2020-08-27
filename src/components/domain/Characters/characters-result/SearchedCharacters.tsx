@@ -1,10 +1,10 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Grid } from '@material-ui/core';
 import CharacterCard from '..';
 import SearchBar from 'components/layouts/search-bar/SearchBar';
 import NotFoundPage from 'pages/Not-Found/not-found';
 import { Callback } from 'components/generic/callback/Callback';
+import { useSelector } from 'react-redux';
+import React from 'react';
+import { Grid } from '@material-ui/core';
 
 export default function SearchedCharacters() {
   const characters = useSelector(

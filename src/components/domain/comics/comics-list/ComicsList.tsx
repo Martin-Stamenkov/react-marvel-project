@@ -1,31 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Button } from '@material-ui/core';
-import CharacterCard from '..';
-import { ItemModel } from 'types/types';
-import { fetchAllCharacters } from 'store/actions';
+import { fetchAllComics } from 'store/actions';
 import { Callback } from 'components/generic/callback/Callback';
+import { Grid, Button } from '@material-ui/core';
+import ComicsCard from '../comics-card/ComicsCard';
 
-function CharactersList() {
+export default function ComicsList() {
   const [currentOffset, setCurrentOffset] = useState(0);
   const dispatch = useDispatch();
-  const total = useSelector((state: any) => state.characters?.total);
-  const allCharacters = useSelector((state: any) => state.characters?.results);
+  const comics = useSelector((state: any) => state.comics?.results);
+  const total = useSelector((state: any) => state.comics?.total);
   const loading = useSelector((state: any) => state.loading);
-  useEffect(() => {
-    dispatch(fetchAllCharacters(currentOffset));
-  }, [currentOffset]);
+  console.log(comics);
 
+  useEffect(() => {
+    dispatch(fetchAllComics(currentOffset));
+  }, [currentOffset]);
   return (
     <>
       {loading ? (
         <Callback />
       ) : (
         <>
-          <Grid container spacing={3} justify="center">
-            {allCharacters &&
-              allCharacters.map((card: ItemModel, index: number) => (
-                <CharacterCard key={index} data={card} />
+          <Grid
+            container
+            spacing={4}
+            style={{ display: 'flex', justifyContent: 'center' }}
+          >
+            {comics &&
+              comics.map((currentComics: any, index: number) => (
+                <ComicsCard key={index} data={currentComics} />
               ))}
           </Grid>
           <Grid
@@ -46,7 +50,7 @@ function CharactersList() {
                 );
               }}
             >
-              Previous Heroes
+              Previous Comics
             </Button>
             <Button
               color="primary"
@@ -58,7 +62,7 @@ function CharactersList() {
                 );
               }}
             >
-              More Heroes
+              More Comics
             </Button>
           </Grid>
         </>
@@ -66,5 +70,3 @@ function CharactersList() {
     </>
   );
 }
-
-export default CharactersList;

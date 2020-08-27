@@ -57,7 +57,7 @@ export default class AuthContextProvider {
         console.log(err);
         swal({
           title: 'Oops!',
-          text: `Error: ${err.description!!}`,
+          text: `Error: ${err.original.response.body.description?.rules[0].message}`,
           icon: 'error',
         });
         return;
@@ -65,6 +65,7 @@ export default class AuthContextProvider {
       history.push('/signin');
     });
   }
+
   handleAuthentication() {
     this.auth0.parseHash((err: any, authResult: any) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
