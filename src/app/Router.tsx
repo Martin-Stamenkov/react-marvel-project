@@ -105,7 +105,16 @@ function Routes() {
             )
           }
         />
-        <Route path="*" component={NotFoundPage} />
+        <Route
+          path="*"
+          render={() =>
+            auth.isAuthenticated() ? (
+              <NotFoundPage />
+            ) : (
+              <Redirect to="signin"></Redirect>
+            )
+          }
+        />
       </Switch>
     </>
   );

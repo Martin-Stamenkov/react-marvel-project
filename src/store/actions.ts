@@ -112,7 +112,6 @@ export const fetchCharacterById = (id: number) => {
     Requests.getCharacterById(id, publicKey, ts, hasher)
       .then((response) => {
         fetchCharacterByIdSuccess(response.data.data.results[0]);
-        // history.push('/details');
       })
       .catch((error) => {
         if (error.message) {
@@ -123,6 +122,7 @@ export const fetchCharacterById = (id: number) => {
       });
   };
 };
+
 const getCurrentUser = (user: any) => {
   return {
     type: GET_CURRENT_USER,

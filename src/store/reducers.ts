@@ -25,7 +25,6 @@ const initialState: IAppState = {
 
 export const rootReducer = (
   state = initialState,
-  // eslint-disable-next-line
   action: { type: string; payload?: any }
 ): IAppState => {
   switch (action.type) {
