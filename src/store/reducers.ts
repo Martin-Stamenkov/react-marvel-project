@@ -10,6 +10,9 @@ import {
   SEARCH_CHARACTER_BY_NAME_SUCCESS,
   SEARCH_CHARACTER_BY_NAME_FAILURE,
   GET_CURRENT_USER,
+  FETCH_ALL_COMICS_REQUEST,
+  FETCH_ALL_COMICS_SUCCESS,
+  FETCH_ALL_COMICS_FAILURE,
 } from './types';
 import { IAppState } from './store-interfaces';
 
@@ -21,6 +24,7 @@ const initialState: IAppState = {
   offset: 0,
   searchedCharacters: null,
   currentUser: null,
+  comics: null,
 };
 
 export const rootReducer = (
@@ -28,6 +32,11 @@ export const rootReducer = (
   action: { type: string; payload?: any }
 ): IAppState => {
   switch (action.type) {
+    case FETCH_ALL_CHARACTERS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
     case FETCH_ALL_CHARACTERS_SUCCESS:
       return {
         ...state,
@@ -40,10 +49,22 @@ export const rootReducer = (
         loading: false,
         error: action.payload,
       };
-    case FETCH_ALL_CHARACTERS_REQUEST:
+    case FETCH_ALL_COMICS_REQUEST:
       return {
         ...state,
         loading: true,
+      };
+    case FETCH_ALL_COMICS_SUCCESS:
+      return {
+        ...state,
+        comics: action.payload,
+        loading: false,
+      };
+    case FETCH_ALL_COMICS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       };
     case FETCH_CHARACTER_BY_ID_REQUEST:
       return {

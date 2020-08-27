@@ -11,6 +11,9 @@ import {
   SEARCH_CHARACTER_BY_NAME_SUCCESS,
   SEARCH_CHARACTER_BY_NAME_FAILURE,
   GET_CURRENT_USER,
+  FETCH_ALL_COMICS_REQUEST,
+  FETCH_ALL_COMICS_SUCCESS,
+  FETCH_ALL_COMICS_FAILURE,
 } from './types';
 import { Requests } from '../api/requests';
 import { publicKey, ts, hasher } from '../api/constants';
@@ -44,6 +47,40 @@ export const fetchAllCharacters = (offset: number) => {
         console.log(error);
         if (error.message) {
           dispatch(fetchAllCharactersFailure(error));
+        } else {
+          console.log(error);
+        }
+      });
+  };
+};
+export const fetchAllComicsRequest = () => {
+  return {
+    type: FETCH_ALL_COMICS_REQUEST,
+  };
+};
+export const fetchAllComicsSuccess = (characters: any) => {
+  return {
+    type: FETCH_ALL_COMICS_SUCCESS,
+    payload: characters,
+  };
+};
+export const fetchAllComicsFailure = (error: string) => {
+  return {
+    type: FETCH_ALL_COMICS_FAILURE,
+    payload: error,
+  };
+};
+export const fetchAllComics = (offset: number) => {
+  return (dispatch: any) => {
+    dispatch(fetchAllComicsRequest());
+    Requests.getAllComics(offset, publicKey, ts, hasher)
+      .then((response) => {
+        dispatch(fetchAllComicsSuccess(response.data.data));
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.message) {
+          dispatch(fetchAllComicsFailure(error));
         } else {
           console.log(error);
         }

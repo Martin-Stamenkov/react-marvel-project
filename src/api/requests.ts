@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { baseUrl } from './constants';
+import { baseUrl, publicKey } from './constants';
 
 // GET
 
@@ -43,9 +43,20 @@ const searchCharacterByName = (
     `${baseUrl}characters?nameStartsWith=${searchString}&ts=${ts}&apikey=${publicKey}&hash=${hasher}`
   );
 
+const getAllComics = (
+  offset: number,
+  publicKey: string,
+  ts: number,
+  hasher: string | Int32Array
+) =>
+  axios.get(
+    `${baseUrl}comics?orderBy=title&offset=${offset}&ts=${ts}&apikey=${publicKey}&hash=${hasher}`
+  );
+
 export const Requests = {
   getAllCharacters,
   getCharacterById,
   getComicsById,
   searchCharacterByName,
+  getAllComics,
 };

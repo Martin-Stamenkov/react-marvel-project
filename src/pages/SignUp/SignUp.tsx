@@ -40,8 +40,6 @@ const SignUp = () => {
     setAccount({ ...account, [event.target.name]: value });
   };
 
-  console.log(account);
-
   const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     event.stopPropagation();
@@ -50,7 +48,6 @@ const SignUp = () => {
     console.log(account);
     // setLoading(false);
   };
-  console.log(account);
 
   return (
     <Container maxWidth="sm">

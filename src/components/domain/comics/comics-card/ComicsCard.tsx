@@ -45,44 +45,37 @@ export default function ComicsCard({ data }: any) {
   };
   return (
     <>
-      <Grid className={classes.root} item justify="center">
+      <Grid className={classes.root} item>
         <Card className={classes.card}>
-          <CardActionArea>
-            <CardContent>
-              <Typography
-                align="center"
-                gutterBottom
-                variant="h5"
-                component="h2"
-              >
-                {data.title}
-              </Typography>
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-                align="center"
-              >
-                comics
-              </Typography>
-            </CardContent>
-            <CardMedia
-              component="img"
-              alt="avatar"
-              image={`${data.thumbnail!.path}.${data.thumbnail!.extension}`}
-              title="avatar"
-            />
-            <IconButton
-              className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded,
-              })}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
+          <CardContent>
+            <Typography align="center" gutterBottom variant="h5" component="h2">
+              {data.title}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              align="center"
             >
-              <ExpandMoreIcon />
-            </IconButton>
-          </CardActionArea>
+              comics
+            </Typography>
+          </CardContent>
+          <CardMedia
+            component="img"
+            alt="avatar"
+            image={`${data.thumbnail!.path}.${data.thumbnail!.extension}`}
+            title="avatar"
+          />
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
               <Typography paragraph color="primary">

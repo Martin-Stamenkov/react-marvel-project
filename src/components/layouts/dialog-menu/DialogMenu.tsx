@@ -25,11 +25,15 @@ export function MenuDialog(props: SimpleDialogProps) {
   const handleListItemClick = (value: string) => {
     onClose(value);
     switch (value) {
-      case 'Dashboard':
+      case 'Characters':
         history.push('/items');
         break;
       case 'Favorites':
         history.push('/favorites');
+        break;
+      case 'Comics':
+        history.push('/comics');
+        break;
       default:
         break;
     }
@@ -50,14 +54,20 @@ export function MenuDialog(props: SimpleDialogProps) {
           <List component="nav" aria-label="secondary mailbox folders">
             <ListItem button>
               <ListItemText
-                onClick={() => handleListItemClick('Dashboard')}
-                primary="Dashboard"
+                onClick={() => handleListItemClick('Characters')}
+                primary="Characters"
               />
             </ListItem>
             <ListItem button>
               <ListItemText
                 onClick={() => handleListItemClick('Favorites')}
                 primary="Favorites"
+              />
+            </ListItem>
+            <ListItem button>
+              <ListItemText
+                onClick={() => handleListItemClick('Comics')}
+                primary="Comics"
               />
             </ListItem>
           </List>

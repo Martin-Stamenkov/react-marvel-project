@@ -2,18 +2,18 @@ import React from 'react';
 import { Route, Redirect, Switch } from 'react-router';
 import SignUp from 'pages/SignUp';
 import SignIn from 'pages/SignIn';
-import MainContent from 'components/layouts/MainContent';
 import {
   FavoritesCharacters,
   CharacterCardSummary,
-} from 'components/domain/Characters';
+} from 'components/domain/characters';
 import { ProfilePage } from 'pages/Profile/profile-edit-mode/profile-edit-mode';
 import { ProfileViewMode } from 'pages/Profile/profile-view-mode/profile-view-mode';
-import { CharacterDetails } from 'components/domain/Characters/details/CharacterDetails';
-import SearchedCharacters from 'components/domain/Characters/characters-result/SearchedCharacters';
+import { CharacterDetails } from 'components/domain/characters/details/CharacterDetails';
+import SearchedCharacters from 'components/domain/characters/characters-result/SearchedCharacters';
 import NotFoundPage from 'pages/Not-Found/not-found';
 import AuthContextProvider from 'authentication/Auth';
 import { Callback } from 'components/generic/callback/Callback';
+import { ComicsSummary } from 'components/domain/comics/comics-summary/ComicsSummary';
 
 const auth = new AuthContextProvider();
 const handleAuthentications = ({ location }: any) => {
@@ -44,6 +44,17 @@ function Routes() {
           path="/signin"
           render={() =>
             !auth.isAuthenticated() ? <SignIn /> : <Redirect to="/items" />
+          }
+        />
+        <Route
+          exact
+          path="/comics"
+          render={() =>
+            auth.isAuthenticated() ? (
+              <ComicsSummary />
+            ) : (
+              <Redirect to="/signin" />
+            )
           }
         />
         <Route

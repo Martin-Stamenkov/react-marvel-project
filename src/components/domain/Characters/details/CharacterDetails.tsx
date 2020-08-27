@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { Requests } from 'api/requests';
+import { publicKey, ts, hasher } from 'api/constants';
+import ComicsCard from 'components/domain/comics/comics-card/ComicsCard';
 import {
+  makeStyles,
   Grid,
   Card,
   CardActionArea,
   CardMedia,
   CardContent,
   Typography,
-  makeStyles,
   IconButton,
 } from '@material-ui/core';
-import { Requests } from 'api/requests';
-import { publicKey, ts, hasher } from 'api/constants';
-import ComicsCard from 'components/domain/Characters/comics-card/ComicsCard';
+import { useSelector } from 'react-redux';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const useStyles = makeStyles({
