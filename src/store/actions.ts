@@ -14,6 +14,9 @@ import {
   FETCH_ALL_COMICS_REQUEST,
   FETCH_ALL_COMICS_SUCCESS,
   FETCH_ALL_COMICS_FAILURE,
+  SEARCH_COMICS_BY_TITLE_REQUEST,
+  SEARCH_COMICS_BY_TITLE_SUCCESS,
+  SEARCH_COMICS_BY_TITLE_FAILURE,
 } from './types';
 import { Requests } from '../api/requests';
 import { publicKey, ts, hasher } from '../api/constants';
@@ -116,6 +119,40 @@ export const searchCharactersByName = (name: string) => {
       .catch((error) => {
         if (error.message) {
           dispatch(searchCharacterByNameFailure(error));
+        } else {
+          console.log(error);
+        }
+      });
+  };
+};
+export const searchComicsByTitleRequest = () => {
+  return {
+    type: SEARCH_COMICS_BY_TITLE_REQUEST,
+  };
+};
+export const searchComicsByTitleSuccess = (comics: any) => {
+  return {
+    type: SEARCH_COMICS_BY_TITLE_SUCCESS,
+    payload: comics,
+  };
+};
+export const searchComicsByTitleFailure = (error: string) => {
+  return {
+    type: SEARCH_COMICS_BY_TITLE_FAILURE,
+    payload: error,
+  };
+};
+export const searchComicsByTitle = (title: string) => {
+  return (dispatch: any) => {
+    dispatch(searchComicsByTitleRequest());
+    Requests.searchComicsByTitle(title, publicKey, ts, hasher)
+      .then((response) => {
+        dispatch(searchComicsByTitleSuccess(response.data));
+        history.push('/comics-by-title');
+      })
+      .catch((error) => {
+        if (error.message) {
+          dispatch(searchComicsByTitleFailure(error));
         } else {
           console.log(error);
         }
