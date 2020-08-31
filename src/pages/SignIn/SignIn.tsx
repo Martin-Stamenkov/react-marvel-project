@@ -8,7 +8,7 @@ import {
   Button,
   TextField,
 } from '@material-ui/core';
-import marvel from '../marvel.png';
+import marvel from 'assets/marvel.png';
 import AuthContextProvider from 'authentication/Auth';
 import { history } from 'app/App';
 

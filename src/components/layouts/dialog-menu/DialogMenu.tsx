@@ -6,8 +6,12 @@ import {
   ListItem,
   ListItemText,
   Divider,
+  Icon,
 } from '@material-ui/core';
 import { history } from 'app/App';
+import ironMan from 'assets/iron-man.png';
+import Comics from 'assets/comic.png';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 export interface SimpleDialogProps {
   open: boolean;
@@ -57,18 +61,21 @@ export function MenuDialog(props: SimpleDialogProps) {
                 onClick={() => handleListItemClick('Characters')}
                 primary="Characters"
               />
-            </ListItem>
-            <ListItem button>
-              <ListItemText
-                onClick={() => handleListItemClick('Favorites')}
-                primary="Favorites"
-              />
+              <img style={{ height: 32 }} src={ironMan} />
             </ListItem>
             <ListItem button>
               <ListItemText
                 onClick={() => handleListItemClick('Comics')}
                 primary="Comics"
               />
+              <img style={{ height: 32 }} src={Comics} />
+            </ListItem>
+            <ListItem button>
+              <ListItemText
+                onClick={() => handleListItemClick('Favorites')}
+                primary="Favorites"
+              />
+              <FavoriteBorderIcon style={{ marginRight: 5 }} />
             </ListItem>
           </List>
           <Divider />
