@@ -11,9 +11,6 @@ export const CharactersComics = () => {
   const [loading, setLoading] = useState(true);
   const characterDetails = useSelector((state: any) => state.character);
 
-  console.log(comicsRequests);
-  console.log(characterDetails);
-
   useEffect(() => {
     characterDetails &&
       characterDetails.comics.items.forEach((currentComics: any) => {

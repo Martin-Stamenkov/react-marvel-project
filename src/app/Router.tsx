@@ -8,8 +8,8 @@ import {
 } from 'components/domain/characters';
 import { ProfilePage } from 'pages/Profile/profile-edit-mode/profile-edit-mode';
 import { ProfileViewMode } from 'pages/Profile/profile-view-mode/profile-view-mode';
-import { CharacterDetails } from 'components/domain/characters/details/CharacterDetails';
-import DetailsSummary from 'components/domain/characters/details/details-summary/DetailsSummary';
+import { CharacterDetails } from 'components/domain/details/CharacterDetails';
+import DetailsSummary from 'components/domain/details/details-summary/DetailsSummary';
 import SearchedCharacters from 'components/domain/characters/characters-result/SearchedCharacters';
 import NotFoundPage from 'pages/Not-Found/not-found';
 import AuthContextProvider from 'authentication/Auth';

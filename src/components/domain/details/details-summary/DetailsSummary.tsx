@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { Paper } from '@material-ui/core';
-import { Link, Route, BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { CharacterDetails } from '../CharacterDetails';
 import { history } from 'app/App';
 import { CharactersComics } from '../character-details-comics/CharactersComics';
+import { CharacterEvents } from '../character-details-events/CharacterEvents';
 
 const DetailsSummary = () => {
   const [state, setState] = useState(0);
@@ -27,10 +27,12 @@ const DetailsSummary = () => {
         >
           <Tab label="About" />
           <Tab label="Comics" />
+          <Tab label="Events" />
           <Tab label="Go Home" onClick={() => history.push('/items')} />
         </Tabs>
         {state === 0 ? <CharacterDetails /> : null}
         {state === 1 ? <CharactersComics /> : null}
+        {state === 2 ? <CharacterEvents /> : null}
       </AppBar>
     </BrowserRouter>
   );
