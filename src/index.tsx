@@ -7,13 +7,16 @@ import App from './app';
 import * as serviceWorker from './serviceWorker';
 import 'typeface-roboto';
 import configureStore from './store/store';
+import { SnackbarProvider } from 'notistack';
 
 const store = configureStore();
 
 ReactDOM.render(
   <React.Fragment>
     <Provider store={store}>
-      <App />
+      <SnackbarProvider maxSnack={5}>
+        <App />
+      </SnackbarProvider>
     </Provider>
   </React.Fragment>,
   document.getElementById('root')
