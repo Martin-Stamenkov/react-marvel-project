@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Requests } from '../../../../api/requests';
 import { publicKey, ts, hasher } from '../../../../api/constants';
 import { Callback } from 'components/generic/callback/Callback';
-import { EventsCard } from 'components/domain/events/events-info/EventsInfo';
+import { DetailsInfo } from '../../details/details-info/DetailsInfo';
 
 export const CharacterEvents = () => {
   const [eventsRequests, setEventsRequests] = useState([]);
@@ -33,7 +33,7 @@ export const CharacterEvents = () => {
       ) : (
         eventsRequests &&
         eventsRequests.map((event: any) => (
-          <EventsCard key={event.id} data={event} />
+          <DetailsInfo key={event.id} data={event} />
         ))
       )}
     </>

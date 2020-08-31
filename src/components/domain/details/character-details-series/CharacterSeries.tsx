@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Requests } from '../../../../api/requests';
 import { publicKey, ts, hasher } from '../../../../api/constants';
-import { SeriesInfo } from '../../series/series-info/SeriesInfo';
+import { DetailsInfo } from '../../details/details-info/DetailsInfo';
 import { Callback } from 'components/generic/callback/Callback';
 
 export const CharacterSeries = () => {
@@ -34,7 +34,7 @@ export const CharacterSeries = () => {
       ) : (
         seriesRequests &&
         seriesRequests.map((serie: any) => (
-          <SeriesInfo key={serie.id} data={serie} />
+          <DetailsInfo key={serie.id} data={serie} />
         ))
       )}
     </>
