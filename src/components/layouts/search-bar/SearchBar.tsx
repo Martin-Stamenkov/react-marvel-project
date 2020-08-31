@@ -13,7 +13,7 @@ export default function SearchBar() {
     if (values) {
       // dispatch(searchCharacterByNameRequest());
       dispatch(searchCharactersByName(values));
-      dispatch(searchComicsByTitle(values));
+      // dispatch(searchComicsByTitle(values));
       setValues('');
     }
   };

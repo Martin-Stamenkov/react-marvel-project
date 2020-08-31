@@ -79,8 +79,28 @@ const getComicsByCharacterId = (
   axios.get(
     `${baseUrl}characters/${id}/comics?ts=${ts}&apikey=${publicKey}&hash=${hasher}`
   );
+const getSeriesByCharacterId = (
+  id: number,
+  publicKey: string,
+  ts: number,
+  hasher: string | Int32Array
+) =>
+  axios.get(
+    `${baseUrl}characters/${id}/series?ts=${ts}&apikey=${publicKey}&hash=${hasher}`
+  );
+const getStoriesByCharacterId = (
+  id: number,
+  publicKey: string,
+  ts: number,
+  hasher: string | Int32Array
+) =>
+  axios.get(
+    `${baseUrl}characters/${id}/stories?ts=${ts}&apikey=${publicKey}&hash=${hasher}`
+  );
 
 export const Requests = {
+  getStoriesByCharacterId,
+  getSeriesByCharacterId,
   getComicsByCharacterId,
   getAllCharacters,
   getCharacterById,

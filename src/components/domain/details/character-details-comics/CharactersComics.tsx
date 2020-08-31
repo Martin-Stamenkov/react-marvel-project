@@ -13,8 +13,6 @@ export const CharactersComics = () => {
 
   useEffect(() => {
     characterDetails &&
-      // characterDetails.comics.items.forEach((currentComics: any) => {
-      //   const comicsId = currentComics.resourceURI.slice(-5);
       Requests.getComicsByCharacterId(
         characterDetails.id,
         publicKey,
@@ -25,7 +23,6 @@ export const CharactersComics = () => {
           setComicsRequests(response.data.data.results);
         })
         .then(() => setLoading(false));
-    // });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

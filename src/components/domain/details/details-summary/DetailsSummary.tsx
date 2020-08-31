@@ -3,10 +3,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { BrowserRouter } from 'react-router-dom';
-import { CharacterDetails } from '../CharacterDetails';
+import { CharacterDetails } from '../character-details/CharacterDetails';
 import { history } from 'app/App';
 import { CharactersComics } from '../character-details-comics/CharactersComics';
 import { CharacterEvents } from '../character-details-events/CharacterEvents';
+import { CharacterSeries } from '../character-details-series/CharacterSeries';
+import CloseIcon from '@material-ui/icons/Close';
 
 const DetailsSummary = () => {
   const [state, setState] = useState(0);
@@ -28,11 +30,13 @@ const DetailsSummary = () => {
           <Tab label="About" />
           <Tab label="Comics" />
           <Tab label="Events" />
-          <Tab label="Go Home" onClick={() => history.push('/items')} />
+          <Tab label="Series" />
+          <Tab icon={<CloseIcon />} onClick={() => history.push('/items')} />
         </Tabs>
         {state === 0 ? <CharacterDetails /> : null}
         {state === 1 ? <CharactersComics /> : null}
         {state === 2 ? <CharacterEvents /> : null}
+        {state === 3 ? <CharacterSeries /> : null}
       </AppBar>
     </BrowserRouter>
   );
