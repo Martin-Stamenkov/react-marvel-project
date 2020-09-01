@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) => {
     card: {
       maxWidth: 250,
       marginLeft: 15,
+      marginBottom: 15,
     },
     root: {
       marginTop: 50,
@@ -33,7 +34,7 @@ export const ComicsCharacters = ({ data }: any) => {
     <>
       <Card className={classes.card}>
         <CardContent>
-          <Typography align="center" gutterBottom variant="h5" component="h2">
+          <Typography align="center" gutterBottom>
             {data.name}
           </Typography>
         </CardContent>

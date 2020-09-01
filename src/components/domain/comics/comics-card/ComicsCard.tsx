@@ -1,30 +1,20 @@
 import React, { useState, useMemo } from 'react';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import {
   Grid,
   makeStyles,
-  IconButton,
   createStyles,
   Theme,
-  Collapse,
   Button,
   CardActions,
 } from '@material-ui/core';
-import clsx from 'clsx';
 import { history } from 'app/App';
-import {
-  fetchCharacterByIdSuccess,
-  fetchCharacterById,
-  fetchComicsById,
-  fetchComicsByIdSuccess,
-} from 'store/actions';
+import { fetchComicsById, fetchComicsByIdSuccess } from 'store/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { ICard } from 'types/types';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -42,8 +32,6 @@ export default function ComicsCard({ data }: any) {
   const dispatch = useDispatch();
   const comics = useSelector((state: any) => state.comics?.results);
 
-  const [expanded, setExpanded] = useState(false);
-
   const currentComics = useMemo(
     () => comics && comics.find((x: any) => x.id === data.id),
     []
@@ -54,9 +42,7 @@ export default function ComicsCard({ data }: any) {
     currentComics && dispatch(fetchComicsById(currentComics.id));
     history.push('/my-comics');
   };
-  // const handleExpandClick = () => {
-  //   setExpanded(!expanded);
-  // };
+
   return (
     <>
       <Grid className={classes.root} item>

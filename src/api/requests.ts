@@ -77,7 +77,7 @@ const getAllComics = (
   hasher: string | Int32Array
 ) =>
   axios.get(
-    `${baseUrl}comics?orderBy=title&offset=${offset}&ts=${ts}&apikey=${publicKey}&hash=${hasher}`
+    `${baseUrl}comics?orderBy=focDate&offset=${offset}&ts=${ts}&apikey=${publicKey}&hash=${hasher}`
   );
 const getEventsByCharacterId = (
   id: number,
