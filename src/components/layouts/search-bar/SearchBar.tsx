@@ -1,8 +1,8 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { TextField, Grid, FormControl } from '@material-ui/core';
+import React, { useCallback, useState } from 'react';
+import { TextField } from '@material-ui/core';
 
 import { useDispatch } from 'react-redux';
-import { searchCharactersByName, searchComicsByTitle } from 'store/actions';
+import { searchCharactersByName } from 'store/actions';
 
 export default function SearchBar() {
   const [values, setValues] = useState('');

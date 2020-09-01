@@ -7,6 +7,7 @@ import {
   CharacterCardSummary,
 } from 'components/domain/characters';
 import { ProfilePage } from 'pages/Profile/profile-edit-mode/profile-edit-mode';
+import { Home } from 'pages/home/Home';
 import { ProfileViewMode } from 'pages/Profile/profile-view-mode/profile-view-mode';
 import { CharacterDetails } from 'components/domain/details/character-details/CharacterDetails';
 import DetailsSummary from 'components/domain/details/details-summary/DetailsSummary';
@@ -129,7 +130,16 @@ function Routes() {
           }
         />
         <Route
-          path="*"
+          path="/home"
+          render={() =>
+            auth.isAuthenticated() ? (
+              <Home />
+            ) : (
+              <Redirect to="signin"></Redirect>
+            )
+          }
+        />
+        <Route
           render={() =>
             auth.isAuthenticated() ? (
               <NotFoundPage />

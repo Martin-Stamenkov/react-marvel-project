@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Grid } from '@material-ui/core';
 import notFound from 'assets/not-found.jpg';
 import { useStyles } from './not-found.styles';
+import { history } from 'app/App';
 
 export default function NotFoundPage() {
   const classes = useStyles();
@@ -16,7 +17,10 @@ export default function NotFoundPage() {
         <Grid item>
           <img className={classes.logo} src={notFound} alt="not-found" />
         </Grid>
-        <Button href="/items" className={classes.button}>
+        <Button
+          onClick={() => history.push('/items')}
+          className={classes.button}
+        >
           back to home
         </Button>
       </Grid>
