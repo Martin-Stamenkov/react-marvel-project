@@ -32,6 +32,24 @@ const getComicsById = (
   axios.get(
     `${baseUrl}comics/${comicsId}?ts=${ts}&apikey=${publicKey}&hash=${hasher}`
   );
+const getCreatorsByComicsId = (
+  comicsId: number,
+  publicKey: string,
+  ts: number,
+  hasher: string | Int32Array
+) =>
+  axios.get(
+    `${baseUrl}comics/${comicsId}/creators?ts=${ts}&apikey=${publicKey}&hash=${hasher}`
+  );
+const getCharactersByComicsId = (
+  comicsId: number,
+  publicKey: string,
+  ts: number,
+  hasher: string | Int32Array
+) =>
+  axios.get(
+    `${baseUrl}comics/${comicsId}/characters?ts=${ts}&apikey=${publicKey}&hash=${hasher}`
+  );
 
 const searchCharacterByName = (
   searchString: string,
@@ -99,6 +117,8 @@ const getStoriesByCharacterId = (
   );
 
 export const Requests = {
+  getCharactersByComicsId,
+  getCreatorsByComicsId,
   getStoriesByCharacterId,
   getSeriesByCharacterId,
   getComicsByCharacterId,

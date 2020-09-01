@@ -66,7 +66,6 @@ export default function NavBar() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  // eslint-disable-next-line
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openRight = Boolean(anchorEl);
   const userProfile = useSelector((state: any) => state.currentUser);
