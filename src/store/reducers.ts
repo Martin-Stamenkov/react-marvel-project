@@ -16,6 +16,9 @@ import {
   SEARCH_COMICS_BY_TITLE_FAILURE,
   SEARCH_COMICS_BY_TITLE_REQUEST,
   SEARCH_COMICS_BY_TITLE_SUCCESS,
+  FETCH_COMICS_BY_ID_REQUEST,
+  FETCH_COMICS_BY_ID_SUCCESS,
+  FETCH_COMICS_BY_ID_FAILURE,
 } from './types';
 import { IAppState } from './store-interfaces';
 
@@ -29,6 +32,7 @@ const initialState: IAppState = {
   currentUser: null,
   comics: null,
   searchedComics: null,
+  currentComics: null,
 };
 
 export const rootReducer = (
@@ -82,6 +86,23 @@ export const rootReducer = (
         loading: false,
       };
     case FETCH_CHARACTER_BY_ID_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case FETCH_COMICS_BY_ID_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case FETCH_COMICS_BY_ID_SUCCESS:
+      return {
+        ...state,
+        currentComics: action.payload,
+        loading: false,
+      };
+    case FETCH_COMICS_BY_ID_FAILURE:
       return {
         ...state,
         loading: false,

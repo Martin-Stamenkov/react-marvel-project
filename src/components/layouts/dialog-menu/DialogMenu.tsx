@@ -6,11 +6,13 @@ import {
   ListItem,
   ListItemText,
   Divider,
-  Icon,
+  makeStyles,
+  createStyles,
 } from '@material-ui/core';
 import { history } from 'app/App';
 import ironMan from 'assets/iron-man.png';
 import Comics from 'assets/comic.png';
+import TvSeries from 'assets/television.png';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 export interface SimpleDialogProps {
@@ -18,9 +20,21 @@ export interface SimpleDialogProps {
   selectedValue?: any;
   onClose: (value: string) => void;
 }
+const useStyles = makeStyles(() =>
+  createStyles({
+    container: {
+      width: '60%',
+    },
+    title: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  })
+);
 
 export function MenuDialog(props: SimpleDialogProps) {
   const { onClose, selectedValue, open } = props;
+  const classes = useStyles();
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -50,7 +64,7 @@ export function MenuDialog(props: SimpleDialogProps) {
         aria-labelledby="simple-dialog-title"
         open={open}
       >
-        <DialogTitle id="simple-dialog-title">
+        <DialogTitle className={classes.title} id="simple-dialog-title">
           Let`s adventure begin
         </DialogTitle>
         <List>
@@ -72,13 +86,20 @@ export function MenuDialog(props: SimpleDialogProps) {
             </ListItem>
             <ListItem button>
               <ListItemText
+                onClick={() => handleListItemClick('Tv')}
+                primary="Tv Series"
+              />
+              <img style={{ height: 32 }} src={TvSeries} />
+            </ListItem>
+            <ListItem button>
+              <ListItemText
                 onClick={() => handleListItemClick('Favorites')}
                 primary="Favorites"
               />
               <FavoriteBorderIcon style={{ marginRight: 5 }} />
             </ListItem>
           </List>
-          <Divider />
+          {/* <Divider /> */}
         </List>
       </Dialog>
     </>

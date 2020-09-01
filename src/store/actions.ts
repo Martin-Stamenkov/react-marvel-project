@@ -17,6 +17,9 @@ import {
   SEARCH_COMICS_BY_TITLE_REQUEST,
   SEARCH_COMICS_BY_TITLE_SUCCESS,
   SEARCH_COMICS_BY_TITLE_FAILURE,
+  FETCH_COMICS_BY_ID_REQUEST,
+  FETCH_COMICS_BY_ID_SUCCESS,
+  FETCH_COMICS_BY_ID_FAILURE,
 } from './types';
 import { Requests } from '../api/requests';
 import { publicKey, ts, hasher } from '../api/constants';
@@ -179,7 +182,6 @@ export const fetchCharacterByIdFailure = (error: string) => {
     payload: error,
   };
 };
-
 export const fetchCharacterById = (id: number) => {
   return (dispatch: any) => {
     dispatch(fetchCharacterByIdRequest());
@@ -190,6 +192,42 @@ export const fetchCharacterById = (id: number) => {
       .catch((error) => {
         if (error.message) {
           dispatch(fetchCharacterByIdFailure(error));
+        } else {
+          console.log(error);
+        }
+      });
+  };
+};
+export const fetchComicsByIdRequest = () => {
+  return {
+    type: FETCH_COMICS_BY_ID_REQUEST,
+  };
+};
+
+export const fetchComicsByIdSuccess = (currentComics: any) => {
+  return {
+    type: FETCH_COMICS_BY_ID_SUCCESS,
+    payload: currentComics,
+  };
+};
+
+export const fetchComicsByIdFailure = (error: string) => {
+  return {
+    type: FETCH_COMICS_BY_ID_FAILURE,
+    payload: error,
+  };
+};
+
+export const fetchComicsById = (id: number) => {
+  return (dispatch: any) => {
+    dispatch(fetchComicsByIdRequest());
+    Requests.getComicsById(id, publicKey, ts, hasher)
+      .then((response) => {
+        fetchComicsByIdSuccess(response.data.data.results[0]);
+      })
+      .catch((error) => {
+        if (error.message) {
+          dispatch(fetchComicsByIdFailure(error));
         } else {
           console.log(error);
         }

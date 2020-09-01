@@ -93,7 +93,7 @@ export default function NavBar() {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <AppBar
         style={{ background: 'red' }}
         position="fixed"

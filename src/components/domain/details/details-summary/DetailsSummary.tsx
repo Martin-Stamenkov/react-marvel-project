@@ -18,27 +18,25 @@ const DetailsSummary = () => {
   };
 
   return (
-    <BrowserRouter>
-      <AppBar position="static" color="default">
-        <Tabs
-          value={state}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-        >
-          <Tab label="About" />
-          <Tab label="Comics" />
-          <Tab label="Events" />
-          <Tab label="Series" />
-          <Tab icon={<CloseIcon />} onClick={() => history.push('/items')} />
-        </Tabs>
-        {state === 0 ? <CharacterDetails /> : null}
-        {state === 1 ? <CharactersComics /> : null}
-        {state === 2 ? <CharacterEvents /> : null}
-        {state === 3 ? <CharacterSeries /> : null}
-      </AppBar>
-    </BrowserRouter>
+    <AppBar position="static" color="default">
+      <Tabs
+        value={state}
+        onChange={handleChange}
+        indicatorColor="primary"
+        textColor="primary"
+        variant="fullWidth"
+      >
+        <Tab label="About" />
+        <Tab label="Comics" />
+        <Tab label="Events" />
+        <Tab label="Series" />
+        <Tab icon={<CloseIcon />} onClick={() => history.push('/items')} />
+      </Tabs>
+      {state === 0 ? <CharacterDetails /> : null}
+      {state === 1 ? <CharactersComics /> : null}
+      {state === 2 ? <CharacterEvents /> : null}
+      {state === 3 ? <CharacterSeries /> : null}
+    </AppBar>
   );
 };
 

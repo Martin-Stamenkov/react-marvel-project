@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Modal, Backdrop, makeStyles, createStyles } from '@material-ui/core';
 import ReactPlayer from 'react-player';
 import { history } from 'app/App';
@@ -36,9 +36,10 @@ export const Home = () => {
         }}
       >
         <ReactPlayer
-          controls
           playing
           url="https://www.youtube.com/watch?v=mN_e5-fcGU4"
+          width="90%"
+          height="90%"
         />
       </Modal>
     </>

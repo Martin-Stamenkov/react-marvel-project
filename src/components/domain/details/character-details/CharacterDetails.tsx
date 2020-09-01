@@ -13,6 +13,11 @@ import { useSelector } from 'react-redux';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    marginTop: 25,
+    marginBottom: 25,
+  },
   card: {
     maxWidth: 400,
     marginLeft: 22,
@@ -23,6 +28,13 @@ const useStyles = makeStyles({
   },
   divider: {
     marginBottom: 20,
+  },
+  title: {
+    display: 'flex',
+    alignItems: 'center',
+    '& span': {
+      marginLeft: 20,
+    },
   },
 });
 export const CharacterDetails = () => {
@@ -43,10 +55,7 @@ export const CharacterDetails = () => {
     <>
       {characterDetails && (
         <>
-          <Grid
-            style={{ display: 'flex', marginTop: 25, marginBottom: 25 }}
-            container
-          >
+          <Grid className={classes.container} container>
             <Grid style={{ display: 'flex' }} spacing={5}>
               <CardMedia
                 className={classes.card}
@@ -58,15 +67,15 @@ export const CharacterDetails = () => {
                 title="avatar"
               />
               <CardContent>
-                <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+                <div className={classes.title}>
                   <Typography gutterBottom variant="h5" component="h2">
                     {characterDetails.name}
                   </Typography>
-                  <IconButton aria-label="add to favorites">
+                  <span>
                     <FavoriteIcon
                       color={isFavorite ? 'secondary' : 'inherit'}
                     />
-                  </IconButton>
+                  </span>
                 </div>
                 <Divider />
                 {characterDetails.description ? (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -12,8 +12,19 @@ import {
   createStyles,
   Theme,
   Collapse,
+  Button,
+  CardActions,
 } from '@material-ui/core';
 import clsx from 'clsx';
+import { history } from 'app/App';
+import {
+  fetchCharacterByIdSuccess,
+  fetchCharacterById,
+  fetchComicsById,
+  fetchComicsByIdSuccess,
+} from 'store/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { ICard } from 'types/types';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -38,11 +49,24 @@ const useStyles = makeStyles((theme: Theme) => {
 
 export default function ComicsCard({ data }: any) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const comics = useSelector((state: any) => state.comics?.results);
+
   const [expanded, setExpanded] = useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const currentComics = useMemo(
+    () => comics && comics.find((x: any) => x.id === data.id),
+    []
+  );
+
+  const handleClick = () => {
+    dispatch(fetchComicsByIdSuccess(currentComics));
+    currentComics && dispatch(fetchComicsById(currentComics.id));
+    history.push('/my-comics');
   };
+  // const handleExpandClick = () => {
+  //   setExpanded(!expanded);
+  // };
   return (
     <>
       <Grid className={classes.root} item>
@@ -66,7 +90,7 @@ export default function ComicsCard({ data }: any) {
             image={`${data.thumbnail!.path}.${data.thumbnail!.extension}`}
             title="avatar"
           />
-          <IconButton
+          {/* <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
             })}
@@ -75,14 +99,26 @@ export default function ComicsCard({ data }: any) {
             aria-label="show more"
           >
             <ExpandMoreIcon />
-          </IconButton>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
+          </IconButton> */}
+          {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
               <Typography paragraph color="primary">
                 {data.description ? data.description : 'Missing Description!'}
               </Typography>
             </CardContent>
-          </Collapse>
+          </Collapse> */}
+          <CardActions>
+            <div>
+              <Button
+                size="small"
+                color="primary"
+                variant="outlined"
+                onClick={() => handleClick()}
+              >
+                Details
+              </Button>
+            </div>
+          </CardActions>
         </Card>
       </Grid>
     </>

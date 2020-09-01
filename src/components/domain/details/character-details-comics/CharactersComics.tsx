@@ -3,7 +3,6 @@ import { Requests } from 'api/requests';
 import { useSelector } from 'react-redux';
 import { publicKey, ts, hasher } from 'api/constants';
 import { DetailsInfo } from '../../details/details-info/DetailsInfo';
-import { Grid } from '@material-ui/core';
 import { Callback } from 'components/generic/callback/Callback';
 
 export const CharactersComics = () => {
