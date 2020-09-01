@@ -19,6 +19,9 @@ import {
   FETCH_COMICS_BY_ID_REQUEST,
   FETCH_COMICS_BY_ID_SUCCESS,
   FETCH_COMICS_BY_ID_FAILURE,
+  FETCH_ALL_SERIES_REQUEST,
+  FETCH_ALL_SERIES_SUCCESS,
+  FETCH_ALL_SERIES_FAILURE,
 } from './types';
 import { IAppState } from './store-interfaces';
 
@@ -33,6 +36,7 @@ const initialState: IAppState = {
   comics: null,
   searchedComics: null,
   currentComics: null,
+  series: null,
 };
 
 export const rootReducer = (
@@ -52,6 +56,23 @@ export const rootReducer = (
         loading: false,
       };
     case FETCH_ALL_CHARACTERS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case FETCH_ALL_SERIES_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case FETCH_ALL_SERIES_SUCCESS:
+      return {
+        ...state,
+        series: action.payload,
+        loading: false,
+      };
+    case FETCH_ALL_SERIES_FAILURE:
       return {
         ...state,
         loading: false,

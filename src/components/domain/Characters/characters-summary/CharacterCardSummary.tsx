@@ -1,5 +1,5 @@
-import { Grid } from '@material-ui/core';
 import React, { useEffect } from 'react';
+import { Grid } from '@material-ui/core';
 import CharactersList from '../characters-list/CharactersList';
 import SearchBar from 'components/layouts/search-bar/SearchBar';
 import { useDispatch } from 'react-redux';

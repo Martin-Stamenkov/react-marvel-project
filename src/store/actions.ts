@@ -20,6 +20,9 @@ import {
   FETCH_COMICS_BY_ID_REQUEST,
   FETCH_COMICS_BY_ID_SUCCESS,
   FETCH_COMICS_BY_ID_FAILURE,
+  FETCH_ALL_SERIES_REQUEST,
+  FETCH_ALL_SERIES_SUCCESS,
+  FETCH_ALL_SERIES_FAILURE,
 } from './types';
 import { Requests } from '../api/requests';
 import { publicKey, ts, hasher } from '../api/constants';
@@ -64,10 +67,10 @@ export const fetchAllComicsRequest = () => {
     type: FETCH_ALL_COMICS_REQUEST,
   };
 };
-export const fetchAllComicsSuccess = (characters: any) => {
+export const fetchAllComicsSuccess = (comics: any) => {
   return {
     type: FETCH_ALL_COMICS_SUCCESS,
-    payload: characters,
+    payload: comics,
   };
 };
 export const fetchAllComicsFailure = (error: string) => {
@@ -87,6 +90,40 @@ export const fetchAllComics = (offset: number) => {
         console.log(error);
         if (error.message) {
           dispatch(fetchAllComicsFailure(error));
+        } else {
+          console.log(error);
+        }
+      });
+  };
+};
+export const fetchAllSeriesRequest = () => {
+  return {
+    type: FETCH_ALL_SERIES_REQUEST,
+  };
+};
+export const fetchAllSeriesSuccess = (series: any) => {
+  return {
+    type: FETCH_ALL_SERIES_SUCCESS,
+    payload: series,
+  };
+};
+export const fetchAllSeriesFailure = (error: string) => {
+  return {
+    type: FETCH_ALL_SERIES_FAILURE,
+    payload: error,
+  };
+};
+export const fetchAllSeries = (offset: number) => {
+  return (dispatch: any) => {
+    dispatch(fetchAllSeriesRequest());
+    Requests.getAllSeries(offset, publicKey, ts, hasher)
+      .then((response) => {
+        dispatch(fetchAllSeriesSuccess(response.data.data));
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.message) {
+          dispatch(fetchAllSeriesFailure(error));
         } else {
           console.log(error);
         }

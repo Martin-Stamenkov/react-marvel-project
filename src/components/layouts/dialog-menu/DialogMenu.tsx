@@ -52,6 +52,9 @@ export function MenuDialog(props: SimpleDialogProps) {
       case 'Comics':
         history.push('/comics');
         break;
+      case 'Tv Series':
+        history.push('/series');
+        break;
       default:
         break;
     }
@@ -86,7 +89,7 @@ export function MenuDialog(props: SimpleDialogProps) {
             </ListItem>
             <ListItem button>
               <ListItemText
-                onClick={() => handleListItemClick('Tv')}
+                onClick={() => handleListItemClick('Tv Series')}
                 primary="Tv Series"
               />
               <img style={{ height: 32 }} src={TvSeries} />

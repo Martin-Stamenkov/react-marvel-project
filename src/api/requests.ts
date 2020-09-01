@@ -79,6 +79,15 @@ const getAllComics = (
   axios.get(
     `${baseUrl}comics?orderBy=focDate&offset=${offset}&ts=${ts}&apikey=${publicKey}&hash=${hasher}`
   );
+const getAllSeries = (
+  offset: number,
+  publicKey: string,
+  ts: number,
+  hasher: string | Int32Array
+) =>
+  axios.get(
+    `${baseUrl}series?orderBy=title&offset=${offset}&ts=${ts}&apikey=${publicKey}&hash=${hasher}`
+  );
 const getEventsByCharacterId = (
   id: number,
   publicKey: string,
@@ -117,6 +126,7 @@ const getStoriesByCharacterId = (
   );
 
 export const Requests = {
+  getAllSeries,
   getCharactersByComicsId,
   getCreatorsByComicsId,
   getStoriesByCharacterId,

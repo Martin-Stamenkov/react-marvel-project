@@ -15,6 +15,7 @@ import NotFoundPage from 'pages/Not-Found/not-found';
 import AuthContextProvider from 'authentication/Auth';
 import { Callback } from 'components/generic/callback/Callback';
 import { ComicsSummary } from 'components/domain/comics/comics-summary/ComicsSummary';
+import { SeriesCardSummary } from 'components/domain/series/series-card-summary/SeriesCardSummary';
 import SearchedComics from 'components/domain/comics/comics-result/SearchedComics';
 import { ComicsInfo } from 'components/domain/comics/comics-info/ComicsInfo';
 
@@ -66,6 +67,17 @@ function Routes() {
           render={() =>
             auth.isAuthenticated() ? (
               <CharacterCardSummary />
+            ) : (
+              <Redirect to="signin" />
+            )
+          }
+        />
+        <Route
+          exact
+          path="/series"
+          render={() =>
+            auth.isAuthenticated() ? (
+              <SeriesCardSummary />
             ) : (
               <Redirect to="signin" />
             )

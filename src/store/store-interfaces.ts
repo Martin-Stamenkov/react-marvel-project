@@ -8,5 +8,6 @@ export interface IAppState {
   searchedComics: [] | null;
   currentUser: {} | null;
   comics: [] | null;
+  series: [] | null;
   currentComics: object | null;
 }
