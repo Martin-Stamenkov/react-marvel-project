@@ -18,6 +18,7 @@ import { ComicsSummary } from 'components/domain/comics/comics-summary/ComicsSum
 import { SeriesCardSummary } from 'components/domain/series/series-card-summary/SeriesCardSummary';
 import SearchedComics from 'components/domain/comics/comics-result/SearchedComics';
 import { ComicsInfo } from 'components/domain/comics/comics-info/ComicsInfo';
+import { SeriesInfo } from 'components/domain/series/series-info/SeriesInfo';
 
 const auth = new AuthContextProvider();
 const handleAuthentications = ({ location }: any) => {
@@ -81,6 +82,13 @@ function Routes() {
             ) : (
               <Redirect to="signin" />
             )
+          }
+        />
+        <Route
+          exact
+          path="/serie"
+          render={() =>
+            auth.isAuthenticated() ? <SeriesInfo /> : <Redirect to="signin" />
           }
         />
         <Route

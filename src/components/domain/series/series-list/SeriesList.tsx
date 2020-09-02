@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Button } from '@material-ui/core';
 import { fetchAllSeries } from '../../../../store/actions';
 import { Callback } from 'components/generic/callback/Callback';
-import ComicsCard from 'components/domain/comics/comics-card/ComicsCard';
+import SeriesCard from 'components/domain/series/series-card/SeriesCard';
 
 export const SeriesList = () => {
   const [currentOffset, setCurrentOffset] = useState(0);
@@ -14,7 +14,7 @@ export const SeriesList = () => {
   useEffect(() => {
     dispatch(fetchAllSeries(currentOffset));
   }, [currentOffset]);
-
+  console.log(series);
   return (
     <>
       {loading ? (
@@ -24,7 +24,7 @@ export const SeriesList = () => {
           <Grid container spacing={3} justify="center">
             {series &&
               series.map((card: any, index: number) => (
-                <ComicsCard key={index} data={card} />
+                <SeriesCard key={index} data={card} />
               ))}
           </Grid>
           <Grid

@@ -10,6 +10,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { CardActionArea, Grid, Divider } from '@material-ui/core';
 import Moment from 'react-moment';
+import { useSelector } from 'react-redux';
+import { DialogCharacters } from 'components/generic/dialog-characters/DialogCharacters';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,38 +29,42 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const SeriesInfo = ({ data }: any) => {
+export const SeriesInfo = () => {
   const classes = useStyles();
   const theme = useTheme();
+  const currentSeries = useSelector((state: any) => state.currentSeries);
+
   return (
-    data && (
+    currentSeries && (
       <Grid
         style={{ display: 'flex', marginTop: 25, marginBottom: 25 }}
         container
       >
-        <Grid style={{ display: 'flex' }} spacing={5}>
+        <Grid style={{ display: 'flex' }}>
           <CardMedia
             className={classes.card}
             component="img"
             alt="avatar"
-            image={`${data.thumbnail!.path}.${data.thumbnail!.extension}`}
+            image={`${currentSeries.thumbnail!.path}.${
+              currentSeries.thumbnail!.extension
+            }`}
             title="avatar"
           />
           <CardContent>
             <div style={{ display: 'flex', alignItems: 'flex-end' }}>
               <Typography gutterBottom variant="h5" component="h2">
-                {data.title}
+                {currentSeries.title}
               </Typography>
             </div>
             <Divider />
-            {data.description ? (
+            {currentSeries.description ? (
               <Typography
                 className={classes.description}
                 variant="body2"
                 color="textSecondary"
                 component="p"
               >
-                {data.description}
+                {currentSeries.description}
               </Typography>
             ) : (
               <Typography
@@ -71,6 +77,14 @@ export const SeriesInfo = ({ data }: any) => {
               </Typography>
             )}
             <Divider className={classes.divider} />
+            <Typography gutterBottom color="textSecondary" variant="body2">
+              <span>Creators: </span>
+              {currentSeries.creators.items.length > 0
+                ? currentSeries.creators.items
+                    .map((creator: any) => creator.name)
+                    .join(', ')
+                : 'No available information !'}
+            </Typography>
             <Typography
               gutterBottom
               variant="body2"
@@ -78,7 +92,7 @@ export const SeriesInfo = ({ data }: any) => {
               component="p"
             >
               <span>Start Year: </span>
-              {data.startYear}
+              {currentSeries.startYear}
             </Typography>
             <Typography
               gutterBottom
@@ -87,8 +101,9 @@ export const SeriesInfo = ({ data }: any) => {
               component="p"
             >
               <span>End Year: </span>
-              {data.endYear}
+              {currentSeries.endYear}
             </Typography>
+            <DialogCharacters props={currentSeries} />
           </CardContent>
         </Grid>
       </Grid>

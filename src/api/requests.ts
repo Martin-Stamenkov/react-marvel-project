@@ -50,6 +50,15 @@ const getCharactersByComicsId = (
   axios.get(
     `${baseUrl}comics/${comicsId}/characters?ts=${ts}&apikey=${publicKey}&hash=${hasher}`
   );
+const getCharactersBySeriesId = (
+  id: number,
+  publicKey: string,
+  ts: number,
+  hasher: string | Int32Array
+) =>
+  axios.get(
+    `${baseUrl}series/${id}/characters?ts=${ts}&apikey=${publicKey}&hash=${hasher}`
+  );
 
 const searchCharacterByName = (
   searchString: string,
@@ -87,6 +96,15 @@ const getAllSeries = (
 ) =>
   axios.get(
     `${baseUrl}series?orderBy=title&offset=${offset}&ts=${ts}&apikey=${publicKey}&hash=${hasher}`
+  );
+const getSeriesById = (
+  id: number,
+  publicKey: string,
+  ts: number,
+  hasher: string | Int32Array
+) =>
+  axios.get(
+    `${baseUrl}series/${id}?ts=${ts}&apikey=${publicKey}&hash=${hasher}`
   );
 const getEventsByCharacterId = (
   id: number,
@@ -126,6 +144,8 @@ const getStoriesByCharacterId = (
   );
 
 export const Requests = {
+  getCharactersBySeriesId,
+  getSeriesById,
   getAllSeries,
   getCharactersByComicsId,
   getCreatorsByComicsId,

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Requests } from '../../../../api/requests';
-import { publicKey, ts, hasher } from '../../../../api/constants';
+import { Requests } from '../../../api/requests';
+import { publicKey, ts, hasher } from '../../../api/constants';
 import {
   Grid,
   makeStyles,
@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) => {
 
 export const ComicsCharacters = ({ data }: any) => {
   const classes = useStyles();
-  const comics = useSelector((state: any) => state.comics?.results);
 
   return (
     <>

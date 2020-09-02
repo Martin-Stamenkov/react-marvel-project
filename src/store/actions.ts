@@ -23,6 +23,9 @@ import {
   FETCH_ALL_SERIES_REQUEST,
   FETCH_ALL_SERIES_SUCCESS,
   FETCH_ALL_SERIES_FAILURE,
+  FETCH_SERIES_BY_ID_REQUEST,
+  FETCH_SERIES_BY_ID_SUCCESS,
+  FETCH_SERIES_BY_ID_FAILURE,
 } from './types';
 import { Requests } from '../api/requests';
 import { publicKey, ts, hasher } from '../api/constants';
@@ -265,6 +268,42 @@ export const fetchComicsById = (id: number) => {
       .catch((error) => {
         if (error.message) {
           dispatch(fetchComicsByIdFailure(error));
+        } else {
+          console.log(error);
+        }
+      });
+  };
+};
+export const fetchSeriesByIdRequest = () => {
+  return {
+    type: FETCH_SERIES_BY_ID_REQUEST,
+  };
+};
+
+export const fetchSeriesByIdSuccess = (currentSeries: any) => {
+  return {
+    type: FETCH_SERIES_BY_ID_SUCCESS,
+    payload: currentSeries,
+  };
+};
+
+export const fetchSeriesByIdFailure = (error: string) => {
+  return {
+    type: FETCH_SERIES_BY_ID_FAILURE,
+    payload: error,
+  };
+};
+
+export const fetchSeriesById = (id: number) => {
+  return (dispatch: any) => {
+    dispatch(fetchSeriesByIdRequest());
+    Requests.getSeriesById(id, publicKey, ts, hasher)
+      .then((response) => {
+        fetchSeriesByIdSuccess(response.data.data.results[0]);
+      })
+      .catch((error) => {
+        if (error.message) {
+          dispatch(fetchSeriesByIdFailure(error));
         } else {
           console.log(error);
         }

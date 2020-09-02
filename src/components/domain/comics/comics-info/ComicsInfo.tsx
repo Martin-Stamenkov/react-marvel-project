@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import {
   Grid,
   makeStyles,
@@ -6,20 +6,10 @@ import {
   CardContent,
   Typography,
   Divider,
-  IconButton,
-  DialogProps,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  GridList,
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import Moment from 'react-moment';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import { Requests } from 'api/requests';
-import { publicKey, ts, hasher } from 'api/constants';
-import { ComicsCharacters } from '../comics-characters/ComicsCharactersCard';
-import CloseSharpIcon from '@material-ui/icons/CloseSharp';
+import { DialogCharacters } from 'components/generic/dialog-characters/DialogCharacters';
 
 const useStyles = makeStyles({
   card: {
@@ -36,29 +26,8 @@ const useStyles = makeStyles({
 });
 export const ComicsInfo = () => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const [scroll, setScroll] = useState<DialogProps['scroll']>('body');
-  const [characters, setCharacters] = useState([]);
   const currentComics = useSelector((state: any) => state.currentComics);
 
-  const handleClick = (scrollType: DialogProps['scroll']) => {
-    setOpen(true);
-    setScroll(scrollType);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  useEffect(() => {
-    Requests.getCharactersByComicsId(
-      currentComics.id,
-      publicKey,
-      ts,
-      hasher
-    ).then((response) => {
-      setCharacters(response.data.data.results);
-    });
-  }, []);
   const writer = useMemo(() => {
     return currentComics.creators.items.length > 0
       ? currentComics.creators.items.find(
@@ -128,40 +97,7 @@ export const ComicsInfo = () => {
                   {currentComics.dates[0].date}
                 </Moment>
               </Typography>
-              <Typography gutterBottom variant="body2" color="textSecondary">
-                <span>See characters </span>
-                <IconButton onClick={() => handleClick('body')}>
-                  <NavigateNextIcon fontSize="small" />
-                </IconButton>
-              </Typography>
-              <Dialog
-                open={open}
-                onClose={handleClose}
-                scroll={scroll}
-                aria-labelledby="scroll-dialog-title"
-                aria-describedby="scroll-dialog-description"
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}
-                >
-                  <DialogTitle id="scroll-dialog-title">Characters</DialogTitle>
-                  <IconButton onClick={handleClose}>
-                    <CloseSharpIcon />
-                  </IconButton>
-                </div>
-                <DialogContent dividers={scroll === 'paper'}>
-                  <GridList cellHeight={160} cols={2}>
-                    {characters &&
-                      characters.map((character: any) => (
-                        <ComicsCharacters key={character.id} data={character} />
-                      ))}
-                  </GridList>
-                </DialogContent>
-              </Dialog>
+              <DialogCharacters props={currentComics} />
             </CardContent>
           </Grid>
         </Grid>

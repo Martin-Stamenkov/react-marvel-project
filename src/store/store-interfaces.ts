@@ -10,4 +10,5 @@ export interface IAppState {
   comics: [] | null;
   series: [] | null;
   currentComics: object | null;
+  currentSeries: object | null;
 }
