@@ -37,17 +37,13 @@ function SignIn() {
     e.stopPropagation();
     e.preventDefault();
     auth.login(account.Email, account.Password);
-    // setLoading(true);
     console.log(account);
-    // setLoading(false);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setAccount({ ...account, [event.target.name]: value });
   };
-
-  console.log(account);
 
   const classes = useStyles();
   return (
@@ -69,7 +65,6 @@ function SignIn() {
               placeholder="Your Email"
               fullWidth
               name="Email"
-              // value={account.Email}
               onChange={handleChange}
               margin="normal"
               InputLabelProps={{
@@ -83,7 +78,6 @@ function SignIn() {
                 style={{ margin: 8 }}
                 placeholder="Your Password"
                 name="Password"
-                // value={account.Password}
                 onChange={handleChange}
                 fullWidth
                 margin="normal"

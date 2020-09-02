@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Container from '@material-ui/core/Container';
 import {
   Typography,
@@ -44,9 +44,6 @@ const SignUp = () => {
     event.preventDefault();
     event.stopPropagation();
     auth.register(account.Email, account.Password, account.Nickname);
-    // setLoading(true);
-    console.log(account);
-    // setLoading(false);
   };
 
   return (

@@ -13,6 +13,7 @@ import { history } from 'app/App';
 import ironMan from 'assets/iron-man.png';
 import Comics from 'assets/comic.png';
 import TvSeries from 'assets/television.png';
+import Events from 'assets/events.png';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 export interface SimpleDialogProps {
@@ -55,6 +56,9 @@ export function MenuDialog(props: SimpleDialogProps) {
       case 'Tv Series':
         history.push('/series');
         break;
+      case 'Events':
+        history.push('/events');
+        break;
       default:
         break;
     }
@@ -66,6 +70,7 @@ export function MenuDialog(props: SimpleDialogProps) {
         onClose={handleClose}
         aria-labelledby="simple-dialog-title"
         open={open}
+        // style={{ width: '60%' }}
       >
         <DialogTitle className={classes.title} id="simple-dialog-title">
           Let`s adventure begin
@@ -85,14 +90,21 @@ export function MenuDialog(props: SimpleDialogProps) {
                 onClick={() => handleListItemClick('Comics')}
                 primary="Comics"
               />
-              <img style={{ height: 32 }} src={Comics} />
+              <img style={{ height: 32 }} src={Comics} alt="Comics" />
             </ListItem>
             <ListItem button>
               <ListItemText
                 onClick={() => handleListItemClick('Tv Series')}
                 primary="Tv Series"
               />
-              <img style={{ height: 32 }} src={TvSeries} />
+              <img style={{ height: 32 }} src={TvSeries} alt="TV Series" />
+            </ListItem>
+            <ListItem button>
+              <ListItemText
+                onClick={() => handleListItemClick('Events')}
+                primary="Events"
+              />
+              <img style={{ height: 32 }} src={Events} alt="Events" />
             </ListItem>
             <ListItem button>
               <ListItemText

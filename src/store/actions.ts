@@ -26,6 +26,12 @@ import {
   FETCH_SERIES_BY_ID_REQUEST,
   FETCH_SERIES_BY_ID_SUCCESS,
   FETCH_SERIES_BY_ID_FAILURE,
+  FETCH_ALL_EVENTS_REQUEST,
+  FETCH_ALL_EVENTS_SUCCESS,
+  FETCH_ALL_EVENTS_FAILURE,
+  FETCH_EVENT_BY_ID_REQUEST,
+  FETCH_EVENT_BY_ID_SUCCESS,
+  FETCH_EVENT_BY_ID_FAILURE,
 } from './types';
 import { Requests } from '../api/requests';
 import { publicKey, ts, hasher } from '../api/constants';
@@ -48,7 +54,6 @@ export const fetchAllCharactersFailure = (error: string) => {
   };
 };
 export const fetchAllCharacters = (offset: number) => {
-  // eslint-disable-next-line
   return (dispatch: any) => {
     dispatch(fetchAllCharactersRequest());
     Requests.getAllCharacters(offset, publicKey, ts, hasher)
@@ -127,6 +132,40 @@ export const fetchAllSeries = (offset: number) => {
         console.log(error);
         if (error.message) {
           dispatch(fetchAllSeriesFailure(error));
+        } else {
+          console.log(error);
+        }
+      });
+  };
+};
+export const fetchAllEventsRequest = () => {
+  return {
+    type: FETCH_ALL_EVENTS_REQUEST,
+  };
+};
+export const fetchAllEventsSuccess = (Events: any) => {
+  return {
+    type: FETCH_ALL_EVENTS_SUCCESS,
+    payload: Events,
+  };
+};
+export const fetchAllEventsFailure = (error: string) => {
+  return {
+    type: FETCH_ALL_EVENTS_FAILURE,
+    payload: error,
+  };
+};
+export const fetchAllEvents = (offset: number) => {
+  return (dispatch: any) => {
+    dispatch(fetchAllEventsRequest());
+    Requests.getAllEvents(offset, publicKey, ts, hasher)
+      .then((response) => {
+        dispatch(fetchAllEventsSuccess(response.data.data));
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.message) {
+          dispatch(fetchAllEventsFailure(error));
         } else {
           console.log(error);
         }
@@ -304,6 +343,42 @@ export const fetchSeriesById = (id: number) => {
       .catch((error) => {
         if (error.message) {
           dispatch(fetchSeriesByIdFailure(error));
+        } else {
+          console.log(error);
+        }
+      });
+  };
+};
+export const fetchEventByIdRequest = () => {
+  return {
+    type: FETCH_EVENT_BY_ID_REQUEST,
+  };
+};
+
+export const fetchEventByIdSuccess = (event: any) => {
+  return {
+    type: FETCH_EVENT_BY_ID_SUCCESS,
+    payload: event,
+  };
+};
+
+export const fetchEventByIdFailure = (error: string) => {
+  return {
+    type: FETCH_EVENT_BY_ID_FAILURE,
+    payload: error,
+  };
+};
+
+export const fetchEventById = (id: number) => {
+  return (dispatch: any) => {
+    dispatch(fetchEventByIdRequest());
+    Requests.getEventById(id, publicKey, ts, hasher)
+      .then((response) => {
+        fetchEventByIdSuccess(response.data.data.results[0]);
+      })
+      .catch((error) => {
+        if (error.message) {
+          dispatch(fetchEventByIdFailure(error));
         } else {
           console.log(error);
         }

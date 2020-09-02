@@ -20,6 +20,7 @@ export const DialogCharacters = ({ props }: any) => {
   const [characters, setCharacters] = useState([]);
   const currentComics = useSelector((state: any) => state.currentComics);
   const currentSeries = useSelector((state: any) => state.currentSeries);
+  const currentEvent = useSelector((state: any) => state.event);
   const [scroll, setScroll] = useState<DialogProps['scroll']>('body');
   console.log(currentSeries);
 
@@ -45,6 +46,16 @@ export const DialogCharacters = ({ props }: any) => {
     } else if (currentSeries && !Object.keys(props).includes('series')) {
       Requests.getCharactersBySeriesId(
         currentSeries.id,
+        publicKey,
+        ts,
+        hasher
+      ).then((response) => {
+        console.log(response);
+        setCharacters(response.data.data.results);
+      });
+    } else if (currentEvent && !Object.keys(props).includes('events')) {
+      Requests.getCharactersByEventId(
+        currentEvent.id,
         publicKey,
         ts,
         hasher

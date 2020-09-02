@@ -25,6 +25,12 @@ import {
   FETCH_SERIES_BY_ID_REQUEST,
   FETCH_SERIES_BY_ID_SUCCESS,
   FETCH_SERIES_BY_ID_FAILURE,
+  FETCH_ALL_EVENTS_REQUEST,
+  FETCH_ALL_EVENTS_SUCCESS,
+  FETCH_ALL_EVENTS_FAILURE,
+  FETCH_EVENT_BY_ID_REQUEST,
+  FETCH_EVENT_BY_ID_SUCCESS,
+  FETCH_EVENT_BY_ID_FAILURE,
 } from './types';
 import { IAppState } from './store-interfaces';
 
@@ -41,6 +47,8 @@ const initialState: IAppState = {
   currentComics: null,
   series: null,
   currentSeries: null,
+  events: null,
+  event: null,
 };
 
 export const rootReducer = (
@@ -99,6 +107,23 @@ export const rootReducer = (
         loading: false,
         error: action.payload,
       };
+    case FETCH_ALL_EVENTS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case FETCH_ALL_EVENTS_SUCCESS:
+      return {
+        ...state,
+        events: action.payload,
+        loading: false,
+      };
+    case FETCH_ALL_EVENTS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     case FETCH_CHARACTER_BY_ID_REQUEST:
       return {
         ...state,
@@ -128,6 +153,23 @@ export const rootReducer = (
         loading: false,
       };
     case FETCH_SERIES_BY_ID_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case FETCH_EVENT_BY_ID_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case FETCH_EVENT_BY_ID_SUCCESS:
+      return {
+        ...state,
+        event: action.payload,
+        loading: false,
+      };
+    case FETCH_EVENT_BY_ID_FAILURE:
       return {
         ...state,
         loading: false,

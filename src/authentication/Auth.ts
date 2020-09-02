@@ -57,7 +57,11 @@ export default class AuthContextProvider {
         console.log(err);
         swal({
           title: 'Oops!',
-          text: `Error: ${err.original.response.body.description?.rules[0].message}`,
+          text: `Error: ${
+            err.original.response.body.error
+              ? err.original.response.body.error
+              : err.original.response.body.description
+          }`,
           icon: 'error',
         });
         return;

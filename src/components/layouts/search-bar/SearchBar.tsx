@@ -4,15 +4,18 @@ import { TextField } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { searchCharactersByName } from 'store/actions';
 
-export default function SearchBar() {
+export default function SearchBar({ data }: any) {
+  console.log(data);
   const [values, setValues] = useState('');
   const dispatch = useDispatch();
+  console.log(values);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (values) {
       // dispatch(searchCharacterByNameRequest());
-      dispatch(searchCharactersByName(values));
+      const a = dispatch(searchCharactersByName(values));
+      console.log(a);
       // dispatch(searchComicsByTitle(values));
       setValues('');
     }

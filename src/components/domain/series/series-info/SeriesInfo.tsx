@@ -8,8 +8,7 @@ import {
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { CardActionArea, Grid, Divider } from '@material-ui/core';
-import Moment from 'react-moment';
+import { Grid, Divider } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { DialogCharacters } from 'components/generic/dialog-characters/DialogCharacters';
 

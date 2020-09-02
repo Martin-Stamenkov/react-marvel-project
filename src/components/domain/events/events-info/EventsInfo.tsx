@@ -11,6 +11,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { CardActionArea, Grid, Divider } from '@material-ui/core';
 import Moment from 'react-moment';
+import { useSelector } from 'react-redux';
+import { DialogCharacters } from 'components/generic/dialog-characters/DialogCharacters';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,11 +30,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const EventsCard = ({ data }: any) => {
+export const EventsInfo = () => {
   const classes = useStyles();
   const theme = useTheme();
+  const event = useSelector((state: any) => state.event);
   return (
-    data && (
+    event && (
       <Grid
         style={{ display: 'flex', marginTop: 25, marginBottom: 25 }}
         container
@@ -42,24 +45,24 @@ export const EventsCard = ({ data }: any) => {
             className={classes.card}
             component="img"
             alt="avatar"
-            image={`${data.thumbnail!.path}.${data.thumbnail!.extension}`}
+            image={`${event.thumbnail!.path}.${event.thumbnail!.extension}`}
             title="avatar"
           />
           <CardContent>
             <div style={{ display: 'flex', alignItems: 'flex-end' }}>
               <Typography gutterBottom variant="h5" component="h2">
-                {data.title}
+                {event.title}
               </Typography>
             </div>
             <Divider />
-            {data.description ? (
+            {event.description ? (
               <Typography
                 className={classes.description}
                 variant="body2"
                 color="textSecondary"
                 component="p"
               >
-                {data.description}
+                {event.description}
               </Typography>
             ) : (
               <Typography
@@ -79,7 +82,7 @@ export const EventsCard = ({ data }: any) => {
               component="p"
             >
               <span>Start Date: </span>
-              <Moment format="YYYY/MM/DD">{data.start}</Moment>
+              <Moment format="YYYY/MM/DD">{event.start}</Moment>
             </Typography>
             <Typography
               gutterBottom
@@ -88,8 +91,9 @@ export const EventsCard = ({ data }: any) => {
               component="p"
             >
               <span>End Date: </span>
-              <Moment format="YYYY/MM/DD">{data.end}</Moment>
+              <Moment format="YYYY/MM/DD">{event.end}</Moment>
             </Typography>
+            <DialogCharacters props={event} />
           </CardContent>
         </Grid>
       </Grid>

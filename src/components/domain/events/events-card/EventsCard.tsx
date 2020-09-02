@@ -13,9 +13,8 @@ import {
   CardActions,
 } from '@material-ui/core';
 import { history } from 'app/App';
-// import { fetchComicsById, fetchComicsByIdSuccess } from 'store/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSeriesByIdSuccess, fetchSeriesById } from 'store/actions';
+import { fetchEventById, fetchEventByIdSuccess } from 'store/actions';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -28,20 +27,20 @@ const useStyles = makeStyles((theme: Theme) => {
   });
 });
 
-export default function SeriesCard({ data }: any) {
+export default function EventsCard({ data }: any) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const series = useSelector((state: any) => state.series?.results);
+  const events = useSelector((state: any) => state.events?.results);
 
-  const currentSeries = useMemo(
-    () => series && series.find((x: any) => x.id === data.id),
+  const event = useMemo(
+    () => events && events.find((x: any) => x.id === data.id),
     []
   );
 
   const handleClick = () => {
-    dispatch(fetchSeriesByIdSuccess(currentSeries));
-    currentSeries && dispatch(fetchSeriesById(currentSeries.id));
-    history.push('/serie');
+    dispatch(fetchEventByIdSuccess(event));
+    events && dispatch(fetchEventById(event.id));
+    history.push('/event');
   };
 
   return (
@@ -58,7 +57,7 @@ export default function SeriesCard({ data }: any) {
               component="p"
               align="center"
             >
-              TV Series
+              events
             </Typography>
           </CardContent>
           <CardMedia
@@ -75,7 +74,7 @@ export default function SeriesCard({ data }: any) {
                 variant="outlined"
                 onClick={() => handleClick()}
               >
-                See info series
+                See more details
               </Button>
             </div>
           </CardActions>

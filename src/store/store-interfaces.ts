@@ -9,6 +9,8 @@ export interface IAppState {
   currentUser: {} | null;
   comics: [] | null;
   series: [] | null;
+  events: [] | null;
   currentComics: object | null;
   currentSeries: object | null;
+  event: object | null;
 }

@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     maxWidth: 300,
   },
   root: {
-    marginTop: 50,
+    marginTop: 30,
   },
   bottom: {
     display: 'contents',
@@ -55,6 +55,7 @@ function CharacterCard({ data }: Props) {
   );
 
   useEffect(() => {
+    character &&
     JSON.parse(localStorage.getItem('favoriteChars') || '[]').indexOf(
       character.id
     ) === -1

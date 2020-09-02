@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => {
       maxWidth: 250,
     },
     root: {
-      marginTop: 50,
+      marginTop: 30,
     },
   });
 });

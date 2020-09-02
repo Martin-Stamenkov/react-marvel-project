@@ -16,9 +16,11 @@ import AuthContextProvider from 'authentication/Auth';
 import { Callback } from 'components/generic/callback/Callback';
 import { ComicsSummary } from 'components/domain/comics/comics-summary/ComicsSummary';
 import { SeriesCardSummary } from 'components/domain/series/series-card-summary/SeriesCardSummary';
+import { EventsCardSummary } from 'components/domain/events/events-summary/EventsCardSummary';
 import SearchedComics from 'components/domain/comics/comics-result/SearchedComics';
 import { ComicsInfo } from 'components/domain/comics/comics-info/ComicsInfo';
 import { SeriesInfo } from 'components/domain/series/series-info/SeriesInfo';
+import { EventsInfo } from 'components/domain/events/events-info/EventsInfo';
 
 const auth = new AuthContextProvider();
 const handleAuthentications = ({ location }: any) => {
@@ -75,6 +77,17 @@ function Routes() {
         />
         <Route
           exact
+          path="/events"
+          render={() =>
+            auth.isAuthenticated() ? (
+              <EventsCardSummary />
+            ) : (
+              <Redirect to="signin" />
+            )
+          }
+        />
+        <Route
+          exact
           path="/series"
           render={() =>
             auth.isAuthenticated() ? (
@@ -89,6 +102,13 @@ function Routes() {
           path="/serie"
           render={() =>
             auth.isAuthenticated() ? <SeriesInfo /> : <Redirect to="signin" />
+          }
+        />
+        <Route
+          exact
+          path="/event"
+          render={() =>
+            auth.isAuthenticated() ? <EventsInfo /> : <Redirect to="signin" />
           }
         />
         <Route
