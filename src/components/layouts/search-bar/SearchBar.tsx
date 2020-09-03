@@ -15,7 +15,6 @@ export default function SearchBar({ data }: any) {
     if (values) {
       // dispatch(searchCharacterByNameRequest());
       const a = dispatch(searchCharactersByName(values));
-      console.log(a);
       // dispatch(searchComicsByTitle(values));
       setValues('');
     }

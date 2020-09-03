@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { Grid, Divider } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { DialogCharacters } from 'components/generic/dialog-characters/DialogCharacters';
+import TvSeries from 'assets/television.png';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     divider: {
       marginBottom: 20,
+      marginTop: 20,
     },
   })
 );
@@ -50,12 +52,14 @@ export const SeriesInfo = () => {
             title="avatar"
           />
           <CardContent>
-            <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <img style={{ height: 50, marginRight: 15 }} src={TvSeries} />
+
               <Typography gutterBottom variant="h5" component="h2">
                 {currentSeries.title}
               </Typography>
             </div>
-            <Divider />
+            <Divider className={classes.divider} />
             {currentSeries.description ? (
               <Typography
                 className={classes.description}

@@ -10,6 +10,7 @@ import {
 import { useSelector } from 'react-redux';
 import Moment from 'react-moment';
 import { DialogCharacters } from 'components/generic/dialog-characters/DialogCharacters';
+import Comics from 'assets/comic.png';
 
 const useStyles = makeStyles({
   card: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles({
     marginTop: 20,
   },
   divider: {
+    marginTop: 20,
     marginBottom: 20,
   },
 });
@@ -54,12 +56,13 @@ export const ComicsInfo = () => {
               title="avatar"
             />
             <CardContent>
-              <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <img style={{ height: 50 }} src={Comics} />
                 <Typography gutterBottom variant="h5" component="h2">
                   {currentComics.title}
                 </Typography>
               </div>
-              <Divider />
+              <Divider className={classes.divider} />
               {currentComics.description ? (
                 <Typography
                   className={classes.description}

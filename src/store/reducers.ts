@@ -226,11 +226,7 @@ export const rootReducer = (
         error: action.payload,
         loading: false,
       };
-    case INCREASE_OFFSET:
-      return {
-        ...state,
-        offset: action.payload + 20,
-      };
+
     case GET_CURRENT_USER:
       return {
         ...state,

@@ -5,14 +5,14 @@ import {
   makeStyles,
   useTheme,
 } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { CardActionArea, Grid, Divider } from '@material-ui/core';
+import { Grid, Divider } from '@material-ui/core';
 import Moment from 'react-moment';
 import { useSelector } from 'react-redux';
 import { DialogCharacters } from 'components/generic/dialog-characters/DialogCharacters';
+import Events from 'assets/events.png';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     divider: {
       marginBottom: 20,
+      marginTop: 20,
     },
   })
 );
@@ -50,11 +51,12 @@ export const EventsInfo = () => {
           />
           <CardContent>
             <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+              <img style={{ height: 50, marginRight: 15 }} src={Events} />
               <Typography gutterBottom variant="h5" component="h2">
                 {event.title}
               </Typography>
             </div>
-            <Divider />
+            <Divider className={classes.divider} />
             {event.description ? (
               <Typography
                 className={classes.description}

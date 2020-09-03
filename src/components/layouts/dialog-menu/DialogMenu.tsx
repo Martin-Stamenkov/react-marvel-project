@@ -70,7 +70,6 @@ export function MenuDialog(props: SimpleDialogProps) {
         onClose={handleClose}
         aria-labelledby="simple-dialog-title"
         open={open}
-        // style={{ width: '60%' }}
       >
         <DialogTitle className={classes.title} id="simple-dialog-title">
           Let`s adventure begin

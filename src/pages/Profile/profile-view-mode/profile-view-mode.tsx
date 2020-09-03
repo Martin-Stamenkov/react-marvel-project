@@ -35,7 +35,6 @@ export const ProfileViewMode = () => {
   const editMode = () => {
     history.push('edit-profile');
   };
-  console.log(profile && profile.picture);
   return (
     user && (
       <Container maxWidth="xs">
