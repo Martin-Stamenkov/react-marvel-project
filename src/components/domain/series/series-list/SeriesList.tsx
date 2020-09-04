@@ -4,64 +4,47 @@ import { Grid, Button } from '@material-ui/core';
 import { fetchAllSeries } from '../../../../store/actions';
 import { Callback } from 'components/generic/callback/Callback';
 import SeriesCard from 'components/domain/series/series-card/SeriesCard';
+import InfiniteScroll from 'react-infinite-scroller';
 
 export const SeriesList = () => {
   const [currentOffset, setCurrentOffset] = useState(0);
+  const [series, setSeries] = useState([]);
   const dispatch = useDispatch();
   const total = useSelector((state: any) => state.series?.total);
-  const series = useSelector((state: any) => state.series?.results);
+  const currentSeries = useSelector((state: any) => state.series?.results);
   const loading = useSelector((state: any) => state.loading);
+
   useEffect(() => {
     dispatch(fetchAllSeries(currentOffset));
   }, [currentOffset]);
-  console.log(series);
+
+  const onScroll = () => {
+    setCurrentOffset(currentOffset + 20);
+    currentSeries && setSeries(series.concat(currentSeries));
+  };
+
   return (
     <>
-      {loading ? (
+      {/* {loading ? (
         <Callback />
-      ) : (
-        <>
-          <Grid container spacing={3} justify="center">
-            {series &&
-              series.map((card: any, index: number) => (
-                <SeriesCard key={index} data={card} />
-              ))}
-          </Grid>
-          <Grid
-            container
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '10px 20px',
-              borderTop: '1px solid lightgrey',
-            }}
-          >
-            <Button
-              disabled={currentOffset === 0}
-              onClick={() => {
-                return (
-                  setCurrentOffset(currentOffset - 20), window.scrollTo(0, 0)
-                );
-              }}
-            >
-              Previous Series
-            </Button>
-            <Button
-              color="primary"
-              variant={'contained'}
-              disabled={currentOffset === total}
-              onClick={() => {
-                return (
-                  setCurrentOffset(currentOffset + 20), window.scrollTo(0, 0)
-                );
-              }}
-            >
-              More Series
-            </Button>
-          </Grid>
-        </>
-      )}
+      ) : ( */}
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={() => onScroll()}
+        hasMore={total > currentOffset}
+        threshold={500}
+        loader={<Callback />}
+      >
+        {' '}
+        <Grid container spacing={3} justify="center">
+          {series &&
+            series.map((card: any, index: number) => (
+              <SeriesCard key={index} data={card} />
+            ))}
+        </Grid>
+      </InfiniteScroll>
+
+      {/* )} */}
     </>
   );
 };

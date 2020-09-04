@@ -30,7 +30,7 @@ const DetailsSummary = () => {
         <Tab label="Comics" />
         <Tab label="Events" />
         <Tab label="Series" />
-        <Tab icon={<CloseIcon />} onClick={() => history.push('/items')} />
+        <Tab icon={<CloseIcon />} href={'/items'} />
       </Tabs>
       {state === 0 ? <CharacterDetails /> : null}
       {state === 1 ? <CharactersComics /> : null}
