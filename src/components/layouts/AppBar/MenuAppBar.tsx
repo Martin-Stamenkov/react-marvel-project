@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import {
   makeStyles,
@@ -6,7 +6,6 @@ import {
   Theme,
   createStyles,
 } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -18,42 +17,18 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { history } from 'app/App';
 import { MenuDialog } from '../dialog-menu/DialogMenu';
 import AuthContextProvider from 'authentication/Auth';
-import { useSelector, useDispatch } from 'react-redux';
-import { getUser } from 'store/actions';
-
-const drawerWidth = 150;
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
     },
-    appBar: {
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: -drawerWidth,
-    },
-    appBarShift: {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    },
     menuButton: {
       marginRight: theme.spacing(2),
     },
     hide: {
       display: 'none',
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      width: drawerWidth,
     },
     title: {
       flexGrow: 1,
@@ -64,17 +39,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const authentication = new AuthContextProvider();
 
 export default function NavBar() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (localStorage.getItem('access_token')) {
-      authentication.auth0.client.userInfo(
-        localStorage.getItem('access_token') || '',
-        (err: any, user: any) => {
-          dispatch(getUser(user));
-        }
-      );
-    }
-  }, []);
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -104,14 +68,7 @@ export default function NavBar() {
 
   return (
     <div className={classes.root}>
-      {/* <CssBaseline /> */}
-      <AppBar
-        style={{ background: 'red' }}
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
+      <AppBar style={{ background: 'red' }} position="fixed">
         <Toolbar>
           <IconButton
             color="inherit"

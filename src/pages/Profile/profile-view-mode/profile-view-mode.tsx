@@ -8,17 +8,13 @@ import {
   Input,
 } from '@material-ui/core';
 import { profileStyles } from 'pages/Profile/profile-styles';
-import AuthContextProvider from 'authentication/Auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { history } from 'app/App';
 import { Callback } from 'components/generic/callback/Callback';
 import background from 'assets/profile-background.jpg';
 
-const auth = new AuthContextProvider();
-
 export const ProfileViewMode = () => {
   const classes = profileStyles();
-  const dispatch = useDispatch();
   const [profile, setProfile] = useState<any>({
     name: '',
     nickname: '',
@@ -30,7 +26,7 @@ export const ProfileViewMode = () => {
   useEffect(() => {
     setProfile(user);
     setLoading(false);
-  }, []);
+  }, [user]);
 
   const editMode = () => {
     history.push('edit-profile');

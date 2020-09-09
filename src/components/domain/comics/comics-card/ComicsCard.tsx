@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import Card from '@material-ui/core/Card';
 
 import CardContent from '@material-ui/core/CardContent';
@@ -35,7 +35,7 @@ export default function ComicsCard({ data }: any) {
 
   const currentComics = useMemo(
     () => comics && comics.find((x: any) => x.id === data.id),
-    []
+    [comics]
   );
 
   const handleClick = () => {

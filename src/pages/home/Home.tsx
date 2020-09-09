@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal, Backdrop, makeStyles, createStyles } from '@material-ui/core';
 import ReactPlayer from 'react-player';
 import { history } from 'app/App';
+import AuthContextProvider from 'authentication/Auth';
+import { useDispatch } from 'react-redux';
+import { getUser } from 'store/actions';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -12,9 +15,22 @@ const useStyles = makeStyles(() =>
     },
   })
 );
+const authentication = new AuthContextProvider();
+
 export const Home = () => {
   const [open, setOpen] = React.useState(true);
   const classes = useStyles();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (localStorage.getItem('access_token')) {
+      authentication.auth0.client.userInfo(
+        localStorage.getItem('access_token') || '',
+        (err: any, user: any) => {
+          dispatch(getUser(user));
+        }
+      );
+    }
+  }, [dispatch]);
 
   const handleClose = () => {
     setOpen(false);

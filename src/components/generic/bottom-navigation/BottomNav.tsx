@@ -12,7 +12,6 @@ export default function BottomNav() {
       justify="space-between"
       style={{
         display: 'flex',
-        justifyContent: 'space-between',
         alignItems: 'center',
         padding: '10px 20px',
         borderTop: '1px solid lightgrey',

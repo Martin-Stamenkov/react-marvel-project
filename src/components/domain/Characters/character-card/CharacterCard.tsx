@@ -96,29 +96,29 @@ function CharacterCard({ data }: Props) {
     data && (
       <Grid className={classes.root} item>
         <Card className={classes.card}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              alt="avatar"
-              image={`${data.thumbnail!.path}.${data.thumbnail!.extension}`}
-              title="avatar"
-            />
-            <CardContent>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="h2"
-                align="center"
-              >
-                {data.name}
-              </Typography>
+          <CardMedia
+            component="img"
+            alt="avatar"
+            image={`${data.thumbnail!.path}.${data.thumbnail!.extension}`}
+            title="avatar"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2" align="center">
+              {data.name}
+            </Typography>{' '}
+            {data.description ? (
               <Typography variant="body2" color="textSecondary" component="p">
                 {data.description}
               </Typography>
-            </CardContent>
-          </CardActionArea>
+            ) : (
+              <Typography variant="body1" color="textSecondary" component="div">
+                <p>Missing Description!</p>
+                <p>See Details for more info.</p>
+              </Typography>
+            )}
+          </CardContent>
           <CardActions className={classes.cardActions}>
-            <div className={classes.bottom}>
+            <Grid className={classes.bottom}>
               <Button
                 size="small"
                 color="primary"
@@ -136,7 +136,7 @@ function CharacterCard({ data }: Props) {
               >
                 <FavoriteIcon color={isFavorite ? 'secondary' : 'inherit'} />
               </IconButton>
-            </div>
+            </Grid>
           </CardActions>
         </Card>
       </Grid>

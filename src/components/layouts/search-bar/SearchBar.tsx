@@ -12,7 +12,7 @@ export default function SearchBar({ data }: any) {
     event.preventDefault();
     if (values) {
       // dispatch(searchCharacterByNameRequest());
-      const a = dispatch(searchCharactersByName(values));
+      dispatch(searchCharactersByName(values));
       // dispatch(searchComicsByTitle(values));
       setValues('');
     }
@@ -27,7 +27,7 @@ export default function SearchBar({ data }: any) {
   );
   return (
     <>
-      <form onSubmit={handleSubmit} style={{ width: '50%' }}>
+      <form onSubmit={handleSubmit} style={{ marginTop: '3%', width: '50%' }}>
         <TextField
           type="text"
           value={values}

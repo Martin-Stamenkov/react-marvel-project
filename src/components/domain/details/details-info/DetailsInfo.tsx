@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Moment from 'react-moment';
 import {
   makeStyles,
@@ -6,12 +6,8 @@ import {
   CardMedia,
   CardContent,
   Typography,
-  IconButton,
   Divider,
 } from '@material-ui/core';
-import { useSelector } from 'react-redux';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import { database } from 'faker';
 
 const useStyles = makeStyles({
   card: {

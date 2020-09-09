@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   makeStyles,
   createStyles,
@@ -9,7 +8,6 @@ import {
   Typography,
   CardMedia,
 } from '@material-ui/core';
-import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
