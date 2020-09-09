@@ -22,7 +22,6 @@ export const DialogCharacters = ({ props }: any) => {
   const currentSeries = useSelector((state: any) => state.currentSeries);
   const currentEvent = useSelector((state: any) => state.event);
   const [scroll, setScroll] = useState<DialogProps['scroll']>('body');
-  console.log(currentSeries);
 
   const handleClick = (scrollType: DialogProps['scroll']) => {
     setOpen(true);
@@ -59,13 +58,12 @@ export const DialogCharacters = ({ props }: any) => {
         ts,
         hasher
       ).then((response) => {
-        console.log(response);
         setCharacters(response.data.data.results);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(characters);
   return (
     <div>
       {props.characters.items.length > 0 ? (

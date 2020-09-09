@@ -33,7 +33,7 @@ export const DetailsInfo = ({ data }: any) => {
             style={{ display: 'flex', marginTop: 25, marginBottom: 25 }}
             container
           >
-            <Grid style={{ display: 'flex' }} spacing={5}>
+            <Grid style={{ display: 'flex' }}>
               <CardMedia
                 className={classes.card}
                 component="img"

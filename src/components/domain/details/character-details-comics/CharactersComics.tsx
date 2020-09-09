@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Requests } from 'api/requests';
 import { useSelector } from 'react-redux';
 import { publicKey, ts, hasher } from 'api/constants';
-import { DetailsInfo } from '../../details/details-info/DetailsInfo';
 import { Callback } from 'components/generic/callback/Callback';
+import { DetailsInfo } from '../details-info/DetailsInfo';
 
 export const CharactersComics = () => {
   const [comicsRequests, setComicsRequests] = useState([]);

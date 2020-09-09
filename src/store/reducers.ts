@@ -5,7 +5,6 @@ import {
   FETCH_CHARACTER_BY_ID_SUCCESS,
   FETCH_CHARACTER_BY_ID_FAILURE,
   FETCH_CHARACTER_BY_ID_REQUEST,
-  INCREASE_OFFSET,
   SEARCH_CHARACTER_BY_NAME_REQUEST,
   SEARCH_CHARACTER_BY_NAME_SUCCESS,
   SEARCH_CHARACTER_BY_NAME_FAILURE,
@@ -32,6 +31,10 @@ import {
   FETCH_EVENT_BY_ID_SUCCESS,
   FETCH_EVENT_BY_ID_FAILURE,
   SET_ITEMS_TO_NULL,
+  INCREASE_CHARACTERS_OFFSET,
+  INCREASE_COMICS_OFFSET,
+  INCREASE_SERIES_OFFSET,
+  INCREASE_EVENTS_OFFSET,
 } from './types';
 import { IAppState } from './store-interfaces';
 
@@ -233,7 +236,7 @@ export const rootReducer = (
         ...state,
         currentUser: action.payload,
       };
-    case INCREASE_OFFSET:
+    case INCREASE_CHARACTERS_OFFSET:
       return {
         ...state,
         characters: {
@@ -241,10 +244,36 @@ export const rootReducer = (
           offset: action.payload,
         },
       };
+    case INCREASE_COMICS_OFFSET:
+      return {
+        ...state,
+        comics: {
+          ...state.comics,
+          offset: action.payload,
+        },
+      };
+    case INCREASE_SERIES_OFFSET:
+      return {
+        ...state,
+        series: {
+          ...state.series,
+          offset: action.payload,
+        },
+      };
+    case INCREASE_EVENTS_OFFSET:
+      return {
+        ...state,
+        events: {
+          ...state.events,
+          offset: action.payload,
+        },
+      };
     case SET_ITEMS_TO_NULL:
       return {
         ...state,
         characters: null,
+        comics: null,
+        series: null,
       };
     default:
       return state;

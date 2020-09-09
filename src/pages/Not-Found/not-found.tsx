@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Grid } from '@material-ui/core';
 import notFound from 'assets/not-found.jpg';
-import { useStyles } from './not-found.styles';
 import { history } from 'app/App';
+import { useStyles } from './not-found.styles';
 
 export default function NotFoundPage() {
   const classes = useStyles();

@@ -36,6 +36,7 @@ export const ComicsInfo = () => {
           (creator: any) => creator.role === 'writer'
         )
       : 'No available information !';
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -57,7 +58,7 @@ export const ComicsInfo = () => {
             />
             <CardContent>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <img style={{ height: 50 }} src={Comics} />
+                <img style={{ height: 50 }} src={Comics} alt="Comics" />
                 <Typography gutterBottom variant="h5" component="h2">
                   {currentComics.title}
                 </Typography>

@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { CharacterDetails } from '../character-details/CharacterDetails';
 import { history } from 'app/App';
+import CloseIcon from '@material-ui/icons/Close';
+import { CharacterDetails } from '../character-details/CharacterDetails';
 import { CharactersComics } from '../character-details-comics/CharactersComics';
 import { CharacterEvents } from '../character-details-events/CharacterEvents';
 import { CharacterSeries } from '../character-details-series/CharacterSeries';
-import CloseIcon from '@material-ui/icons/Close';
 
 const DetailsSummary = () => {
   const [state, setState] = useState(0);

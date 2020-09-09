@@ -32,8 +32,11 @@ import {
   FETCH_EVENT_BY_ID_REQUEST,
   FETCH_EVENT_BY_ID_SUCCESS,
   FETCH_EVENT_BY_ID_FAILURE,
-  INCREASE_OFFSET,
   SET_ITEMS_TO_NULL,
+  INCREASE_CHARACTERS_OFFSET,
+  INCREASE_COMICS_OFFSET,
+  INCREASE_SERIES_OFFSET,
+  INCREASE_EVENTS_OFFSET,
 } from './types';
 import { Requests } from '../api/requests';
 import { publicKey, ts, hasher } from '../api/constants';
@@ -61,9 +64,8 @@ export const fetchAllCharacters = (offset: number) => {
     Requests.getAllCharacters(offset, publicKey, ts, hasher)
       .then((response) => {
         const heroes = response.data.data;
-        console.log(response.data.data);
         dispatch(fetchAllCharactersSuccess(heroes));
-        dispatch(updateOffsetWith20(response.data.data.offset));
+        dispatch(updateCharactersOffset(response.data.data.offset));
       })
       .catch((error) => {
         console.log(error);
@@ -98,6 +100,7 @@ export const fetchAllComics = (offset: number) => {
     Requests.getAllComics(offset, publicKey, ts, hasher)
       .then((response) => {
         dispatch(fetchAllComicsSuccess(response.data.data));
+        dispatch(updateComicsOffset(response.data.data.offset));
       })
       .catch((error) => {
         console.log(error);
@@ -132,6 +135,7 @@ export const fetchAllSeries = (offset: number) => {
     Requests.getAllSeries(offset, publicKey, ts, hasher)
       .then((response) => {
         dispatch(fetchAllSeriesSuccess(response.data.data));
+        dispatch(updateSeriesOffset(response.data.data.offset));
       })
       .catch((error) => {
         console.log(error);
@@ -166,6 +170,7 @@ export const fetchAllEvents = (offset: number) => {
     Requests.getAllEvents(offset, publicKey, ts, hasher)
       .then((response) => {
         dispatch(fetchAllEventsSuccess(response.data.data));
+        dispatch(updateEventsOffset(response.data.data.offset));
       })
       .catch((error) => {
         console.log(error);
@@ -404,15 +409,34 @@ export const getUser = (user: any) => {
   };
 };
 
-export const updateOffsetWith20 = (offset: number) => {
+export const updateCharactersOffset = (offset: number) => {
   return {
-    type: INCREASE_OFFSET,
+    type: INCREASE_CHARACTERS_OFFSET,
     payload: offset + 20,
   };
 };
-export const setToNull = (characters: any) => {
+export const updateComicsOffset = (offset: number) => {
+  return {
+    type: INCREASE_COMICS_OFFSET,
+    payload: offset + 20,
+  };
+};
+
+export const updateSeriesOffset = (offset: number) => {
+  return {
+    type: INCREASE_SERIES_OFFSET,
+    payload: offset + 20,
+  };
+};
+export const updateEventsOffset = (offset: number) => {
+  return {
+    type: INCREASE_EVENTS_OFFSET,
+    payload: offset + 20,
+  };
+};
+export const setToNull = (items: any) => {
   return {
     type: SET_ITEMS_TO_NULL,
-    payload: characters,
+    payload: items,
   };
 };

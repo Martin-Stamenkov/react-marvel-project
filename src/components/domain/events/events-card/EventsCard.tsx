@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import Card from '@material-ui/core/Card';
 
 import CardContent from '@material-ui/core/CardContent';
@@ -35,12 +35,12 @@ export default function EventsCard({ data }: any) {
 
   const event = useMemo(
     () => events && events.find((x: any) => x.id === data.id),
-    []
+    [events, data.id]
   );
 
   const handleClick = () => {
     dispatch(fetchEventByIdSuccess(event));
-    events && dispatch(fetchEventById(event.id));
+    event && dispatch(fetchEventById(event.id));
     history.push('/event');
   };
 

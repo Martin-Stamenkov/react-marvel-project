@@ -1,12 +1,12 @@
 import auth0 from 'auth0-js';
+import { history } from 'app/App';
+import swal from 'sweetalert';
 import {
   REACT_APP_AUTH0_DOMAIN,
   REACT_APP_AUTH0_CLIENT_ID,
   REDIRECT_URL,
   DB_CONNECTION_NAME,
 } from '../api/constants';
-import { history } from 'app/App';
-import swal from 'sweetalert';
 
 export default class AuthContextProvider {
   auth0 = new auth0.WebAuth({
@@ -28,6 +28,7 @@ export default class AuthContextProvider {
   }
 
   userProfile = {};
+
   login(username: string, password: string) {
     this.auth0.login(
       { realm: DB_CONNECTION_NAME, username, password },
@@ -84,7 +85,7 @@ export default class AuthContextProvider {
   }
 
   setSession(authResult: any) {
-    let expiresAt = JSON.stringify(
+    const expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
     );
     localStorage.setItem('access_token', authResult.accessToken);
@@ -94,7 +95,7 @@ export default class AuthContextProvider {
   }
 
   updateUserData(id: number, user: any) {
-    let Management = new auth0.Management({
+    const Management = new auth0.Management({
       domain: REACT_APP_AUTH0_DOMAIN,
       token: localStorage.getItem('access_token') || undefined,
     });
@@ -113,10 +114,11 @@ export default class AuthContextProvider {
     localStorage.removeItem('expires_at');
     history.replace('/signin');
   }
+
   isAuthenticated() {
     // Check whether the current time is past the
     // access token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at') || '{}');
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at') || '{}');
     return new Date().getTime() < expiresAt;
   }
 }

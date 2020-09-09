@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllEvents } from 'store/actions';
+import { fetchAllEvents, setToNull } from 'store/actions';
 import { Callback } from 'components/generic/callback/Callback';
-import { Grid, CircularProgress } from '@material-ui/core';
-import EventsCard from '../events-card/EventsCard';
+import { Grid } from '@material-ui/core';
 import InfiniteScroll from 'react-infinite-scroller';
+import EventsCard from '../events-card/EventsCard';
 
 export default function EventsList() {
   const [currentOffset, setCurrentOffset] = useState(0);
@@ -12,28 +12,49 @@ export default function EventsList() {
   const dispatch = useDispatch();
   const currentEvents = useSelector((state: any) => state.events?.results);
   const total = useSelector((state: any) => state.events?.total);
+  const offset = useSelector((state: any) => state.events?.offset);
   const loading = useSelector((state: any) => state.loading);
 
   useEffect(() => {
-    dispatch(fetchAllEvents(currentOffset));
-  }, [currentOffset]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    currentEvents && setEvents(events.concat(currentEvents));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentEvents]);
+
+  useEffect(() => {
+    dispatch(fetchAllEvents(offset));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setToNull(currentEvents));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onScroll = () => {
+    if (loading || offset === currentOffset) {
+      return;
+    }
+    dispatch(fetchAllEvents(offset));
     setCurrentOffset(currentOffset + 20);
-    currentEvents && setEvents(events.concat(currentEvents));
   };
 
   return (
     <>
-      {loading ? (
+      {currentOffset === 0 && loading ? (
         <Callback />
       ) : (
         <InfiniteScroll
-          pageStart={0}
           loadMore={() => onScroll()}
           hasMore={total > currentOffset}
           threshold={500}
-          loader={<Callback />}
+          loader={
+            <div key={0}>
+              <Callback />
+            </div>
+          }
         >
           <Grid
             container

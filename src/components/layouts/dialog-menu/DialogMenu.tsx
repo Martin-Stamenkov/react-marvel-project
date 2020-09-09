@@ -82,7 +82,7 @@ export function MenuDialog(props: SimpleDialogProps) {
                 onClick={() => handleListItemClick('Characters')}
                 primary="Characters"
               />
-              <img style={{ height: 32 }} src={ironMan} />
+              <img style={{ height: 32 }} src={ironMan} alt="ironMan" />
             </ListItem>
             <ListItem button>
               <ListItemText

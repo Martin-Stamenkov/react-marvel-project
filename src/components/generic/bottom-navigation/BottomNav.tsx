@@ -27,7 +27,7 @@ export default function BottomNav() {
       </Button>
       <Button
         color="primary"
-        variant={'contained'}
+        variant="contained"
         disabled={currentOffset === total}
         onClick={() => {
           return setCurrentOffset(currentOffset + 20), window.scrollTo(0, 0);

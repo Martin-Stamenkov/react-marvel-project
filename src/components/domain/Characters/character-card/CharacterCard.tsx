@@ -4,7 +4,6 @@ import {
   makeStyles,
   Grid,
   Card,
-  CardActionArea,
   CardMedia,
   CardContent,
   Typography,
@@ -52,6 +51,7 @@ function CharacterCard({ data }: Props) {
       (searchedCharacters &&
         searchedCharacters.find((x: ICard) => x.id === data.id)) ||
       (allCharacters && allCharacters.find((x: ICard) => x.id === data.id)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
@@ -62,6 +62,7 @@ function CharacterCard({ data }: Props) {
     ) === -1
       ? setIsFavorite(false)
       : setIsFavorite(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const addToFavorites = useCallback((variant: VariantType) => {

@@ -16,7 +16,6 @@ const auth = new AuthContextProvider();
 
 const useStyles = makeStyles({
   root: {
-    marginTop: 10,
     minWidth: 200,
   },
   title: {
@@ -36,7 +35,7 @@ const SignUp = () => {
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
+    const { value } = event.target;
     setAccount({ ...account, [event.target.name]: value });
   };
 
@@ -47,7 +46,7 @@ const SignUp = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container style={{ marginTop: '7%' }} maxWidth="sm">
       <Card className={classes.root}>
         <CardContent>
           <img className={classes.logo} src={marvel} alt="MarvelLogo" />

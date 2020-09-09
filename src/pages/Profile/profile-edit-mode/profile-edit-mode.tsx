@@ -27,10 +27,11 @@ export const ProfilePage = () => {
         Nickname: profile.nickname.toString(),
         Email: profile.name.toString(),
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
+    const { value } = event.target;
     setUserInfo({ ...userInfo, [event.target.name]: value });
   };
 

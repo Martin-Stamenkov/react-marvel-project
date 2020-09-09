@@ -12,13 +12,13 @@ import { SnackbarProvider } from 'notistack';
 const store = configureStore();
 
 ReactDOM.render(
-  <React.Fragment>
+  <>
     <Provider store={store}>
       <SnackbarProvider maxSnack={5}>
         <App />
       </SnackbarProvider>
     </Provider>
-  </React.Fragment>,
+  </>,
   document.getElementById('root')
 );
 

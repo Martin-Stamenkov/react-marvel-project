@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Requests } from 'api/requests';
 import { publicKey, ts, hasher } from 'api/constants';
-import CharacterCard from '../character-card/CharacterCard';
 import { history } from 'app/App';
 import { Callback } from 'components/generic/callback/Callback';
 import {
@@ -11,6 +10,7 @@ import {
   DialogContent,
   DialogContentText,
 } from '@material-ui/core';
+import CharacterCard from '../character-card/CharacterCard';
 
 export const FavoritesCharacters = () => {
   const [favoriteCharacters, setFavoriteCharacters] = useState<any>([]);
@@ -29,6 +29,7 @@ export const FavoritesCharacters = () => {
         }
       );
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     setIsLoading(false);

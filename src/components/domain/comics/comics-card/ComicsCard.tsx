@@ -35,7 +35,8 @@ export default function ComicsCard({ data }: any) {
 
   const currentComics = useMemo(
     () => comics && comics.find((x: any) => x.id === data.id),
-    [comics]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
 
   const handleClick = () => {

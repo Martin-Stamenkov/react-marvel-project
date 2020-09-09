@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Callback } from 'components/generic/callback/Callback';
 import { Requests } from '../../../../api/requests';
 import { publicKey, ts, hasher } from '../../../../api/constants';
-import { Callback } from 'components/generic/callback/Callback';
-import { DetailsInfo } from '../../details/details-info/DetailsInfo';
+import { DetailsInfo } from '../details-info/DetailsInfo';
 
 export const CharacterEvents = () => {
   const [eventsRequests, setEventsRequests] = useState([]);
@@ -24,7 +24,6 @@ export const CharacterEvents = () => {
         .then(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(eventsRequests);
 
   return (
     <>

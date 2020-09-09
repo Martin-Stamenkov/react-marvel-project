@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Button, CircularProgress } from '@material-ui/core';
-import { fetchAllSeries } from '../../../../store/actions';
+import { Grid } from '@material-ui/core';
 import { Callback } from 'components/generic/callback/Callback';
 import SeriesCard from 'components/domain/series/series-card/SeriesCard';
 import InfiniteScroll from 'react-infinite-scroller';
+import { fetchAllSeries, setToNull } from '../../../../store/actions';
 
 export const SeriesList = () => {
   const [currentOffset, setCurrentOffset] = useState(0);
@@ -12,30 +12,50 @@ export const SeriesList = () => {
   const dispatch = useDispatch();
   const total = useSelector((state: any) => state.series?.total);
   const currentSeries = useSelector((state: any) => state.series?.results);
+  const offset = useSelector((state: any) => state.series?.offset);
   const loading = useSelector((state: any) => state.loading);
 
   useEffect(() => {
-    dispatch(fetchAllSeries(currentOffset));
-  }, [currentOffset]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    currentSeries && setSeries(series.concat(currentSeries));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSeries]);
+
+  useEffect(() => {
+    dispatch(fetchAllSeries(offset));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setToNull(currentSeries));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onScroll = () => {
+    if (loading || offset === currentOffset) {
+      return;
+    }
+    dispatch(fetchAllSeries(offset));
     setCurrentOffset(currentOffset + 20);
-    currentSeries && setSeries(series.concat(currentSeries));
   };
 
   return (
     <>
-      {loading ? (
-        <CircularProgress />
+      {currentOffset === 0 && loading ? (
+        <Callback />
       ) : (
         <InfiniteScroll
-          pageStart={0}
           loadMore={() => onScroll()}
           hasMore={total > currentOffset}
           threshold={500}
-          loader={<Callback />}
+          loader={
+            <div key={0}>
+              <Callback />
+            </div>
+          }
         >
-          {' '}
           <Grid container spacing={3} justify="center">
             {series &&
               series.map((card: any, index: number) => (

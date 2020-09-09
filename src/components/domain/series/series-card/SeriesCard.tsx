@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import Card from '@material-ui/core/Card';
 
 import CardContent from '@material-ui/core/CardContent';
@@ -13,14 +13,13 @@ import {
   CardActions,
 } from '@material-ui/core';
 import { history } from 'app/App';
-// import { fetchComicsById, fetchComicsByIdSuccess } from 'store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSeriesByIdSuccess, fetchSeriesById } from 'store/actions';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     card: {
-      maxWidth: 250,
+      maxWidth: 300,
       boxShadow: '3px  3px  5px  grey',
     },
     root: {
@@ -36,6 +35,7 @@ export default function SeriesCard({ data }: any) {
 
   const currentSeries = useMemo(
     () => series && series.find((x: any) => x.id === data.id),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 

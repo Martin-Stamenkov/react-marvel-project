@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Theme,
-  createStyles,
-  makeStyles,
-  useTheme,
-} from '@material-ui/core/styles';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
@@ -32,7 +27,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const SeriesInfo = () => {
   const classes = useStyles();
-  const theme = useTheme();
   const currentSeries = useSelector((state: any) => state.currentSeries);
 
   return (
@@ -53,7 +47,11 @@ export const SeriesInfo = () => {
           />
           <CardContent>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <img style={{ height: 50, marginRight: 15 }} src={TvSeries} />
+              <img
+                style={{ height: 50, marginRight: 15 }}
+                src={TvSeries}
+                alt="Series"
+              />
 
               <Typography gutterBottom variant="h5" component="h2">
                 {currentSeries.title}

@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Theme,
-  createStyles,
-  makeStyles,
-  useTheme,
-} from '@material-ui/core/styles';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
@@ -33,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const EventsInfo = () => {
   const classes = useStyles();
-  const theme = useTheme();
   const event = useSelector((state: any) => state.event);
   return (
     event && (
@@ -51,7 +45,11 @@ export const EventsInfo = () => {
           />
           <CardContent>
             <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-              <img style={{ height: 50, marginRight: 15 }} src={Events} />
+              <img
+                style={{ height: 50, marginRight: 15 }}
+                src={Events}
+                alt="Events"
+              />
               <Typography gutterBottom variant="h5" component="h2">
                 {event.title}
               </Typography>

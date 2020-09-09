@@ -6,7 +6,6 @@ import {
   CardMedia,
   CardContent,
   Typography,
-  IconButton,
   Divider,
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
@@ -49,6 +48,7 @@ export const CharacterDetails = () => {
     ) === -1
       ? setIsFavorite(false)
       : setIsFavorite(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -56,7 +56,7 @@ export const CharacterDetails = () => {
       {characterDetails && (
         <>
           <Grid className={classes.container} container>
-            <Grid style={{ display: 'flex' }} spacing={5}>
+            <Grid style={{ display: 'flex' }}>
               <CardMedia
                 className={classes.card}
                 component="img"

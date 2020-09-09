@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Callback } from 'components/generic/callback/Callback';
 import { Requests } from '../../../../api/requests';
 import { publicKey, ts, hasher } from '../../../../api/constants';
-import { DetailsInfo } from '../../details/details-info/DetailsInfo';
-import { Callback } from 'components/generic/callback/Callback';
+import { DetailsInfo } from '../details-info/DetailsInfo';
 
 export const CharacterSeries = () => {
   const [seriesRequests, setSeriesRequests] = useState([]);
@@ -19,7 +19,6 @@ export const CharacterSeries = () => {
         hasher
       )
         .then((response) => {
-          console.log(response);
           setSeriesRequests(response.data.data.results);
         })
         .then(() => setLoading(false));

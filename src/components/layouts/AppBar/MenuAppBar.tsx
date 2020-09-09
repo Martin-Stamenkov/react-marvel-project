@@ -1,11 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import {
-  makeStyles,
-  useTheme,
-  Theme,
-  createStyles,
-} from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -15,9 +10,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { history } from 'app/App';
-import { MenuDialog } from '../dialog-menu/DialogMenu';
 import AuthContextProvider from 'authentication/Auth';
 import { useSelector } from 'react-redux';
+import { MenuDialog } from '../dialog-menu/DialogMenu';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,7 +35,6 @@ const authentication = new AuthContextProvider();
 
 export default function NavBar() {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openRight = Boolean(anchorEl);
