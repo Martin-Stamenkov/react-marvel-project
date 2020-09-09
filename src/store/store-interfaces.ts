@@ -1,7 +1,7 @@
 export interface IAppState {
   error: string;
   loading: boolean | null;
-  offset: number | undefined;
+  offset: number;
   character: object | null;
   characters: [] | null;
   searchedCharacters: [] | null;

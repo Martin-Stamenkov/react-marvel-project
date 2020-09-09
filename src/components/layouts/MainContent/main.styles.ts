@@ -4,7 +4,7 @@ export const styles = makeStyles((theme: Theme) => ({
   main: {
     minHeight: '100%',
     display: 'flex',
-    marginTop: 100,
+    marginTop: 70,
     justifyContent: 'center',
   },
 }));

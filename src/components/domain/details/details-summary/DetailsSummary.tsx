@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { BrowserRouter } from 'react-router-dom';
 import { CharacterDetails } from '../character-details/CharacterDetails';
 import { history } from 'app/App';
 import { CharactersComics } from '../character-details-comics/CharactersComics';
@@ -30,7 +29,7 @@ const DetailsSummary = () => {
         <Tab label="Comics" />
         <Tab label="Events" />
         <Tab label="Series" />
-        <Tab icon={<CloseIcon />} href={'/items'} />
+        <Tab icon={<CloseIcon />} onClick={() => history.push('/items')} />
       </Tabs>
       {state === 0 ? <CharacterDetails /> : null}
       {state === 1 ? <CharactersComics /> : null}

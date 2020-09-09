@@ -232,6 +232,11 @@ export const rootReducer = (
         ...state,
         currentUser: action.payload,
       };
+    case INCREASE_OFFSET:
+      return {
+        ...state,
+        offset: action.payload,
+      };
     default:
       return state;
   }

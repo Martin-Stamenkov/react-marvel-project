@@ -1,8 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Requests } from '../../../api/requests';
-import { publicKey, ts, hasher } from '../../../api/constants';
+import React from 'react';
+
 import {
-  Grid,
   makeStyles,
   createStyles,
   Theme,
@@ -26,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => {
   });
 });
 
-export const ComicsCharacters = ({ data }: any) => {
+export const ApearCharactersCard = ({ data }: any) => {
   const classes = useStyles();
 
   return (

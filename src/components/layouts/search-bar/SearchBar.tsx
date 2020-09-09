@@ -5,10 +5,8 @@ import { useDispatch } from 'react-redux';
 import { searchCharactersByName } from 'store/actions';
 
 export default function SearchBar({ data }: any) {
-  console.log(data);
   const [values, setValues] = useState('');
   const dispatch = useDispatch();
-  console.log(values);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

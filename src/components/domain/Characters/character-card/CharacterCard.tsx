@@ -21,6 +21,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 const useStyles = makeStyles({
   card: {
     maxWidth: 300,
+    boxShadow: '3px  3px  5px  grey',
   },
   root: {
     marginTop: 30,

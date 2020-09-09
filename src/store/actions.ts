@@ -32,6 +32,7 @@ import {
   FETCH_EVENT_BY_ID_REQUEST,
   FETCH_EVENT_BY_ID_SUCCESS,
   FETCH_EVENT_BY_ID_FAILURE,
+  INCREASE_OFFSET,
 } from './types';
 import { Requests } from '../api/requests';
 import { publicKey, ts, hasher } from '../api/constants';
@@ -58,7 +59,10 @@ export const fetchAllCharacters = (offset: number) => {
     dispatch(fetchAllCharactersRequest());
     Requests.getAllCharacters(offset, publicKey, ts, hasher)
       .then((response) => {
-        dispatch(fetchAllCharactersSuccess(response.data.data));
+        const heroes = response.data.data;
+        console.log(response.data.data);
+        dispatch(fetchAllCharactersSuccess(heroes));
+        dispatch(updateOffsetWith20(response.data.data.offset));
       })
       .catch((error) => {
         console.log(error);
@@ -396,5 +400,12 @@ const getCurrentUser = (user: any) => {
 export const getUser = (user: any) => {
   return (dispatch: any) => {
     dispatch(getCurrentUser(user));
+  };
+};
+
+const updateOffsetWith20 = (offset: number) => {
+  return {
+    type: INCREASE_OFFSET,
+    payload: offset + 20,
   };
 };

@@ -10,9 +10,9 @@ import {
 import { profileStyles } from 'pages/Profile/profile-styles';
 import AuthContextProvider from 'authentication/Auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from 'store/actions';
 import { history } from 'app/App';
 import { Callback } from 'components/generic/callback/Callback';
+import background from 'assets/profile-background.jpg';
 
 const auth = new AuthContextProvider();
 
@@ -37,7 +37,10 @@ export const ProfileViewMode = () => {
   };
   return (
     user && (
-      <Container maxWidth="xs">
+      <Container
+        style={{ backgroundImage: `url(${background}) no-repeat center fixed` }}
+        maxWidth="xs"
+      >
         {loading ? (
           <Callback />
         ) : (

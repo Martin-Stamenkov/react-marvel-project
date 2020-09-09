@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { Requests } from 'api/requests';
 import { publicKey, ts, hasher } from 'api/constants';
-import { ComicsCharacters } from 'components/generic/appear-characters/ApearCharactersCard';
+import { ApearCharactersCard } from 'components/generic/appear-characters/ApearCharactersCard';
 import { useSelector } from 'react-redux';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import CloseSharpIcon from '@material-ui/icons/CloseSharp';
@@ -32,7 +32,6 @@ export const DialogCharacters = ({ props }: any) => {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(props);
   useEffect(() => {
     if (currentComics && !Object.keys(props).includes('comics')) {
       Requests.getCharactersByComicsId(
@@ -106,7 +105,7 @@ export const DialogCharacters = ({ props }: any) => {
         <DialogContent dividers={scroll === 'paper'}>
           <GridList cellHeight={160} cols={2}>
             {characters.map((character: any) => (
-              <ComicsCharacters key={character.id} data={character} />
+              <ApearCharactersCard key={character.id} data={character} />
             ))}
           </GridList>
         </DialogContent>

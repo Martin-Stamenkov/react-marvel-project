@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     card: {
       maxWidth: 250,
+      boxShadow: '3px  3px  5px  grey',
     },
     root: {
       marginTop: 30,

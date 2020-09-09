@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import {
   makeStyles,
@@ -18,7 +18,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { history } from 'app/App';
 import { MenuDialog } from '../dialog-menu/DialogMenu';
 import AuthContextProvider from 'authentication/Auth';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUser } from 'store/actions';
 
 const drawerWidth = 150;
 
@@ -63,6 +64,17 @@ const useStyles = makeStyles((theme: Theme) =>
 const authentication = new AuthContextProvider();
 
 export default function NavBar() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (localStorage.getItem('access_token')) {
+      authentication.auth0.client.userInfo(
+        localStorage.getItem('access_token') || '',
+        (err: any, user: any) => {
+          dispatch(getUser(user));
+        }
+      );
+    }
+  }, []);
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
