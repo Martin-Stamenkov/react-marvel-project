@@ -11,26 +11,26 @@ export default function ComicsList() {
   const dispatch = useDispatch();
   const currentComics = useSelector((state: any) => state.comics?.results);
   const total = useSelector((state: any) => state.comics?.total);
+  const offset = useSelector((state: any) => state.comics?.offset);
   const [comics, setComics] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const loadings = useSelector((state: any) => state.loading);
+  const loading = useSelector((state: any) => state.loading);
+  console.log(offset);
 
   useEffect(() => {
     fetchData();
-  }, [currentOffset, comics]);
+  }, []);
 
   const fetchData = async () => {
-    dispatch(fetchAllComics(currentOffset));
-    setLoading(false);
+    await dispatch(fetchAllComics(currentOffset));
   };
-  const onScroll = () => {
+  const onScroll = async () => {
     setCurrentOffset(currentOffset + 20);
     currentComics && setComics(comics.concat(currentComics));
   };
 
   return (
     <>
-      {/* {loading ? (
+      {/* {offset === 0 && loading ? (
         <Callback />
       ) : ( */}
       <>

@@ -33,6 +33,7 @@ import {
   FETCH_EVENT_BY_ID_SUCCESS,
   FETCH_EVENT_BY_ID_FAILURE,
   INCREASE_OFFSET,
+  SET_ITEMS_TO_NULL,
 } from './types';
 import { Requests } from '../api/requests';
 import { publicKey, ts, hasher } from '../api/constants';
@@ -403,9 +404,15 @@ export const getUser = (user: any) => {
   };
 };
 
-const updateOffsetWith20 = (offset: number) => {
+export const updateOffsetWith20 = (offset: number) => {
   return {
     type: INCREASE_OFFSET,
     payload: offset + 20,
+  };
+};
+export const setToNull = (characters: any) => {
+  return {
+    type: SET_ITEMS_TO_NULL,
+    payload: characters,
   };
 };

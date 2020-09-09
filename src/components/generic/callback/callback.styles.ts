@@ -6,7 +6,7 @@ export const SpinnerStyles = makeStyles({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    minHeight: '70vh',
+    minHeight: '10vh',
 
     '& p': {
       padding: 10,

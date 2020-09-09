@@ -31,6 +31,7 @@ import {
   FETCH_EVENT_BY_ID_REQUEST,
   FETCH_EVENT_BY_ID_SUCCESS,
   FETCH_EVENT_BY_ID_FAILURE,
+  SET_ITEMS_TO_NULL,
 } from './types';
 import { IAppState } from './store-interfaces';
 
@@ -235,7 +236,15 @@ export const rootReducer = (
     case INCREASE_OFFSET:
       return {
         ...state,
-        offset: action.payload,
+        characters: {
+          ...state.characters,
+          offset: action.payload,
+        },
+      };
+    case SET_ITEMS_TO_NULL:
+      return {
+        ...state,
+        characters: null,
       };
     default:
       return state;

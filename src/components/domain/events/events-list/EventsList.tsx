@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllEvents } from 'store/actions';
 import { Callback } from 'components/generic/callback/Callback';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, CircularProgress } from '@material-ui/core';
 import EventsCard from '../events-card/EventsCard';
 import InfiniteScroll from 'react-infinite-scroller';
 
@@ -25,28 +25,28 @@ export default function EventsList() {
 
   return (
     <>
-      {/* {loading ? (
+      {loading ? (
         <Callback />
-      ) : ( */}
-      <InfiniteScroll
-        pageStart={0}
-        loadMore={() => onScroll()}
-        hasMore={total > currentOffset}
-        threshold={500}
-        loader={<Callback />}
-      >
-        <Grid
-          container
-          spacing={4}
-          style={{ display: 'flex', justifyContent: 'center' }}
+      ) : (
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={() => onScroll()}
+          hasMore={total > currentOffset}
+          threshold={500}
+          loader={<Callback />}
         >
-          {events &&
-            events.map((currentEvent: any, index: number) => (
-              <EventsCard key={index} data={currentEvent} />
-            ))}
-        </Grid>
-      </InfiniteScroll>
-      {/* )} */}
+          <Grid
+            container
+            spacing={4}
+            style={{ display: 'flex', justifyContent: 'center' }}
+          >
+            {events &&
+              events.map((currentEvent: any, index: number) => (
+                <EventsCard key={index} data={currentEvent} />
+              ))}
+          </Grid>
+        </InfiniteScroll>
+      )}
     </>
   );
 }
