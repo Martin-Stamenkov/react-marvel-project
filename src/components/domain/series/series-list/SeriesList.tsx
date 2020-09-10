@@ -4,7 +4,8 @@ import { Grid } from '@material-ui/core';
 import { Callback } from 'components/generic/callback/Callback';
 import SeriesCard from 'components/domain/series/series-card/SeriesCard';
 import InfiniteScroll from 'react-infinite-scroller';
-import { fetchAllSeries, setToNull } from '../../../../store/actions';
+import { fetchAllSeries, setToNull } from 'store/actions';
+import background from 'assets/11.png';
 
 export const SeriesList = () => {
   const [currentOffset, setCurrentOffset] = useState(0);
@@ -46,23 +47,38 @@ export const SeriesList = () => {
       {currentOffset === 0 && loading ? (
         <Callback />
       ) : (
-        <InfiniteScroll
-          loadMore={() => onScroll()}
-          hasMore={total > currentOffset}
-          threshold={500}
-          loader={
-            <div key={0}>
-              <Callback />
-            </div>
-          }
+        <Grid
+          style={{
+            background: `url(${background}) no-repeat center fixed`,
+            backgroundSize: '1380px 640px',
+          }}
         >
-          <Grid container spacing={3} justify="center">
-            {series &&
-              series.map((card: any, index: number) => (
-                <SeriesCard key={index} data={card} />
-              ))}
-          </Grid>
-        </InfiniteScroll>
+          <InfiniteScroll
+            loadMore={() => onScroll()}
+            hasMore={total > currentOffset}
+            threshold={500}
+            loader={
+              <div key={0}>
+                <Callback />
+              </div>
+            }
+          >
+            <Grid
+              container
+              spacing={3}
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '5%',
+              }}
+            >
+              {series &&
+                series.map((card: any, index: number) => (
+                  <SeriesCard key={index} data={card} />
+                ))}
+            </Grid>
+          </InfiniteScroll>
+        </Grid>
       )}
     </>
   );

@@ -11,9 +11,7 @@ export default function SearchBar({ data }: any) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (values) {
-      // dispatch(searchCharacterByNameRequest());
       dispatch(searchCharactersByName(values));
-      // dispatch(searchComicsByTitle(values));
       setValues('');
     }
   };

@@ -5,6 +5,7 @@ import { Callback } from 'components/generic/callback/Callback';
 import { Grid } from '@material-ui/core';
 import InfiniteScroll from 'react-infinite-scroller';
 import EventsCard from '../events-card/EventsCard';
+import background from 'assets/5.jpg';
 
 export default function EventsList() {
   const [currentOffset, setCurrentOffset] = useState(0);
@@ -46,27 +47,38 @@ export default function EventsList() {
       {currentOffset === 0 && loading ? (
         <Callback />
       ) : (
-        <InfiniteScroll
-          loadMore={() => onScroll()}
-          hasMore={total > currentOffset}
-          threshold={500}
-          loader={
-            <div key={0}>
-              <Callback />
-            </div>
-          }
+        <Grid
+          style={{
+            background: `url(${background}) no-repeat center fixed`,
+            backgroundSize: '1450px 640px',
+          }}
         >
-          <Grid
-            container
-            spacing={4}
-            style={{ display: 'flex', justifyContent: 'center' }}
+          <InfiniteScroll
+            loadMore={() => onScroll()}
+            hasMore={total > currentOffset}
+            threshold={500}
+            loader={
+              <div key={0}>
+                <Callback />
+              </div>
+            }
           >
-            {events &&
-              events.map((currentEvent: any, index: number) => (
-                <EventsCard key={index} data={currentEvent} />
-              ))}
-          </Grid>
-        </InfiniteScroll>
+            <Grid
+              container
+              spacing={4}
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '5%',
+              }}
+            >
+              {events &&
+                events.map((currentEvent: any, index: number) => (
+                  <EventsCard key={index} data={currentEvent} />
+                ))}
+            </Grid>
+          </InfiniteScroll>
+        </Grid>
       )}
     </>
   );

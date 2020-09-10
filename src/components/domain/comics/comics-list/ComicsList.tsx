@@ -5,6 +5,7 @@ import { Callback } from 'components/generic/callback/Callback';
 import { Grid } from '@material-ui/core';
 import InfiniteScroll from 'react-infinite-scroller';
 import ComicsCard from '../comics-card/ComicsCard';
+import background from 'assets/2.jpg';
 
 export default function ComicsList() {
   const [currentOffset, setCurrentOffset] = useState(0);
@@ -47,7 +48,12 @@ export default function ComicsList() {
       {currentOffset === 0 && loading ? (
         <Callback />
       ) : (
-        <>
+        <Grid
+          style={{
+            background: `url(${background}) no-repeat center fixed`,
+            backgroundSize: '1450px 640px',
+          }}
+        >
           <InfiniteScroll
             loadMore={() => onScroll()}
             hasMore={total > currentOffset}
@@ -61,7 +67,11 @@ export default function ComicsList() {
             <Grid
               container
               spacing={4}
-              style={{ display: 'flex', justifyContent: 'center' }}
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '5%',
+              }}
             >
               {comics &&
                 comics.map((currentComics: any, index: number) => (
@@ -69,7 +79,7 @@ export default function ComicsList() {
                 ))}
             </Grid>
           </InfiniteScroll>
-        </>
+        </Grid>
       )}
     </>
   );

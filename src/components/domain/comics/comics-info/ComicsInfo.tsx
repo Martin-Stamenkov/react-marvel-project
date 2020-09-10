@@ -14,16 +14,16 @@ import Comics from 'assets/comic.png';
 
 const useStyles = makeStyles({
   card: {
-    maxWidth: 350,
-    marginLeft: 22,
+    maxWidth: '25%',
+    marginLeft: 10,
   },
   description: {
     marginBottom: 20,
     marginTop: 20,
   },
   divider: {
-    marginTop: 20,
     marginBottom: 20,
+    marginTop: 20,
   },
 });
 export const ComicsInfo = () => {
@@ -43,7 +43,7 @@ export const ComicsInfo = () => {
     currentComics && (
       <>
         <Grid
-          style={{ display: 'flex', marginTop: 25, marginBottom: 25 }}
+          style={{ display: 'flex', marginTop: '8%', marginBottom: 25 }}
           container
         >
           <Grid style={{ display: 'flex' }}>

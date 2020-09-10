@@ -20,7 +20,12 @@ export default function SearchedCharacters() {
           {characters && characters.length > 0 ? (
             <Grid container justify="center" spacing={3}>
               <SearchBar />
-              <Grid container spacing={5} justify="center">
+              <Grid
+                container
+                style={{ margin: 0 }}
+                spacing={5}
+                justify="center"
+              >
                 {characters &&
                   characters.map((character: any) => (
                     <CharacterCard key={character.id} data={character} />

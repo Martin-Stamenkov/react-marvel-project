@@ -6,6 +6,8 @@ import { fetchAllCharacters, setToNull } from 'store/actions';
 import { Callback } from 'components/generic/callback/Callback';
 import InfiniteScroll from 'react-infinite-scroller';
 import CharacterCard from '..';
+import background from 'assets/4.jpg';
+import SearchBar from 'components/layouts/search-bar/SearchBar';
 
 const CharactersList = () => {
   const [currentOffset, setCurrentOffset] = useState(0);
@@ -49,7 +51,20 @@ const CharactersList = () => {
       {currentOffset === 0 && loading ? (
         <Callback />
       ) : (
-        <>
+        <Grid
+          style={{
+            background: `url(${background}) no-repeat center fixed`,
+            backgroundSize: '1450px 740px',
+          }}
+        >
+          <Grid
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <SearchBar />
+          </Grid>
           <InfiniteScroll
             loadMore={() => onScroll()}
             hasMore={total > offset}
@@ -60,14 +75,22 @@ const CharactersList = () => {
               </div>
             }
           >
-            <Grid container spacing={3} justify="center">
+            <Grid
+              container
+              spacing={3}
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '2%',
+              }}
+            >
               {characters &&
                 characters.map((card: ItemModel, index: number) => (
                   <CharacterCard key={index} data={card} />
                 ))}
             </Grid>
           </InfiniteScroll>
-        </>
+        </Grid>
       )}
     </>
   );

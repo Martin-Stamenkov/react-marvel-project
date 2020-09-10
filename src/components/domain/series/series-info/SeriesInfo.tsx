@@ -11,8 +11,8 @@ import TvSeries from 'assets/television.png';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     card: {
-      maxWidth: 400,
-      marginLeft: 22,
+      maxWidth: '40%',
+      marginLeft: 10,
     },
     description: {
       marginBottom: 20,
@@ -32,7 +32,7 @@ export const SeriesInfo = () => {
   return (
     currentSeries && (
       <Grid
-        style={{ display: 'flex', marginTop: 25, marginBottom: 25 }}
+        style={{ display: 'flex', marginTop: '8%', marginBottom: 25 }}
         container
       >
         <Grid style={{ display: 'flex' }}>

@@ -5,5 +5,7 @@ export const styles = makeStyles((theme: Theme) => ({
     minHeight: '100%',
     marginTop: 60,
     justifyContent: 'center',
+    overflowY: 'hidden',
+    overflowX: 'hidden',
   },
 }));

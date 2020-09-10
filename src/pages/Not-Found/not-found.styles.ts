@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles({
   container: {
-    marginBottom: 30,
+    marginTop: 30,
   },
   logo: {
     width: '100%',

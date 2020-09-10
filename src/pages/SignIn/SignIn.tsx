@@ -3,13 +3,13 @@ import Container from '@material-ui/core/Container';
 import {
   Typography,
   makeStyles,
-  Card,
   CardContent,
   Button,
   TextField,
 } from '@material-ui/core';
 import marvel from 'assets/marvel.png';
 import AuthContextProvider from 'authentication/Auth';
+import background from 'assets/3.jpg';
 import { history } from 'app/App';
 
 const useStyles = makeStyles({
@@ -46,8 +46,15 @@ function SignIn() {
 
   const classes = useStyles();
   return (
-    <Container style={{ marginTop: '10%' }} maxWidth="sm">
-      <Card className={classes.root}>
+    <div
+      style={{
+        background: `url(${background}) no-repeat center fixed`,
+        paddingBottom: '12%',
+        paddingTop: '1%',
+        backgroundSize: '1400px 740px',
+      }}
+    >
+      <Container style={{ marginTop: '3%', marginLeft: 1 }} maxWidth="sm">
         <CardContent>
           <img className={classes.logo} src={marvel} alt="MarvelLogo" />
           <Typography
@@ -102,8 +109,8 @@ function SignIn() {
             </Button>
           </form>
         </CardContent>
-      </Card>
-    </Container>
+      </Container>
+    </div>
   );
 }
 export default SignIn;

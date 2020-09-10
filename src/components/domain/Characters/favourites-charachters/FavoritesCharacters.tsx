@@ -15,7 +15,6 @@ import CharacterCard from '../character-card/CharacterCard';
 export const FavoritesCharacters = () => {
   const [favoriteCharacters, setFavoriteCharacters] = useState<any>([]);
   const favorites = JSON.parse(localStorage.getItem('favoriteChars') || '[]');
-  const [loading, setIsLoading] = useState(true);
 
   useEffect(() => {
     favorites.forEach((favoriteId: number) => {
@@ -25,18 +24,12 @@ export const FavoritesCharacters = () => {
             ...result,
             response.data.data.results[0],
           ]);
-          setIsLoading(false);
         }
       );
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
-  if (loading) {
-    return <Callback />;
-  }
+
   return (
     <>
       {favorites.length > 0 ? (
