@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Redirect, Switch } from 'react-router';
 import SignUp from 'pages/SignUp';
 import SignIn from 'pages/SignIn';
@@ -21,6 +21,8 @@ import SearchedComics from 'components/domain/comics/comics-result/SearchedComic
 import { ComicsInfo } from 'components/domain/comics/comics-info/ComicsInfo';
 import { SeriesInfo } from 'components/domain/series/series-info/SeriesInfo';
 import { EventsInfo } from 'components/domain/events/events-info/EventsInfo';
+import { getUser } from 'store/actions';
+import { useDispatch } from 'react-redux';
 
 const auth = new AuthContextProvider();
 const handleAuthentications = ({ location }: any) => {
@@ -29,6 +31,18 @@ const handleAuthentications = ({ location }: any) => {
   }
 };
 function Routes() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem('access_token')) {
+      auth.auth0.client.userInfo(
+        localStorage.getItem('access_token') || '',
+        (err: any, user: any) => {
+          dispatch(getUser(user));
+        }
+      );
+    }
+  }, []);
   return (
     <>
       <Switch>
@@ -43,13 +57,15 @@ function Routes() {
           exact
           path="/signup"
           render={() =>
-            !auth.isAuthenticated() ? <SignUp /> : <Redirect to="/items" />}
+            !auth.isAuthenticated() ? <SignUp /> : <Redirect to="/items" />
+          }
         />
         <Route
           exact
           path="/signin"
           render={() =>
-            !auth.isAuthenticated() ? <SignIn /> : <Redirect to="/items" />}
+            !auth.isAuthenticated() ? <SignIn /> : <Redirect to="/items" />
+          }
         />
         <Route
           exact
@@ -59,7 +75,8 @@ function Routes() {
               <ComicsSummary />
             ) : (
               <Redirect to="/signin" />
-            )}
+            )
+          }
         />
         <Route
           exact
@@ -69,7 +86,8 @@ function Routes() {
               <CharacterCardSummary />
             ) : (
               <Redirect to="signin" />
-            )}
+            )
+          }
         />
         <Route
           exact
@@ -79,13 +97,15 @@ function Routes() {
               <EventsCardSummary />
             ) : (
               <Redirect to="signin" />
-            )}
+            )
+          }
         />
         <Route
           exact
           path="/event"
           render={() =>
-            auth.isAuthenticated() ? <EventsInfo /> : <Redirect to="signin" />}
+            auth.isAuthenticated() ? <EventsInfo /> : <Redirect to="signin" />
+          }
         />
         <Route
           exact
@@ -95,19 +115,22 @@ function Routes() {
               <SeriesCardSummary />
             ) : (
               <Redirect to="signin" />
-            )}
+            )
+          }
         />
         <Route
           exact
           path="/serie"
           render={() =>
-            auth.isAuthenticated() ? <SeriesInfo /> : <Redirect to="signin" />}
+            auth.isAuthenticated() ? <SeriesInfo /> : <Redirect to="signin" />
+          }
         />
         <Route
           exact
           path="/event"
           render={() =>
-            auth.isAuthenticated() ? <EventsInfo /> : <Redirect to="signin" />}
+            auth.isAuthenticated() ? <EventsInfo /> : <Redirect to="signin" />
+          }
         />
         <Route
           exact
@@ -117,7 +140,8 @@ function Routes() {
               <FavoritesCharacters />
             ) : (
               <Redirect to="signin" />
-            )}
+            )
+          }
         />
         <Route
           exact
@@ -127,12 +151,14 @@ function Routes() {
               <DetailsSummary />
             ) : (
               <Redirect to="signin" />
-            )}
+            )
+          }
         />
         <Route
           path="/edit-profile"
           render={() =>
-            auth.isAuthenticated() ? <ProfilePage /> : <Redirect to="signin" />}
+            auth.isAuthenticated() ? <ProfilePage /> : <Redirect to="signin" />
+          }
         />
         <Route
           path="/profile"
@@ -141,7 +167,8 @@ function Routes() {
               <ProfileViewMode />
             ) : (
               <Redirect to="signin" />
-            )}
+            )
+          }
         />
         <Route
           path="/characters-by-name"
@@ -150,7 +177,8 @@ function Routes() {
               <SearchedCharacters />
             ) : (
               <Redirect to="signin" />
-            )}
+            )
+          }
         />
         <Route
           path="/comics-by-title"
@@ -159,33 +187,25 @@ function Routes() {
               <SearchedComics />
             ) : (
               <Redirect to="signin" />
-            )}
+            )
+          }
         />
         <Route
           path="/my-comics"
           render={() =>
-            auth.isAuthenticated() ? (
-              <ComicsInfo />
-            ) : (
-              <Redirect to="signin" />
-            )}
+            auth.isAuthenticated() ? <ComicsInfo /> : <Redirect to="signin" />
+          }
         />
         <Route
           path="/home"
           render={() =>
-            auth.isAuthenticated() ? (
-              <Home />
-            ) : (
-              <Redirect to="signin" />
-            )}
+            auth.isAuthenticated() ? <Home /> : <Redirect to="signin" />
+          }
         />
         <Route
           render={() =>
-            auth.isAuthenticated() ? (
-              <NotFoundPage />
-            ) : (
-              <Redirect to="signin" />
-            )}
+            auth.isAuthenticated() ? <NotFoundPage /> : <Redirect to="signin" />
+          }
         />
       </Switch>
     </>

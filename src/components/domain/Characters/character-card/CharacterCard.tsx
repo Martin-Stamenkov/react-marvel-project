@@ -1,4 +1,8 @@
-import { fetchCharacterById, fetchCharacterByIdSuccess } from 'store/actions';
+import {
+  fetchCharacterById,
+  fetchCharacterByIdSuccess,
+  setToNull,
+} from 'store/actions';
 import { history } from 'app/App';
 import {
   makeStyles,
@@ -45,15 +49,19 @@ function CharacterCard({ data }: Props) {
   const searchedCharacters = useSelector(
     (state: any) => state.searchedCharacters?.data.results
   );
+  const favorites = useSelector((state: any) => state.favoriteCharacters);
+
   const { enqueueSnackbar } = useSnackbar();
   const character = useMemo(
     () =>
+      (favorites && favorites.find((x: ICard) => x.id === data.id)) ||
       (searchedCharacters &&
         searchedCharacters.find((x: ICard) => x.id === data.id)) ||
       (allCharacters && allCharacters.find((x: ICard) => x.id === data.id)),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [searchedCharacters, allCharacters]
   );
+  console.log(allCharacters);
+  console.log(character);
 
   useEffect(() => {
     character &&

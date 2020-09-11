@@ -13,4 +13,5 @@ export interface IAppState {
   currentComics: object | null;
   currentSeries: object | null;
   event: object | null;
+  favoriteCharacters: never[] | undefined;
 }

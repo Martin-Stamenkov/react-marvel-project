@@ -35,6 +35,7 @@ import {
   INCREASE_COMICS_OFFSET,
   INCREASE_SERIES_OFFSET,
   INCREASE_EVENTS_OFFSET,
+  SET_FAVORITE_CHARACTERS,
 } from './types';
 import { IAppState } from './store-interfaces';
 
@@ -53,6 +54,7 @@ const initialState: IAppState = {
   currentSeries: null,
   events: null,
   event: null,
+  favoriteCharacters: [],
 };
 
 export const rootReducer = (
@@ -274,6 +276,11 @@ export const rootReducer = (
         characters: null,
         comics: null,
         series: null,
+      };
+    case SET_FAVORITE_CHARACTERS:
+      return {
+        ...state,
+        favoriteCharacters: state.favoriteCharacters?.concat(action.payload),
       };
     default:
       return state;

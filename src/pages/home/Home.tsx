@@ -15,7 +15,7 @@ const useStyles = makeStyles(() =>
     },
   })
 );
-const authentication = new AuthContextProvider();
+const auth = new AuthContextProvider();
 
 export const Home = () => {
   const [open, setOpen] = React.useState(true);
@@ -23,7 +23,7 @@ export const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (localStorage.getItem('access_token')) {
-      authentication.auth0.client.userInfo(
+      auth.auth0.client.userInfo(
         localStorage.getItem('access_token') || '',
         (err: any, user: any) => {
           dispatch(getUser(user));

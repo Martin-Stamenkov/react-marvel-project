@@ -11,28 +11,29 @@ import {
   DialogContentText,
 } from '@material-ui/core';
 import CharacterCard from '../character-card/CharacterCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFavoriteCharactersSuccess, setToNull } from 'store/actions';
 
 export const FavoritesCharacters = () => {
   const [favoriteCharacters, setFavoriteCharacters] = useState<any>([]);
-  const favorites = JSON.parse(localStorage.getItem('favoriteChars') || '[]');
+  const favoritesId = JSON.parse(localStorage.getItem('favoriteChars') || '[]');
+  const dispatch = useDispatch();
+  const favorites = useSelector((state: any) => state.favoritesCharacters);
 
   useEffect(() => {
-    favorites.forEach((favoriteId: number) => {
-      Requests.getCharacterById(favoriteId, publicKey, ts, hasher).then(
-        (response) => {
-          setFavoriteCharacters((result: any) => [
-            ...result,
-            response.data.data.results[0],
-          ]);
-        }
-      );
-    });
+    dispatch(setFavoriteCharactersSuccess());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    return () => {
+      dispatch(setToNull(favorites));
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-      {favorites.length > 0 ? (
+      {favoritesId.length > 0 ? (
         <Grid container spacing={5} justify="center">
           {favoriteCharacters &&
             favoriteCharacters.map((character: any) => (

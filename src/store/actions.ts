@@ -37,6 +37,7 @@ import {
   INCREASE_COMICS_OFFSET,
   INCREASE_SERIES_OFFSET,
   INCREASE_EVENTS_OFFSET,
+  SET_FAVORITE_CHARACTERS,
 } from './types';
 import { Requests } from '../api/requests';
 import { publicKey, ts, hasher } from '../api/constants';
@@ -438,5 +439,25 @@ export const setToNull = (items: any) => {
   return {
     type: SET_ITEMS_TO_NULL,
     payload: items,
+  };
+};
+export const setFavoriteCharacters = (characters: any) => {
+  return {
+    type: SET_FAVORITE_CHARACTERS,
+    payload: characters,
+  };
+};
+export const setFavoriteCharactersSuccess = () => {
+  const favorites = JSON.parse(localStorage.getItem('favoriteChars') || '[]');
+  return (dispatch: any) => {
+    favorites.forEach((favoriteId: number) => {
+      Requests.getCharacterById(favoriteId, publicKey, ts, hasher)
+        .then((response) => {
+          dispatch(setFavoriteCharacters(response.data.data.results));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
   };
 };
