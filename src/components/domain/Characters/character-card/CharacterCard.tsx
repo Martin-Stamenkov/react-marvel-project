@@ -1,7 +1,8 @@
 import {
   fetchCharacterById,
   fetchCharacterByIdSuccess,
-  setToNull,
+  removeFavoriteCharacters,
+  setFavoriteCharactersSuccess,
 } from 'store/actions';
 import { history } from 'app/App';
 import {
@@ -28,6 +29,7 @@ const useStyles = makeStyles({
   },
   root: {
     marginTop: 30,
+    marginBottom: 30,
   },
   bottom: {
     display: 'contents',
@@ -58,10 +60,9 @@ function CharacterCard({ data }: Props) {
       (searchedCharacters &&
         searchedCharacters.find((x: ICard) => x.id === data.id)) ||
       (allCharacters && allCharacters.find((x: ICard) => x.id === data.id)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [searchedCharacters, allCharacters]
   );
-  console.log(allCharacters);
-  console.log(character);
 
   useEffect(() => {
     character &&
@@ -87,11 +88,13 @@ function CharacterCard({ data }: Props) {
           favoritesCharacters.indexOf(character.id),
           1
         );
+        dispatch(removeFavoriteCharacters(character.id));
         setIsFavorite(false);
         enqueueSnackbar('Removed from favorites !', { variant });
       }
     }
     localStorage.setItem('favoriteChars', JSON.stringify(favoritesCharacters));
+    dispatch(setFavoriteCharactersSuccess());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

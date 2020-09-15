@@ -36,6 +36,7 @@ import {
   INCREASE_SERIES_OFFSET,
   INCREASE_EVENTS_OFFSET,
   SET_FAVORITE_CHARACTERS,
+  REMOVE_FROM_FAVORITES,
 } from './types';
 import { IAppState } from './store-interfaces';
 
@@ -277,10 +278,22 @@ export const rootReducer = (
         comics: null,
         series: null,
       };
+    case REMOVE_FROM_FAVORITES:
+      return {
+        ...state,
+        favoriteCharacters: state.favoriteCharacters?.filter(
+          (character: any) => action.payload !== character.id
+        ),
+      };
     case SET_FAVORITE_CHARACTERS:
       return {
         ...state,
-        favoriteCharacters: state.favoriteCharacters?.concat(action.payload),
+        favoriteCharacters: state.favoriteCharacters
+          ?.concat(action.payload)
+          .filter(
+            (character: any | never, i: number, arr: never[]) =>
+              arr.findIndex((x: any) => x.id === character.id) === i
+          ),
       };
     default:
       return state;

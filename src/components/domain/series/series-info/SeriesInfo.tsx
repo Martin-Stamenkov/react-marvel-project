@@ -32,7 +32,7 @@ export const SeriesInfo = () => {
   return (
     currentSeries && (
       <Grid
-        style={{ display: 'flex', marginTop: '8%', marginBottom: 25 }}
+        style={{ display: 'flex', marginTop: '2%', marginBottom: 25 }}
         container
       >
         <Grid style={{ display: 'flex' }}>

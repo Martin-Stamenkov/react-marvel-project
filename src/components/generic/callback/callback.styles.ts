@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core';
-import background from 'assets/4.jpg';
 
 export const SpinnerStyles = makeStyles({
   root: {

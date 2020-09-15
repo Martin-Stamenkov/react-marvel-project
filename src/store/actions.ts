@@ -38,6 +38,8 @@ import {
   INCREASE_SERIES_OFFSET,
   INCREASE_EVENTS_OFFSET,
   SET_FAVORITE_CHARACTERS,
+  SET_FAVORITES_TO_NULL,
+  REMOVE_FROM_FAVORITES,
 } from './types';
 import { Requests } from '../api/requests';
 import { publicKey, ts, hasher } from '../api/constants';
@@ -441,6 +443,12 @@ export const setToNull = (items: any) => {
     payload: items,
   };
 };
+export const setFavoritesToNull = (items: any) => {
+  return {
+    type: SET_FAVORITES_TO_NULL,
+    payload: items,
+  };
+};
 export const setFavoriteCharacters = (characters: any) => {
   return {
     type: SET_FAVORITE_CHARACTERS,
@@ -459,5 +467,12 @@ export const setFavoriteCharactersSuccess = () => {
           console.log(error);
         });
     });
+  };
+};
+
+export const removeFavoriteCharacters = (characterId: number) => {
+  return {
+    type: REMOVE_FROM_FAVORITES,
+    payload: characterId,
   };
 };

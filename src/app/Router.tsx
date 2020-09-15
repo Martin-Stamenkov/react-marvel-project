@@ -42,7 +42,7 @@ function Routes() {
         }
       );
     }
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <Switch>
