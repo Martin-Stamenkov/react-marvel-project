@@ -3,11 +3,11 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { SnackbarProvider } from 'notistack';
 import App from './app';
 import * as serviceWorker from './serviceWorker';
 import 'typeface-roboto';
 import configureStore from './store/store';
-import { SnackbarProvider } from 'notistack';
 
 const store = configureStore();
 

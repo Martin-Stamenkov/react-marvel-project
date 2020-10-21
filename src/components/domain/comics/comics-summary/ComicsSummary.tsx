@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import ComicsList from '../comics-list/ComicsList';
+import { ComicsList } from '../comics-list/ComicsList';
 
 export const ComicsSummary = () => {
   return (

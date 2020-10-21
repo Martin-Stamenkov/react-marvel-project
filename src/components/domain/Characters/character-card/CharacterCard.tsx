@@ -1,65 +1,72 @@
-import {
-  fetchCharacterById,
-  fetchCharacterByIdSuccess,
-  removeFavoriteCharacters,
-  setFavoriteCharactersSuccess,
-} from 'store/actions';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { history } from 'app/App';
 import {
   makeStyles,
   Grid,
   Card,
-  CardMedia,
   CardContent,
   Typography,
   CardActions,
-  Button,
   IconButton,
 } from '@material-ui/core';
-import { ItemModel, ICard } from 'types/types';
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useSnackbar, VariantType } from 'notistack';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import { TooltipCard } from 'libs/components/tooltip/tooltip';
+import { GenericButton } from 'libs/components/button/generic-button';
+import { Media } from 'libs/components/media/media';
+import { IHero } from 'components/domain/characters/character-inferfaces/character-interfaces';
+import {
+  removeFavoriteCharacters,
+  setFavoriteCharactersSuccess,
+} from '../characters-action/character-action';
 
 const useStyles = makeStyles({
   card: {
     maxWidth: 300,
     boxShadow: '3px  3px  5px  grey',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
   },
   root: {
-    marginTop: 30,
-    marginBottom: 30,
+    margin: 10,
   },
   bottom: {
     display: 'contents',
     justifyContent: 'space-between',
   },
   cardActions: {
+    display: 'flex',
     justifyContent: 'space-between',
   },
 });
 type Props = {
-  data: ItemModel;
+  data: IHero;
 };
 
 function CharacterCard({ data }: Props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [isFavorite, setIsFavorite] = useState(false);
-  const allCharacters = useSelector((state: any) => state.characters?.results);
-  const searchedCharacters = useSelector(
-    (state: any) => state.searchedCharacters?.data.results
+  const allCharacters = useSelector(
+    (state: any) => state.charactersReducer.characters?.results
   );
-  const favorites = useSelector((state: any) => state.favoriteCharacters);
+
+  const searchedCharacters = useSelector(
+    (state: any) => state.charactersReducer.searchedCharacters?.data.results
+  );
+  const favorites = useSelector(
+    (state: any) => state.charactersReducer.favoriteCharacters
+  );
 
   const { enqueueSnackbar } = useSnackbar();
   const character = useMemo(
     () =>
-      (favorites && favorites.find((x: ICard) => x.id === data.id)) ||
+      (favorites && favorites.find((x: IHero) => x.id === data.id)) ||
       (searchedCharacters &&
-        searchedCharacters.find((x: ICard) => x.id === data.id)) ||
-      (allCharacters && allCharacters.find((x: ICard) => x.id === data.id)),
+        searchedCharacters.find((x: IHero) => x.id === data.id)) ||
+      (allCharacters && allCharacters.find((x: IHero) => x.id === data.id)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [searchedCharacters, allCharacters]
   );
@@ -79,7 +86,7 @@ function CharacterCard({ data }: Props) {
       ? JSON.parse(localStorage.getItem('favoriteChars') || '[]')
       : [];
     if (character) {
-      if (!favoritesCharacters.find((x: ICard) => x === character.id)) {
+      if (!favoritesCharacters.find((x: IHero) => x === character.id)) {
         favoritesCharacters.push(character.id);
         setIsFavorite(true);
         enqueueSnackbar('Added to favorites !', { variant });
@@ -99,51 +106,85 @@ function CharacterCard({ data }: Props) {
   }, []);
 
   const handleClick = () => {
-    dispatch(fetchCharacterByIdSuccess(character));
-    character && dispatch(fetchCharacterById(character.id));
-    history.push('/details');
+    history.push(`/details/${character.id}`);
   };
 
   return (
     data && (
       <Grid className={classes.root} item>
         <Card className={classes.card}>
-          <CardMedia
-            component="img"
-            alt="avatar"
-            image={`${data.thumbnail!.path}.${data.thumbnail!.extension}`}
-            title="avatar"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2" align="center">
-              {data.name}
-            </Typography>{' '}
-            {data.description ? (
-              <Typography variant="body2" color="textSecondary" component="p">
-                {data.description}
-              </Typography>
-            ) : (
-              <Typography variant="body1" color="textSecondary" component="div">
-                <p>Missing Description!</p>
-                <p>See Details for more info.</p>
-              </Typography>
-            )}
-          </CardContent>
+          <div
+            style={{
+              display: 'flex',
+              flexGrow: 1,
+              justifyContent: 'center',
+              flexDirection: 'column',
+            }}
+          >
+            <Media
+              alt="avatar"
+              image={`${data.thumbnail!.path}.${data.thumbnail!.extension}`}
+              title="avatar"
+              style={{
+                width: '100%',
+                flexGrow: 2,
+                objectFit: 'inherit',
+              }}
+            />
+            <CardContent>
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="h2"
+                align="center"
+              >
+                {data.name}
+              </Typography>{' '}
+              <>
+                {data.description ? (
+                  <TooltipCard title={data.description}>
+                    <Typography
+                      style={{
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: 'vertical',
+                      }}
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {data.description}
+                    </Typography>
+                  </TooltipCard>
+                ) : (
+                  <Typography
+                    variant="body1"
+                    color="textSecondary"
+                    component="div"
+                  >
+                    <p>Missing Description!</p>
+                    <p>See Details for more info.</p>
+                  </Typography>
+                )}
+              </>
+            </CardContent>
+          </div>
           <CardActions className={classes.cardActions}>
             <Grid className={classes.bottom}>
-              <Button
+              <GenericButton
                 size="small"
                 color="primary"
                 variant="outlined"
                 onClick={() => handleClick()}
               >
                 Details
-              </Button>
+              </GenericButton>
 
               <IconButton
                 onClick={() =>
-                  addToFavorites(!isFavorite ? 'success' : 'error')
-                }
+                  addToFavorites(!isFavorite ? 'success' : 'error')}
                 aria-label="add to favorites"
               >
                 <FavoriteIcon color={isFavorite ? 'secondary' : 'inherit'} />

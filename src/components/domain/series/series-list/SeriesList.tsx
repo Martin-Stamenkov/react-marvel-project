@@ -1,37 +1,40 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { Callback } from 'components/generic/callback/Callback';
 import SeriesCard from 'components/domain/series/series-card/SeriesCard';
 import InfiniteScroll from 'react-infinite-scroller';
-import { fetchAllSeries, setToNull } from 'store/actions';
-import background from 'assets/11.png';
+import {
+  fetchAllSeries,
+  setSeriesToNull,
+} from '../series-actions/series-actions';
 
 export const SeriesList = () => {
   const [currentOffset, setCurrentOffset] = useState(0);
   const [series, setSeries] = useState([]);
   const dispatch = useDispatch();
-  const total = useSelector((state: any) => state.series?.total);
-  const currentSeries = useSelector((state: any) => state.series?.results);
-  const offset = useSelector((state: any) => state.series?.offset);
-  const loading = useSelector((state: any) => state.loading);
+  const total = useSelector((state: any) => state.seriesReducer.series?.total);
+  const currentSeries = useSelector(
+    (state: any) => state.seriesReducer.series?.results
+  );
+  const offset = useSelector(
+    (state: any) => state.seriesReducer.series?.offset
+  );
+  const loading = useSelector((state: any) => state.seriesReducer.loading);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     currentSeries && setSeries(series.concat(currentSeries));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSeries]);
 
   useEffect(() => {
     dispatch(fetchAllSeries(offset));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     return () => {
-      dispatch(setToNull(currentSeries));
+      dispatch(setSeriesToNull(currentSeries));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onScroll = () => {
@@ -47,12 +50,16 @@ export const SeriesList = () => {
       {currentOffset === 0 && loading ? (
         <Callback />
       ) : (
-        <Grid
-          style={{
-            background: `url(${background}) no-repeat center fixed`,
-            backgroundSize: '1380px 640px',
-          }}
-        >
+        <>
+          <Typography
+            style={{
+              marginTop: '3%',
+            }}
+            variant="h4"
+          >
+            Discover the Tv Series
+          </Typography>
+
           <InfiniteScroll
             loadMore={() => onScroll()}
             hasMore={total > currentOffset}
@@ -74,11 +81,11 @@ export const SeriesList = () => {
             >
               {series &&
                 series.map((card: any, index: number) => (
-                  <SeriesCard key={index} data={card} />
+                  <SeriesCard key={card.id} data={card} />
                 ))}
             </Grid>
           </InfiniteScroll>
-        </Grid>
+        </>
       )}
     </>
   );

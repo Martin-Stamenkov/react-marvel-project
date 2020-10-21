@@ -1,16 +1,18 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Grid,
   makeStyles,
-  CardMedia,
   CardContent,
   Typography,
   Divider,
 } from '@material-ui/core';
-import { useSelector } from 'react-redux';
-import Moment from 'react-moment';
+import { format } from 'date-fns';
 import { DialogCharacters } from 'components/generic/dialog-characters/DialogCharacters';
 import Comics from 'assets/comic.png';
+import { Media } from 'libs/components/media/media';
+import { useParams } from 'react-router-dom';
+import { Requests } from 'api/requests';
+import { publicKey, ts, hasher } from 'api/constants';
 
 const useStyles = makeStyles({
   card: {
@@ -28,31 +30,36 @@ const useStyles = makeStyles({
 });
 export const ComicsInfo = () => {
   const classes = useStyles();
-  const currentComics = useSelector((state: any) => state.currentComics);
+  const [comicsInfo, setComicsInfo] = useState<any>(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    Requests.getComicsById(id, publicKey, ts, hasher).then((response) => {
+      setComicsInfo(response.data.data.results[0]);
+    });
+  }, [id]);
 
   const writer = useMemo(() => {
-    return currentComics.creators.items.length > 0
-      ? currentComics.creators.items.find(
-          (creator: any) => creator.role === 'writer'
-        )
-      : 'No available information !';
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+    return (
+      comicsInfo?.creators.items.length > 0 &&
+      comicsInfo.creators.items.find(
+        (creator: any) => creator.role === 'writer'
+      )
+    );
+  }, [comicsInfo]);
   return (
-    currentComics && (
+    comicsInfo && (
       <>
         <Grid
           style={{ display: 'flex', marginTop: '2%', marginBottom: 25 }}
           container
         >
           <Grid style={{ display: 'flex' }}>
-            <CardMedia
+            <Media
               className={classes.card}
-              component="img"
               alt="avatar"
-              image={`${currentComics.thumbnail!.path}.${
-                currentComics.thumbnail!.extension
+              image={`${comicsInfo.thumbnail!.path}.${
+                comicsInfo.thumbnail!.extension
               }`}
               title="avatar"
             />
@@ -60,18 +67,18 @@ export const ComicsInfo = () => {
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <img style={{ height: 50 }} src={Comics} alt="Comics" />
                 <Typography gutterBottom variant="h5" component="h2">
-                  {currentComics.title}
+                  {comicsInfo.title}
                 </Typography>
               </div>
               <Divider className={classes.divider} />
-              {currentComics.description ? (
+              {comicsInfo.description ? (
                 <Typography
                   className={classes.description}
                   variant="body2"
                   color="textSecondary"
                   component="p"
                 >
-                  {currentComics.description}
+                  {comicsInfo.description}
                 </Typography>
               ) : (
                 <Typography
@@ -85,23 +92,21 @@ export const ComicsInfo = () => {
               <Divider className={classes.divider} />
               <Typography gutterBottom color="textSecondary" variant="body2">
                 <span>Written by: </span>
-                {writer.name}
+                {writer ? writer.name : 'No available information !'}
               </Typography>
               <Typography gutterBottom color="textSecondary" variant="body2">
                 <span>Creators: </span>
-                {currentComics.creators.items.length > 0
-                  ? currentComics.creators.items
+                {comicsInfo.creators.items.length > 0
+                  ? comicsInfo.creators.items
                       .map((creator: any) => creator.name)
                       .join(', ')
                   : 'No available information !'}
               </Typography>
               <Typography gutterBottom variant="body2" color="textSecondary">
                 <span>Published: </span>
-                <Moment format="YYYY/MM/DD">
-                  {currentComics.dates[0].date}
-                </Moment>
+                {format(new Date(comicsInfo.dates[0].date), 'dd-MM-yyyy')}
               </Typography>
-              <DialogCharacters props={currentComics} />
+              <DialogCharacters props={comicsInfo} />
             </CardContent>
           </Grid>
         </Grid>

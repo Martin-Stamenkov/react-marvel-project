@@ -9,7 +9,7 @@ import {
 import { profileStyles } from 'pages/Profile/profile-styles';
 import { useSelector } from 'react-redux';
 import { Callback } from 'components/generic/callback/Callback';
-import background from 'assets/profile-background.jpg';
+import placeholder from 'pages/Profile/avatar-placeholder.png';
 
 export const ProfileViewMode = () => {
   const classes = profileStyles();
@@ -19,7 +19,7 @@ export const ProfileViewMode = () => {
     picture: '',
   });
   const [loading, setLoading] = useState(true);
-  const user = useSelector((state: any) => state.currentUser);
+  const user = useSelector((state: any) => state.userReducer.currentUser);
 
   useEffect(() => {
     setProfile(user);
@@ -31,13 +31,7 @@ export const ProfileViewMode = () => {
   // };
   return (
     user && (
-      <div
-        style={{
-          background: `url(${background}) no-repeat center fixed`,
-          paddingBottom: '10%',
-          paddingTop: '10%',
-        }}
-      >
+      <>
         <Container maxWidth="xs">
           {loading ? (
             <Callback />
@@ -52,7 +46,7 @@ export const ProfileViewMode = () => {
                   Profile
                 </Typography>
                 <div className={classes.logoContainer}>
-                  <img src={profile.picture} alt="placeholder" />
+                  <img src={profile.picture || placeholder} alt="placeholder" />
                 </div>
                 <form>
                   Email:
@@ -85,7 +79,7 @@ export const ProfileViewMode = () => {
             </Card>
           )}
         </Container>
-      </div>
+      </>
     )
   );
 };

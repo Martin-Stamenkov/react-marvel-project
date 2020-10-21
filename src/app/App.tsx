@@ -1,8 +1,9 @@
 import React from 'react';
-import MenuAppBar from 'components/layouts/AppBar';
 import MainContent from 'components/layouts/MainContent';
 import { createBrowserHistory } from 'history';
+import { BrowserRouter } from 'react-router-dom';
 import { Router } from 'react-router';
+import { MenuAppBar } from './AppBar/MenuAppBar';
 import Routes from './Router';
 
 export const history = createBrowserHistory();
@@ -10,12 +11,14 @@ export const history = createBrowserHistory();
 const App = () => {
   return (
     <>
-      <Router history={history}>
-        <MenuAppBar />
-        <MainContent>
-          <Routes />
-        </MainContent>
-      </Router>
+      <BrowserRouter>
+        <Router history={history}>
+          <MenuAppBar />
+          <MainContent>
+            <Routes />
+          </MainContent>
+        </Router>
+      </BrowserRouter>
     </>
   );
 };

@@ -1,48 +1,54 @@
 import React, { useMemo } from 'react';
 import Card from '@material-ui/core/Card';
-
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import {
   Grid,
   makeStyles,
   createStyles,
   Theme,
-  Button,
   CardActions,
 } from '@material-ui/core';
 import { history } from 'app/App';
-import { fetchComicsById, fetchComicsByIdSuccess } from 'store/actions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { IComics } from 'components/domain/comics/comics-interfaces/comics-interfaces';
+import { GenericButton } from 'libs/components/button/generic-button';
+import { Media } from 'libs/components/media/media';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     card: {
-      maxWidth: 250,
+      maxWidth: 260,
       boxShadow: '3px  3px  5px  grey',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
     },
     root: {
-      marginTop: 30,
+      margin: 20,
     },
   });
 });
 
-export default function ComicsCard({ data }: any) {
+type Props = {
+  data: IComics;
+};
+
+export default function ComicsCard({ data }: Props) {
+  console.log(data);
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const comics = useSelector((state: any) => state.comics?.results);
+  const comics = useSelector(
+    (state: any) => state.comicsReducer.comics?.results
+  );
 
   const currentComics = useMemo(
-    () => comics && comics.find((x: any) => x.id === data.id),
+    () => comics && comics.find((x: IComics) => x.id === data.id),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
   const handleClick = () => {
-    dispatch(fetchComicsByIdSuccess(currentComics));
-    currentComics && dispatch(fetchComicsById(currentComics.id));
-    history.push('/my-comics');
+    history.push(`/my-comics/${currentComics.id}`);
   };
 
   return (
@@ -62,22 +68,26 @@ export default function ComicsCard({ data }: any) {
               comics
             </Typography>
           </CardContent>
-          <CardMedia
-            component="img"
+          <Media
             alt="avatar"
             image={`${data.thumbnail!.path}.${data.thumbnail!.extension}`}
             title="avatar"
+            style={{
+              width: '100%',
+              flexGrow: 2,
+              objectFit: 'inherit',
+            }}
           />
           <CardActions>
             <div>
-              <Button
+              <GenericButton
                 size="small"
                 color="primary"
                 variant="outlined"
                 onClick={() => handleClick()}
               >
                 Details
-              </Button>
+              </GenericButton>
             </div>
           </CardActions>
         </Card>

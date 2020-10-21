@@ -1,23 +1,18 @@
 import React, { useEffect } from 'react';
-
 import { history } from 'app/App';
-import {
-  Grid,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  Backdrop,
-} from '@material-ui/core';
-import CharacterCard from '../character-card/CharacterCard';
+import { Grid, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFavoriteCharactersSuccess } from 'store/actions';
-import background from 'assets/9.jpg';
+import { AlertDialog } from 'libs/components/alert-dialog/alert-dialog';
+import CharacterCard from '../character-card/CharacterCard';
+import { setFavoriteCharactersSuccess } from '../characters-action/character-action';
+import { IHero } from '../character-inferfaces/character-interfaces';
 
 export const FavoritesCharacters = () => {
   const favoritesId = JSON.parse(localStorage.getItem('favoriteChars') || '[]');
   const dispatch = useDispatch();
-  let favorites = useSelector((state: any) => state.favoriteCharacters);
+  const favorites = useSelector(
+    (state: any) => state.charactersReducer.favoriteCharacters
+  );
 
   useEffect(() => {
     dispatch(setFavoriteCharactersSuccess());
@@ -26,52 +21,26 @@ export const FavoritesCharacters = () => {
 
   return (
     <>
-      <div
-        style={{
-          background: `url(${background}) no-repeat center fixed`,
-          backgroundSize: '1450px 740px',
-          paddingBottom: 15,
-        }}
-      >
+      <Grid style={{display: 'flex', marginTop: 30, alignItems: 'center',flexDirection: 'column'}}>
+        <Typography  variant="h4">Your Favorite Characters</Typography>
         {favoritesId.length > 0 ? (
-          <Grid container spacing={5} justify="center">
+          <Grid style={{marginTop: 20}} container spacing={5} justify="center">
             {
               (window.scrollTo(0, 0),
               favorites &&
-                favorites.map((character: any) => (
+                favorites.map((character: IHero) => (
                   <CharacterCard key={character.id} data={character} />
                 )))
             }
           </Grid>
         ) : (
-          <Grid>
-            <Backdrop
-              style={{
-                background: `url(${background}) no-repeat center fixed`,
-                backgroundSize: '1450px 740px',
-                paddingBottom: 15,
-              }}
-              open={true}
-            >
-              <Dialog
-                onClose={() => history.push('/items')}
-                aria-labelledby="simple-dialog-title"
-                open={true}
-              >
-                <DialogTitle id="simple-dialog-title">
-                  Come on, choose your favorite heroes!
-                </DialogTitle>
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-slide-description">
-                    You can choose when you click on 'Add to favorites'. On each
-                    character`s card.
-                  </DialogContentText>
-                </DialogContent>
-              </Dialog>{' '}
-            </Backdrop>
-          </Grid>
+          <AlertDialog
+            title="Come on, choose your favorite heroes!"
+            description="You can choose when you click on Heart button. On each character`s card."
+            onClose={() => history.push('/items')}
+          />
         )}
-      </div>
+      </Grid>
     </>
   );
 };

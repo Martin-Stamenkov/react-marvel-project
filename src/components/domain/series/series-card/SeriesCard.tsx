@@ -2,36 +2,39 @@ import React, { useMemo } from 'react';
 import Card from '@material-ui/core/Card';
 
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import {
   Grid,
   makeStyles,
   createStyles,
   Theme,
-  Button,
   CardActions,
 } from '@material-ui/core';
 import { history } from 'app/App';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchSeriesByIdSuccess, fetchSeriesById } from 'store/actions';
+import { useSelector } from 'react-redux';
+import { GenericButton } from 'libs/components/button/generic-button';
+import { Media } from 'libs/components/media/media';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     card: {
-      maxWidth: 300,
+      maxWidth: 250,
       boxShadow: '3px  3px  5px  grey',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
     },
     root: {
-      marginTop: 30,
+      margin: 20,
     },
   });
 });
 
 export default function SeriesCard({ data }: any) {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const series = useSelector((state: any) => state.series?.results);
+  const series = useSelector(
+    (state: any) => state.seriesReducer.series?.results
+  );
 
   const currentSeries = useMemo(
     () => series && series.find((x: any) => x.id === data.id),
@@ -40,9 +43,7 @@ export default function SeriesCard({ data }: any) {
   );
 
   const handleClick = () => {
-    dispatch(fetchSeriesByIdSuccess(currentSeries));
-    currentSeries && dispatch(fetchSeriesById(currentSeries.id));
-    history.push('/serie');
+    history.push(`/serie/${currentSeries.id}`);
   };
 
   return (
@@ -62,22 +63,26 @@ export default function SeriesCard({ data }: any) {
               TV Series
             </Typography>
           </CardContent>
-          <CardMedia
-            component="img"
+          <Media
+            style={{
+              width: '100%',
+              flexGrow: 1,
+              objectFit: 'inherit',
+            }}
             alt="avatar"
             image={`${data.thumbnail!.path}.${data.thumbnail!.extension}`}
             title="avatar"
           />
           <CardActions>
             <div>
-              <Button
+              <GenericButton
                 size="small"
                 color="primary"
                 variant="outlined"
                 onClick={() => handleClick()}
               >
                 See info series
-              </Button>
+              </GenericButton>
             </div>
           </CardActions>
         </Card>

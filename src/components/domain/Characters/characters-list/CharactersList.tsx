@@ -1,41 +1,44 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid } from '@material-ui/core';
-import { ItemModel } from 'types/types';
-import { fetchAllCharacters, setToNull } from 'store/actions';
+import { Grid, Typography } from '@material-ui/core';
 import { Callback } from 'components/generic/callback/Callback';
 import InfiniteScroll from 'react-infinite-scroller';
-import CharacterCard from '..';
-import background from 'assets/4.jpg';
-import SearchBar from 'components/layouts/search-bar/SearchBar';
+import SearchBar from 'libs/components/search-bar/SearchBar';
+import CharacterCard from 'components/domain/characters/character-card/CharacterCard';
+import {
+  fetchAllCharacters,
+  setCharactersToNull,
+} from '../characters-action/character-action';
+import { IHero } from '../character-inferfaces/character-interfaces';
 
 const CharactersList = () => {
   const [currentOffset, setCurrentOffset] = useState(0);
   const [characters, setCharacters] = useState([]);
   const dispatch = useDispatch();
-  const total = useSelector((state: any) => state.characters?.total);
-  const offset = useSelector((state: any) => state.characters?.offset);
-  const currentCharacters = useSelector(
-    (state: any) => state.characters?.results
+  const total = useSelector(
+    (state: any) => state.charactersReducer.characters?.total
   );
-  const loading = useSelector((state: any) => state.loading);
+  const offset = useSelector(
+    (state: any) => state.charactersReducer.characters?.offset
+  );
+  const currentCharacters = useSelector(
+    (state: any) => state.charactersReducer.characters?.results
+  );
+  const loading = useSelector((state: any) => state.charactersReducer.loading);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     currentCharacters && setCharacters(characters.concat(currentCharacters));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCharacters]);
 
   useEffect(() => {
     dispatch(fetchAllCharacters(offset));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     return () => {
-      dispatch(setToNull(currentCharacters));
+      dispatch(setCharactersToNull(currentCharacters));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onScroll = () => {
@@ -51,20 +54,17 @@ const CharactersList = () => {
       {currentOffset === 0 && loading ? (
         <Callback />
       ) : (
-        <Grid
-          style={{
-            background: `url(${background}) no-repeat center fixed`,
-            backgroundSize: '1450px 740px',
-          }}
-        >
-          <Grid
+        <Grid>
+          <div
             style={{
               display: 'flex',
-              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column-reverse',
             }}
           >
+            <Typography variant="h4">Discover the Characters</Typography>
             <SearchBar />
-          </Grid>
+          </div>
           <InfiniteScroll
             loadMore={() => onScroll()}
             hasMore={total > offset}
@@ -85,8 +85,8 @@ const CharactersList = () => {
               }}
             >
               {characters &&
-                characters.map((card: ItemModel, index: number) => (
-                  <CharacterCard key={index} data={card} />
+                characters.map((card: IHero) => (
+                  <CharacterCard key={card.id} data={card} />
                 ))}
             </Grid>
           </InfiniteScroll>

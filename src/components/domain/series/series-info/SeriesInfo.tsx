@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { Grid, Divider } from '@material-ui/core';
-import { useSelector } from 'react-redux';
 import { DialogCharacters } from 'components/generic/dialog-characters/DialogCharacters';
 import TvSeries from 'assets/television.png';
+import { Media } from 'libs/components/media/media';
+import { Requests } from 'api/requests';
+import { useParams } from 'react-router-dom';
+import { hasher, publicKey, ts } from 'api/constants';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,21 +29,27 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const SeriesInfo = () => {
   const classes = useStyles();
-  const currentSeries = useSelector((state: any) => state.currentSeries);
+  const { id } = useParams();
+  const [seriesInfo, setSeriesInfo] = useState<any>(null);
+
+  useEffect(() => {
+    Requests.getSeriesById(id, publicKey, ts, hasher).then((response) =>
+      setSeriesInfo(response.data.data.results[0])
+    );
+  }, [id]);
 
   return (
-    currentSeries && (
+    seriesInfo && (
       <Grid
         style={{ display: 'flex', marginTop: '2%', marginBottom: 25 }}
         container
       >
         <Grid style={{ display: 'flex' }}>
-          <CardMedia
+          <Media
             className={classes.card}
-            component="img"
             alt="avatar"
-            image={`${currentSeries.thumbnail!.path}.${
-              currentSeries.thumbnail!.extension
+            image={`${seriesInfo.thumbnail!.path}.${
+              seriesInfo.thumbnail!.extension
             }`}
             title="avatar"
           />
@@ -54,18 +62,18 @@ export const SeriesInfo = () => {
               />
 
               <Typography gutterBottom variant="h5" component="h2">
-                {currentSeries.title}
+                {seriesInfo.title}
               </Typography>
             </div>
             <Divider className={classes.divider} />
-            {currentSeries.description ? (
+            {seriesInfo.description ? (
               <Typography
                 className={classes.description}
                 variant="body2"
                 color="textSecondary"
                 component="p"
               >
-                {currentSeries.description}
+                {seriesInfo.description}
               </Typography>
             ) : (
               <Typography
@@ -80,10 +88,10 @@ export const SeriesInfo = () => {
             <Divider className={classes.divider} />
             <Typography gutterBottom color="textSecondary" variant="body2">
               <span>Creators: </span>
-              {currentSeries.creators.items.length > 0
-                ? currentSeries.creators.items
-                    .map((creator: any) => creator.name)
-                    .join(', ')
+              {seriesInfo.creators.items.length > 0
+                ? seriesInfo.creators.items
+                  .map((creator: any) => creator.name)
+                  .join(', ')
                 : 'No available information !'}
             </Typography>
             <Typography
@@ -93,7 +101,7 @@ export const SeriesInfo = () => {
               component="p"
             >
               <span>Start Year: </span>
-              {currentSeries.startYear}
+              {seriesInfo.startYear}
             </Typography>
             <Typography
               gutterBottom
@@ -102,9 +110,9 @@ export const SeriesInfo = () => {
               component="p"
             >
               <span>End Year: </span>
-              {currentSeries.endYear}
+              {seriesInfo.endYear}
             </Typography>
-            <DialogCharacters props={currentSeries} />
+            <DialogCharacters props={seriesInfo} />
           </CardContent>
         </Grid>
       </Grid>

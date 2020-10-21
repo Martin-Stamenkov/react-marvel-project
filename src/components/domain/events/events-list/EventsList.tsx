@@ -1,37 +1,40 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllEvents, setToNull } from 'store/actions';
 import { Callback } from 'components/generic/callback/Callback';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import InfiniteScroll from 'react-infinite-scroller';
+import {
+  fetchAllEvents,
+  setEventsToNull,
+} from '../events-actions/events-actions';
 import EventsCard from '../events-card/EventsCard';
-import background from 'assets/5.jpg';
 
 export default function EventsList() {
   const [currentOffset, setCurrentOffset] = useState(0);
   const [events, setEvents] = useState([]);
   const dispatch = useDispatch();
-  const currentEvents = useSelector((state: any) => state.events?.results);
-  const total = useSelector((state: any) => state.events?.total);
-  const offset = useSelector((state: any) => state.events?.offset);
-  const loading = useSelector((state: any) => state.loading);
+  const currentEvents = useSelector(
+    (state: any) => state.eventsReducer.events?.results
+  );
+  const total = useSelector((state: any) => state.eventsReducer.events?.total);
+  const offset = useSelector(
+    (state: any) => state.eventsReducer.events?.offset
+  );
+  const loading = useSelector((state: any) => state.eventsReducer.loading);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     currentEvents && setEvents(events.concat(currentEvents));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentEvents]);
 
   useEffect(() => {
     dispatch(fetchAllEvents(offset));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     return () => {
-      dispatch(setToNull(currentEvents));
+      dispatch(setEventsToNull(currentEvents));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onScroll = () => {
@@ -47,12 +50,16 @@ export default function EventsList() {
       {currentOffset === 0 && loading ? (
         <Callback />
       ) : (
-        <Grid
-          style={{
-            background: `url(${background}) no-repeat center fixed`,
-            backgroundSize: '1450px 640px',
-          }}
-        >
+        <>
+          <Typography
+            style={{
+              marginTop: '3%',
+            }}
+            variant="h4"
+          >
+            Discover the Events
+          </Typography>
+
           <InfiniteScroll
             loadMore={() => onScroll()}
             hasMore={total > currentOffset}
@@ -65,20 +72,20 @@ export default function EventsList() {
           >
             <Grid
               container
-              spacing={4}
+              spacing={5}
               style={{
                 display: 'flex',
                 justifyContent: 'center',
-                marginTop: '5%',
+                marginTop: '2%',
               }}
             >
               {events &&
                 events.map((currentEvent: any, index: number) => (
-                  <EventsCard key={index} data={currentEvent} />
+                  <EventsCard key={currentEvent.id} data={currentEvent} />
                 ))}
             </Grid>
           </InfiniteScroll>
-        </Grid>
+        </>
       )}
     </>
   );

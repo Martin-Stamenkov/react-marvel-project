@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 export const profileStyles = makeStyles({
   root: {
     minWidth: 100,
+    marginTop: '10%',
   },
   title: {
     fontSize: 16,

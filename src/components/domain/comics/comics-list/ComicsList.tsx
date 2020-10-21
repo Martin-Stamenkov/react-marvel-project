@@ -1,38 +1,41 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllComics, setToNull } from 'store/actions';
 import { Callback } from 'components/generic/callback/Callback';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import InfiniteScroll from 'react-infinite-scroller';
 import ComicsCard from '../comics-card/ComicsCard';
-import background from 'assets/2.jpg';
+import {
+  fetchAllComics,
+  setComicsToNull,
+} from '../comics-actions/comics-actions';
+import { IComics } from '../comics-interfaces/comics-interfaces';
 
-export default function ComicsList() {
+export const ComicsList = () => {
   const [currentOffset, setCurrentOffset] = useState(0);
   const dispatch = useDispatch();
-  const currentComics = useSelector((state: any) => state.comics?.results);
-  const total = useSelector((state: any) => state.comics?.total);
-  const offset = useSelector((state: any) => state.comics?.offset);
+  const currentComics = useSelector(
+    (state: any) => state.comicsReducer.comics?.results
+  );
+  const total = useSelector((state: any) => state.comicsReducer.comics?.total);
+  const offset = useSelector(
+    (state: any) => state.comicsReducer.comics?.offset
+  );
   const [comics, setComics] = useState([]);
-  const loading = useSelector((state: any) => state.loading);
+  const loading = useSelector((state: any) => state.comicsReducer.loading);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     currentComics && setComics(comics.concat(currentComics));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentComics]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     dispatch(fetchAllComics(offset));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     return () => {
-      dispatch(setToNull(currentComics));
+      dispatch(setComicsToNull(currentComics));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onScroll = () => {
@@ -48,12 +51,15 @@ export default function ComicsList() {
       {currentOffset === 0 && loading ? (
         <Callback />
       ) : (
-        <Grid
-          style={{
-            background: `url(${background}) no-repeat center fixed`,
-            backgroundSize: '1450px 640px',
-          }}
-        >
+        <>
+          <Typography
+            style={{
+              marginTop: '3%',
+            }}
+            variant="h4"
+          >
+            Discover the Comics
+          </Typography>
           <InfiniteScroll
             loadMore={() => onScroll()}
             hasMore={total > currentOffset}
@@ -70,17 +76,17 @@ export default function ComicsList() {
               style={{
                 display: 'flex',
                 justifyContent: 'center',
-                marginTop: '5%',
+                marginTop: '2%',
               }}
             >
               {comics &&
-                comics.map((currentComics: any, index: number) => (
-                  <ComicsCard key={index} data={currentComics} />
+                comics.map((comic: IComics) => (
+                  <ComicsCard key={comic.id} data={comic} />
                 ))}
             </Grid>
           </InfiniteScroll>
-        </Grid>
+        </>
       )}
     </>
   );
-}
+};

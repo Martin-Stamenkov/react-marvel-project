@@ -1,10 +1,21 @@
 import React, { useEffect } from 'react';
-import { Modal, Backdrop, makeStyles, createStyles } from '@material-ui/core';
+import {
+  Modal,
+  Backdrop,
+  makeStyles,
+  createStyles,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from '@material-ui/core';
 import ReactPlayer from 'react-player';
 import { history } from 'app/App';
-import AuthContextProvider from 'authentication/Auth';
-import { useDispatch } from 'react-redux';
-import { getUser } from 'store/actions';
+import { auth } from 'authentication/auth/Auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from 'authentication/user/user-actions';
+import { GenericButton } from 'libs/components/button/generic-button';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -13,14 +24,18 @@ const useStyles = makeStyles(() =>
       alignItems: 'center',
       justifyContent: 'center',
     },
+    buttons: {
+      display: 'flex',
+      justifyContent: 'space-around',
+    },
   })
 );
-const auth = new AuthContextProvider();
 
 export const Home = () => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const user = useSelector((state: any) => state.userReducer.currentUser);
   useEffect(() => {
     if (localStorage.getItem('access_token')) {
       auth.auth0.client.userInfo(
@@ -37,8 +52,45 @@ export const Home = () => {
     history.push('/items');
   };
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <>
+      <Dialog open={true}>
+        <DialogContent>
+          <DialogTitle>
+            {user && (
+              <Typography>
+                {`Welcome ${user.nickname} would you like see the intro?`}
+              </Typography>
+            )}
+          </DialogTitle>
+          <div className={classes.buttons}>
+            <DialogActions>
+              <GenericButton
+                color="primary"
+                size="large"
+                variant="outlined"
+                onClick={() => handleClose()}
+              >
+                Skip Intro
+              </GenericButton>
+            </DialogActions>
+            <DialogActions>
+              <GenericButton
+                color="inherit"
+                size="large"
+                variant="outlined"
+                onClick={() => handleOpen()}
+              >
+                See Intro
+              </GenericButton>
+            </DialogActions>
+          </div>
+        </DialogContent>
+      </Dialog>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

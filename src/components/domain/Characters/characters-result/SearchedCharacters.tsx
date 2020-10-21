@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid } from '@material-ui/core';
-import SearchBar from 'components/layouts/search-bar/SearchBar';
-import NotFoundPage from 'pages/Not-Found/not-found';
+import SearchBar from 'libs/components/search-bar/SearchBar';
+import { NotFoundPage } from 'pages/Not-Found/not-found';
 import { Callback } from 'components/generic/callback/Callback';
-import { useSelector } from 'react-redux';
-import CharacterCard from '..';
+import { useDispatch, useSelector } from 'react-redux';
+import CharacterCard from 'components/domain/characters/character-card/CharacterCard';
+import { useHistory } from 'react-router-dom';
+import { searchCharactersByName } from 'components/domain/characters/characters-action/character-action';
 
-export default function SearchedCharacters() {
-  const characters = useSelector(
-    (state: any) => state.searchedCharacters?.data.results
+export const SearchedCharacters = () => {
+  const searchedCharacters = useSelector(
+    (state: any) => state.charactersReducer.searchedCharacters?.data.results
   );
-  const loading = useSelector((state: any) => state.loading);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const loading = useSelector((state: any) => state.charactersReducer.loading);
+
+  useEffect(() => {
+    const characterName = history.location.pathname.substring(
+      history.location.pathname.lastIndexOf('/') + 1
+    );
+    dispatch(searchCharactersByName(characterName));
+  }, [dispatch, history.location.pathname]);
+
   return (
     <>
       {loading ? (
         <Callback />
       ) : (
         <>
-          {characters && characters.length > 0 ? (
+          {searchedCharacters && searchedCharacters.length > 0 ? (
             <Grid container justify="center" spacing={3}>
               <SearchBar />
               <Grid
@@ -26,8 +38,8 @@ export default function SearchedCharacters() {
                 spacing={5}
                 justify="center"
               >
-                {characters &&
-                  characters.map((character: any) => (
+                {searchedCharacters &&
+                  searchedCharacters.map((character: any) => (
                     <CharacterCard key={character.id} data={character} />
                   ))}
               </Grid>
@@ -39,4 +51,4 @@ export default function SearchedCharacters() {
       )}
     </>
   );
-}
+};

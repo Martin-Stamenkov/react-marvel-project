@@ -9,13 +9,11 @@ import {
 } from '@material-ui/core';
 import { profileStyles } from 'pages/Profile/profile-styles';
 import { useSelector } from 'react-redux';
-import AuthContextProvider from 'authentication/Auth';
-
-const auth = new AuthContextProvider();
+import { auth } from 'authentication/auth/Auth';
 
 export const ProfilePage = () => {
   const classes = profileStyles();
-  const profile = useSelector((state: any) => state.currentUser);
+  const profile = useSelector((state: any) => state.userReducer.currentUser);
   const [userInfo, setUserInfo] = useState<any>({
     Nickname: '',
     Email: '',

@@ -4,7 +4,7 @@ import notFound from 'assets/not-found.jpg';
 import { history } from 'app/App';
 import { useStyles } from './not-found.styles';
 
-export default function NotFoundPage() {
+export const NotFoundPage = () => {
   const classes = useStyles();
   return (
     <>
@@ -26,4 +26,4 @@ export default function NotFoundPage() {
       </Grid>
     </>
   );
-}
+};

@@ -8,6 +8,7 @@ import {
   Typography,
   CardMedia,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -19,19 +20,31 @@ const useStyles = makeStyles((theme: Theme) => {
     root: {
       marginTop: 50,
     },
+    links: {
+      textDecoration: 'none',
+    },
+    title: {
+      color: 'black',
+      '&:hover': {
+        color: 'blue',
+        fontSize: 17,
+      },
+    },
   });
 });
 
-export const ApearCharactersCard = ({ data }: any) => {
+export const AppearCharactersCard = ({ data }: any) => {
   const classes = useStyles();
 
   return (
     <>
       <Card className={classes.card}>
         <CardContent>
-          <Typography align="center" gutterBottom>
-            {data.name}
-          </Typography>
+          <Link className={classes.links} to={`/details/${data.id}`}>
+            <Typography className={classes.title} align="center" gutterBottom>
+              {data.name}
+            </Typography>
+          </Link>
         </CardContent>
         <CardMedia
           component="img"

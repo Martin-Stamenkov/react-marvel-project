@@ -1,37 +1,39 @@
 import React, { useMemo } from 'react';
 import Card from '@material-ui/core/Card';
-
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import {
   Grid,
   makeStyles,
   createStyles,
   Theme,
-  Button,
   CardActions,
 } from '@material-ui/core';
 import { history } from 'app/App';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchEventById, fetchEventByIdSuccess } from 'store/actions';
+import { useSelector } from 'react-redux';
+import { GenericButton } from 'libs/components/button/generic-button';
+import { Media } from 'libs/components/media/media';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     card: {
       maxWidth: 250,
       boxShadow: '3px  3px  5px  grey',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
     },
     root: {
-      marginTop: 30,
+      margin: 20,
     },
   });
 });
 
 export default function EventsCard({ data }: any) {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const events = useSelector((state: any) => state.events?.results);
+  const events = useSelector(
+    (state: any) => state.eventsReducer.events?.results
+  );
 
   const event = useMemo(
     () => events && events.find((x: any) => x.id === data.id),
@@ -39,9 +41,7 @@ export default function EventsCard({ data }: any) {
   );
 
   const handleClick = () => {
-    dispatch(fetchEventByIdSuccess(event));
-    event && dispatch(fetchEventById(event.id));
-    history.push('/event');
+    history.push(`/event/${event.id}`);
   };
 
   return (
@@ -61,22 +61,26 @@ export default function EventsCard({ data }: any) {
               events
             </Typography>
           </CardContent>
-          <CardMedia
-            component="img"
+          <Media
+            style={{
+              width: '100%',
+              flexGrow: 2,
+              objectFit: 'inherit',
+            }}
             alt="avatar"
             image={`${data.thumbnail!.path}.${data.thumbnail!.extension}`}
             title="avatar"
           />
           <CardActions>
             <div>
-              <Button
+              <GenericButton
                 size="small"
                 color="primary"
                 variant="outlined"
                 onClick={() => handleClick()}
               >
                 See more details
-              </Button>
+              </GenericButton>
             </div>
           </CardActions>
         </Card>
