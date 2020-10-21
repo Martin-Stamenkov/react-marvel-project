@@ -1,5 +1,10 @@
 # react-marvel-project
 
+# To start the project:
+# yarn or yarn install, to install all dependencies.
+# yarn start, to start the project.
+# Enjoy and testing!!! :)
+
 Available Scripts
 In the project directory, you can run:
 
